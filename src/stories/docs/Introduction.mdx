@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/blocks'
+
+<Meta title="Introdução" />
+
+
+Design System
+Sobre
+
+Bem vindo ao design system da nova data, aqui esta um guia basico
+
+Este design usa Vue e Quasar framework como base
+
+O Quasar é um (framework vue) cinto de ferramentas que tem uma game de utilidades
+
+é por padrao podemos usar todas elas ao inves de instalar varias bibliotecas de terceiros
+
+Vue Docs
+O que é Quasar
+Configurando quasar.config.js
+Icones
+
+Aqui é usado os icones svg do figma e o pacote de fontes Material Symbols
+
+Para usar um icone material é só usar o component q-icon
+
+por exemplo para o icone de close voce utilizaria dessa forma no q-icon name='close'
+
+
+Ja para icones do figma, voce ira copiar o svg do icone
+
+transformar em symbol com um id dentro /publicicons.svg
+
+e vai referenciar no q-icon da seguinte forma
+
+name="svguse:/icons.svg#icon-1"
+
+
+Material Symbols
+Q-icon
+Para icones de favicon e icones para pwa, electron etc quasar tem um cli que automatiza tudo isto
+
+Icon Genie CLI
+
+Estrutura
+
+Para duvidas sobre a estrutura do projeto consulte sobre a estrutura do quasar
+
+Estrutura do projeto
+
+Extensões
+
+Algumas extensões são extremamente importantes para um workflow mais produtivos
+
+Para isso irei deixar estas sugestoes dentro do .vscode/extensions.json/
+
+
+Boas Praticas
+
+Recomendado dar uma olhada no style guide do vue para seguir os padroes corretos
+
+Vue3 Style Guide
+Este projeto usa Eslint, portanto é muito importante a padronizaçao do codigo
+
+É uma má pratica desativar o Eslint
+
+Components
+
+Este projeto usa uma logica de wrappers
+
+que é basicamente uma camada de logica em volta de um componente do quasar
+
+então ao visualizar um component como o OButton, OCheck
+
+vera que por tras ha um component do quasar QBtn, Qcheckbox respectivamente
+
+Comunidade
+
+Discord comunidade Quasar
+Github comunidade Quasar
+Links uteis
+
+Vuecomponents
+Em breve...

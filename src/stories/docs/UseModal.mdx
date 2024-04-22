@@ -1,0 +1,21 @@
+import { Meta, Story, ArgsTable } from '@storybook/addon-docs'
+import { Markdown, Title } from '@storybook/blocks'
+
+'
+
+<Meta title="Composables/UseModal" />
+
+# UseModal
+
+Retorna uma logica simples de modal, foi criado para usar com o baseModal mas é independente. <br/>
+Se houver nome presente, tambem adiciona um parametro na URL com o id passado
+
+```js
+import useModal from 'composables/useModal'
+
+
+const { state, open, close, setState } = useModal()
+```
+
+{/* ## ArgsTable */}
+{/* <ArgsTable of={OButton} /> */}
