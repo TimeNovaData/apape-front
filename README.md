@@ -1,36 +1,48 @@
-# design-system (design-system)
+# Bem vindo ao projeto Apape!
 
-novadata design system
+#### Links do projeto.
 
-## Install the dependencies
+- Ambiente de produção: 
+- Ambiente de teste: 
+
+---
+
+#### Passos para iniciar o projeto.
+
+Ao clonar o repositorio na sua maquina siga os passos a seguir para executar o projeto corretamente:
+
+- Crie um arquivo .env com base no .env.example;
+- Instale as dependências do projeto:
+
 ```bash
 yarn
-# or
+# ou
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+<em>Se não tiver <strong>yarn</strong> instalado em sua máquina, siga as instruções na documentação: [yarnpkg](https://classic.yarnpkg.com/lang/en/docs/install)</em>
+
+- Rode o projeto no modo de desenvolvimento:
+
 ```bash
-quasar dev
+yarn dev
+# ou
+npm run dev
 ```
 
+<em>O projeto estará rodando em: [localhost:9000](http://localhost:9000/)</em>
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
+## ⚠️ Warning
 
+#### Informações sobre as branches do projeto.
 
+- <strong>develop</strong> - Branch para desenvolvimento;
+- <strong>homol</strong> - Branch de holomogação, para fazer testes no ambiente de testes;
+- <strong>main</strong> - Branch para principal, para fazer deploy para produção (somente devs com permissão);
+- <strong>RELEASE</strong> - Branch com a copia da última branch main (backup de main);
 
-### Build the app for production
-```bash
-quasar build
-```
+#### Segue o Gitflow abaixo:
 
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
-
-# apape-front
-# apape-front
+<p align="center">
+    <img src="https://github.com/TimeNovaData/pvo-front/assets/62356988/74f23783-47f2-4e1f-9d37-0984ef2ec4b1" width="1080px">
+</p>
