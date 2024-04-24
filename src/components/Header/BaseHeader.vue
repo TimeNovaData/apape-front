@@ -58,7 +58,7 @@ defineProps({
   --header-bg: rgb(var(--white))
   --header-color: rgb(var(--neutral-60))
   --breadcrumb-color: rgb(var(--neutral-60))
-  --header-base-height: 2.5rem
+  --header-base-height: 3rem
   --header-border-b: 1px solid rgba(var(--neutral-100),0.1)
 
   @include d(md)

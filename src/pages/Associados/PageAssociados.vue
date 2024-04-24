@@ -126,7 +126,7 @@ const rows = ref([
     matricula_patrocinadora: '123456',
     email: 'joao@email.com',
     data_cadastro: '01/01/2021',
-    tipo_beneficio: 'Benefício 1',
+    tipo_beneficio: 'Aposentado',
     cidade: 'Cidade 1',
     estado: 'Estado 1',
     pais: 'País 1',

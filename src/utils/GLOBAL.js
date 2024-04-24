@@ -1,6 +1,6 @@
-import { NotifyError } from 'boot/Notify'
-import { date, is, colors, exportFile } from 'quasar'
+import { colors, date, exportFile, is } from 'quasar'
 import { deepUnref } from 'vue-deepunref'
+import { NotifyError } from 'boot/Notify'
 import { unref } from 'vue'
 import gsap from 'gsap/dist/gsap'
 
@@ -294,6 +294,14 @@ const GLOBAL = {
     min = Math.ceil(min)
     max = Math.floor(max)
     return Math.floor(Math.random() * (max - min + 1)) + min
+  },
+
+  fMoney(value) {
+    const valor = value || 0
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(valor)
   },
 }
 

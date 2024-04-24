@@ -639,4 +639,11 @@
   <path d="M10.9482 7.99915H13.7514V10.8023" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
 </symbol>
 
+<symbol id="icon-chart-statistics" viewBox="0 0 24 24" fill="none">
+  <path d="M9 13V21"  stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+  <path d="M21 8V21"  stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+  <path d="M15 3V21"  stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+  <path d="M3 8V21"  stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+</symbol>
+
 </svg>

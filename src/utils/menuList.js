@@ -9,6 +9,13 @@ const menuList = [
     name: 'associados',
   },
   {
+    title: 'Resumo',
+    nivel: 0,
+    icon: 'svguse:/icons.svg#icon-chart-statistics',
+    // href: '/home',
+    name: 'home',
+  },
+  {
     title: 'Movimentações',
     nivel: 0,
     icon: 'svguse:/icons.svg#icon_chart_up',

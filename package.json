@@ -70,7 +70,8 @@
     "sass-lint": "^1.13.1",
     "storybook": "7.0.4",
     "vue-eslint-parser": "^9.1.0",
-    "vue-intellisense": "^1.0.1"
+    "vue-intellisense": "^1.0.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
   },
   "engines": {
     "node": "^18 || ^16 ",
