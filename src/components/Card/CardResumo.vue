@@ -3,8 +3,10 @@
     flat
     bordered
     class="shadow-sm border-neutral-100/5"
-    :class="`text-[${color}]`">
-
+    :class="`text-[${color}]`"
+    :style="`color: ${color};`"
+    >
+    
     <q-card-section class="!p-16 flex items-start gap-16">
       <q-icon class="w-24 h-24" :class="iconClass" :name="icon" />
       <div>

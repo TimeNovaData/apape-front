@@ -1,9 +1,9 @@
 {
-  "name": "hub-novadata",
+  "name": "APAPE",
   "version": "0.0.1",
-  "description": "novadata design system",
-  "productName": "HUB .novadata",
-  "author": "VamoCodar",
+  "description": "Dashboard APAPE",
+  "productName": "APAPE",
+  "author": "Altamiro Bruno",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
@@ -33,7 +33,10 @@
     "vue3-lottie": "^2.5.0"
   },
   "resolutions": {
-    "vite": "^4.4.4"
+    "vite": "^4.4.4",
+    "strip-ansi": "6.0.1",
+    "string-width": "4.2.2",
+    "wrap-ansi": "7.0.0"
   },
   "devDependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",

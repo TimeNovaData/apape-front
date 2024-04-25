@@ -1,41 +1,69 @@
 <template>
-  <div class="container mx-auto pt-48 pb-64">
-    <div >
-      <h3 class="text-caps-1 !font-semibold">Bem vindo de volta, <span class="text-primary-pure">Thiago! 👋🏽</span></h3>
+  <div class="container mx-auto pt-48 pb-64 px-24">
+    <div>
+      <h3 class="text-caps-1 !font-semibold">
+        Bem vindo de volta, <span class="text-primary-pure">Thiago! 👋🏽</span>
+      </h3>
     </div>
-   
-    <q-card class="py-32 px-24 border-neutral-100/5 rounded mt-24" flat bordered>
+
+    <q-card
+      class="py-32 px-24 border-neutral-100/5 rounded mt-24"
+      flat
+      bordered>
       <div class="flex items-center justify-between">
         <TextIcon icon="svguse:/icons.svg#icon_users" text="Associados" />
-
-
       </div>
 
       <div class="mt-24">
-        <OTableBase
-          :rows="rows"
+        <OTableServerSideBase
+          ref="tableRef"
           :columns="columns"
+          :visible-columns="visible"
+          :limit="limit"
+          :offset="offset"
+          :count="count"
+          :urls="`/associados/`"
+          :scheme="scheme"
           :show-print-button="false"
-         >
+          :show-import-button="false">
+          <template #filtro>
+            <FilterMedicos ref="filterRef" @filter="doSearch" />
+          </template>
           <template #body="props">
             <TrAssociados :props="props" />
           </template>
-        </OTableBase>
+        </OTableServerSideBase>
       </div>
     </q-card>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import OButton from 'components/Button/OButton.vue'
-
-import OTableBase from 'components/Table/OTableBase.vue'
+import { computed, reactive, ref } from 'vue'
+import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
-
 import TrAssociados from 'components/TR/TrAssociados.vue'
 
-const columns = [
+const tableRef = ref(null)
+
+
+const scheme = computed(() =>
+  columns.value
+    .filter((col) => !!col.label)
+    .map((col) => ({
+      field: col.field,
+      label: col.label,
+    }))
+)
+const pagination = reactive({
+  visible: [],
+  count: 0,
+  limit: 10,
+  offset: 0,
+})
+
+const { visible, count, limit, offset } = pagination
+const columns = ref([
   {
     name: 'matricula',
     required: true,
@@ -113,28 +141,11 @@ const columns = [
     label: 'País',
     align: 'left',
   },
-
-
-]
-
-const rows = ref([
-  {
-    matricula: '123456',
-    nome: 'João da Silva',
-    cpf: '123.456.789-00',
-    patrocinadora: 'Patrocinadora 1',
-    matricula_patrocinadora: '123456',
-    email: 'joao@email.com',
-    data_cadastro: '01/01/2021',
-    tipo_beneficio: 'Aposentado',
-    cidade: 'Cidade 1',
-    estado: 'Estado 1',
-    pais: 'País 1',
-  },
-
 ])
 
-const tab = ref('todos')
+function doSearch() {
+  tableRef.value.requestServerInteraction()
+}
 </script>
 
 <style lang="sass" scoped>

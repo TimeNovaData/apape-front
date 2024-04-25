@@ -25,7 +25,7 @@
           <CardResumo
             v-for="item in dados"
             :key="item.id"
-            icon="svguse:/icons.svg#icon-chart-statistics"
+            icon="svguse:/icons.svg#icon_money_circle"
             :title="fMoney(item.value)"
             :subtitle="item.label"
             :color="item.color"

@@ -4,22 +4,22 @@
       {{ props.row.matricula }}
     </q-td>
     <q-td key="nome">
-      {{ props.row.nome }}
+      {{ props.row.name }}
     </q-td>
     <q-td key="cpf">
-      {{ props.row.cpf }}
+      {{ props.row.cpf_cnpj }}
     </q-td>
-    <q-td key="patrocinadora">
-      {{ props.row.patrocinadora }}
+    <q-td key="patrocinadora" class="capitalize">
+      {{ props.row.associados_patroc_set[0].nome }}
     </q-td>
     <q-td key="matricula_patrocinadora">
-      {{ props.row.matricula_patrocinadora }}
+      {{ props.row.associados_patroc_set[0].maticula_patrocinadora }}
     </q-td>
     <q-td key="email">
       {{ props.row.email }}
     </q-td>
     <q-td key="data_cadastro">
-      {{ props.row.data_cadastro }}
+      {{ props.row.dt_cadastro }}
     </q-td>
     <q-td key="tipo_beneficio">
       <OBadge

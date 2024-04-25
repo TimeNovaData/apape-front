@@ -35,14 +35,12 @@ const routes = [
           breadcrumbs: [{ label: 'Associados', name: 'associados' }],
           title: 'Associados',
         },
-        children: [
-          {
-            alias: '/associados/:id',
-            name: 'associado',
-            path: '/associados/:id',
-            component: PageAssociadoSingle,
-          },
-        ],
+      },
+      {
+        alias: '/associados/:id',
+        name: 'associado',
+        path: '/associados/:id',
+        component: PageAssociadoSingle,
       },
 
       {

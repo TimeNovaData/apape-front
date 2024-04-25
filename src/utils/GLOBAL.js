@@ -303,6 +303,22 @@ const GLOBAL = {
       currency: 'BRL',
     }).format(valor)
   },
+  /**
+   *
+   * @param {Obect} obj - objeto de filtros
+   * @param {Bollean} queryPrefix  - Se deve incluir ?q= no começo da query
+   * @returns
+   */
+
+  generateStringFilterFromObject(obj, queryPrefix = true) {
+    const filtros = Object.entries(obj).map(([key, value]) => {
+      return Array.isArray(value)
+        ? `&${key?.trim()}=${value.map((obj) => obj.value).join(',')}`
+        : `&${key?.trim()}=${value || ''}`
+    })
+
+    return queryPrefix ? `?q=${filtros.join('')}` : filtros.join('')
+  },
 }
 
 export default GLOBAL
