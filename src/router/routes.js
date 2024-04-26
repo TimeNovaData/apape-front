@@ -1,10 +1,12 @@
 import LayoutHome from 'layouts/LayoutHome.vue'
+import PageAssociadoSingle from 'pages/Associados/PageAssociadoSingle.vue'
 
 import PageAssociados from 'pages/Associados/PageAssociados.vue'
 import PageHome from 'pages/Home/PageHome.vue'
 import PageLogin from 'pages/Login/PageLogin.vue'
 import PageMovimentacoes from 'pages/Movimentacoes/PageMovimentacoes.vue'
 import PageResetPassword from 'pages/ResetPassword/PageResetPassword.vue'
+import PageResumo from 'pages/Resumo/PageResumo.vue'
 import PageSvgs from 'pages/svg/PageSvgs.vue'
 
 //
@@ -18,10 +20,10 @@ const routes = [
         alias: '/',
         name: 'home',
         path: '/home',
-        component: PageHome,
+        component: PageResumo,
         meta: {
-          breadcrumbs: [{ label: 'Home', name: 'home' }],
-          title: 'Home',
+          breadcrumbs: [{ label: 'Resumo', name: 'resumo' }],
+          title: 'Resumo',
         },
       },
       {
@@ -34,6 +36,13 @@ const routes = [
           title: 'Associados',
         },
       },
+      {
+        alias: '/associados/:id',
+        name: 'associado',
+        path: '/associados/:id',
+        component: PageAssociadoSingle,
+      },
+
       {
         alias: '/movimentacoes',
         name: 'movimentacoes',

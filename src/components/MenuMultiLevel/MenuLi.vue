@@ -4,7 +4,7 @@
 
   <q-item
     v-else
-    class="Nv0-li"
+    class="Nv0-li text-neutral-black/40"
     tag="li"
     clickable
     :active="active"
@@ -135,8 +135,8 @@
 </script>
 
 <script setup>
+import { computed, ref } from 'vue'
 import { onBeforeRouteUpdate, useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
 import OButton from 'components/Button/OButton.vue'
 
 const props = defineProps({
@@ -172,10 +172,8 @@ onBeforeRouteUpdate((v) => {
   position: relative
   user-select: none
   @include text(paragraph-2)
-  color: rgb(var(--neutral-100))
-  // cursor: initial !important
-  // [href]
-  //   cursor: pointer
+  color: rgb(var(--neutral-70))
+
 
   .body--dark &
     color: rgba(var(--white),0.9) !important
@@ -271,4 +269,9 @@ onBeforeRouteUpdate((v) => {
   100%
     opacity: 1
     transform: translateX(0px)
+
+
+.Nv0-li.q-router-link--active
+  color: rgb(var(--primary-pure)) !important
+  background: rgba(var(--primary-pure),0.1)
 </style>

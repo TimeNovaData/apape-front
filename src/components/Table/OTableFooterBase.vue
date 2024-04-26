@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 

@@ -7,16 +7,36 @@
 </template>
 
 <script>
+import { ref, useAttrs, useSlots } from 'vue'
+
 export default { inheritAttrs: false }
+
+export function configTable() {
+  const componentRef = ref(null)
+
+  function requestServerInteraction() {
+    return componentRef.value.requestServerInteraction()
+  }
+
+  function setPagination(pagination, forceServerRequest) {
+    return componentRef.value.setPagination(pagination, forceServerRequest)
+  }
+
+  return {
+    componentRef,
+    requestServerInteraction,
+    setPagination,
+  }
+}
 </script>
 
 <script setup>
-import { useSlots, useAttrs, ref, onMounted } from 'vue'
 const slots = useSlots()
 const attrs = useAttrs()
-const componentRef = ref(null)
 
-defineExpose({ componentRef })
+const context = configTable()
+const { componentRef } = context
+defineExpose(context)
 </script>
 
 <style lang="sass">

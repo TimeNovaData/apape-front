@@ -11,6 +11,7 @@
       @clear="$emit('update', model)" />
 
     <div class="flex gap-8 items-center">
+      <slot name="filtro"> </slot>
       <span
         class="text-paragraph-2 md:!text-paragraph-3 text-neutral-70 dark:text-white/70">
         Mostrar

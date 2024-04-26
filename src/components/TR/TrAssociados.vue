@@ -4,25 +4,31 @@
       {{ props.row.matricula }}
     </q-td>
     <q-td key="nome">
-      {{ props.row.nome}}
+      {{ props.row.name }}
     </q-td>
     <q-td key="cpf">
-      {{ props.row.cpf }}
+      {{ props.row.cpf_cnpj }}
     </q-td>
-    <q-td key="patrocinadora">
-      {{ props.row.patrocinadora }}
+    <q-td key="patrocinadora" class="capitalize">
+      {{ props.row.associados_patroc_set[0].nome }}
     </q-td>
     <q-td key="matricula_patrocinadora">
-      {{ props.row.matricula_patrocinadora }}
+      {{ props.row.associados_patroc_set[0].maticula_patrocinadora }}
     </q-td>
     <q-td key="email">
       {{ props.row.email }}
     </q-td>
     <q-td key="data_cadastro">
-      {{ props.row.data_cadastro }}
+      {{ props.row.dt_cadastro }}
     </q-td>
     <q-td key="tipo_beneficio">
-      {{ props.row.tipo_beneficio }}
+      <OBadge
+        :label="props.row.tipo_beneficio"
+        class="!rounded-[3px]"
+        :class="`text-${colorBadge(props.row.tipo_beneficio)}`"
+        :style="`background-color: rgba(var(--${colorBadge(
+          props.row.tipo_beneficio
+        )}), .10);`" />
     </q-td>
     <q-td key="cidade">
       {{ props.row.cidade }}
@@ -33,11 +39,12 @@
     <q-td key="pais">
       {{ props.row.pais }}
     </q-td>
-
   </q-tr>
 </template>
 
 <script setup>
+import OBadge from 'components/Badge/OBadge.vue'
+
 import OButton from 'components/Button/OButton.vue'
 defineProps({
   props: {
@@ -47,4 +54,13 @@ defineProps({
 })
 
 const emits = defineEmits(['aprove', 'reject'])
+
+const colorBadge = (status) => {
+  switch (status) {
+    case 'Aposentado':
+      return 'primary-pure'
+    default:
+      return 'neutral-70'
+  }
+}
 </script>
