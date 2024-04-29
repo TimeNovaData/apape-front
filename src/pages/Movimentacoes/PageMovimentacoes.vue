@@ -13,7 +13,7 @@
           :limit="limit"
           :offset="offset"
           :count="count"
-          :urls="`/associados/`"
+          :urls="`/payments/`"
           :scheme="scheme"
           :show-print-button="false"
           :show-import-button="false">
@@ -56,19 +56,34 @@ const { visible, count, limit, offset } = pagination
 
 const columns = ref([
   {
-    name: 'associado',
+    name: 'cliente',
     required: true,
-    field: 'associado',
-    label: 'Associado',
+    field: 'cliente',
+    label: 'Cliente',
     align: 'left',
   },
   {
-    name: 'data',
+    name: 'valor',
     required: true,
-    field: 'data',
-    label: 'Data',
+    field: 'valor',
+    label: 'Valor',
     align: 'left',
   },
+  {
+    name: 'descricao',
+    required: true,
+    field: 'descricao',
+    label: 'Descrição',
+    align: 'left',
+  },
+  {
+    name: 'forma_pagamento',
+    required: true,
+    field: 'forma_pagamento',
+    label: 'Forma de Pagamento',
+    align: 'left',
+  },
+
   {
     name: 'status',
     required: true,
@@ -76,19 +91,11 @@ const columns = ref([
     label: 'Status',
     align: 'left',
   },
-
   {
-    name: 'situacao',
+    name: 'data_vencimento',
     required: true,
-    field: 'situacao',
-    label: 'Situação',
-    align: 'left',
-  },
-  {
-    name: 'total',
-    required: true,
-    field: 'total',
-    label: 'Total',
+    field: 'data_vencimento',
+    label: 'Data de Vencimento',
     align: 'left',
   },
 ])

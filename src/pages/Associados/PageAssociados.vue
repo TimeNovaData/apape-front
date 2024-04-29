@@ -2,7 +2,8 @@
   <div class="container mx-auto pt-48 pb-64 px-24">
     <div>
       <h3 class="text-caps-1 !font-semibold">
-        Bem vindo de volta, <span class="text-primary-pure">Thiago! 👋🏽</span>
+
+        Bem vindo de volta, <span class="text-primary-pure">{{ user.username }} 👋🏽</span>
       </h3>
     </div>
 
@@ -39,12 +40,15 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, inject, reactive, ref } from 'vue'
 import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 import TrAssociados from 'components/TR/TrAssociados.vue'
 
+
 const tableRef = ref(null)
+
+const user = inject('user')
 
 
 const scheme = computed(() =>
