@@ -10,16 +10,16 @@
       {{ props.row.cpf_cnpj }}
     </q-td>
     <q-td key="patrocinadora" class="capitalize">
-      {{ props.row.associados_patroc_set[0].nome }}
+      {{ props.row.associados_patroc_set[0]?.nome }}
     </q-td>
     <q-td key="matricula_patrocinadora">
-      {{ props.row.associados_patroc_set[0].maticula_patrocinadora }}
+      {{ props.row.associados_patroc_set[0]?.maticula_patrocinadora }}
     </q-td>
     <q-td key="email">
       {{ props.row.email }}
     </q-td>
     <q-td key="data_cadastro">
-      {{ props.row.dt_cadastro }}
+      {{ FData(props.row.dt_cadastro) }}
     </q-td>
     <q-td key="tipo_beneficio">
       <OBadge
@@ -43,9 +43,11 @@
 </template>
 
 <script setup>
+import GLOBAL from 'utils/GLOBAL';
 import OBadge from 'components/Badge/OBadge.vue'
 
-import OButton from 'components/Button/OButton.vue'
+const {FData } = GLOBAL
+
 defineProps({
   props: {
     type: Object,

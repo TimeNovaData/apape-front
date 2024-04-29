@@ -7,7 +7,7 @@
     :style="`color: ${color};`"
     >
     
-    <q-card-section class="!p-16 flex items-start gap-16">
+    <q-card-section class="!p-16 flex items-start gap-16 flex-nowrap">
       <q-icon class="w-24 h-24" :class="iconClass" :name="icon" />
       <div>
         <h3 class="text-headline-1 " :class="titleClass">

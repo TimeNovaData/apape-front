@@ -7,16 +7,7 @@
 
     <q-separator />
     <q-list class="select-none min-w-[200px]">
-      <q-item tag="label" class="flex items-center flex-row">
-        <q-item-section>
-          <p class="text-paragraph-2">Modo escuro</p>
-        </q-item-section>
 
-        <q-item-section>
-          <q-space />
-          <q-toggle v-model="darkMode" size="sm" class="ml-auto"></q-toggle>
-        </q-item-section>
-      </q-item>
 
       <q-separator></q-separator>
 
@@ -36,6 +27,7 @@
 </template>
 
 <script setup>
+import { inject } from 'vue';
 import { useAuthStore } from 'stores/auth.store'
 import useDarkMode from 'composables/useDarkMode'
 
@@ -44,6 +36,8 @@ const { logout } = useAuthStore()
 const props = defineProps({
   nome: { type: String, default: '' },
 })
+
+
 </script>
 
 <style lang="sass" scoped></style>
