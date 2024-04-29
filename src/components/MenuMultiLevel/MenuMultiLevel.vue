@@ -9,13 +9,13 @@
       <OButton
         v-if="Screen.lt.md"
         primary
-        class="w-32 h-32 p-0 !bg-primary-light"
+        class="w-32 h-32 p-0 !bg-q-router-link--activelight"
         :class="{ 'opacity-0 invisible': true }">
         <q-icon class="w-20 h-20" name="svguse:/icons.svg#icon_back"></q-icon>
       </OButton>
 
       <RouterLink :to="{ name: 'home' }">
-        <MenuLogo />
+        <q-img class="logo py-12 px-8" :src="Logo" />
       </RouterLink>
 
       <OButton
@@ -41,7 +41,7 @@
         @nv0-click="() => handleClick(true)"
         @click="(e) => Nv0HandleClick(e, Nv0)">
         <q-item-section v-if="Nv0.icon" avatar class="min-w-32 pl-10">
-          <q-icon size="26px" :name="Nv0.icon"></q-icon>
+          <q-icon size="20px" :name="Nv0.icon"></q-icon>
         </q-item-section>
 
         <q-item-section class="Nv0-text">
@@ -65,13 +65,14 @@
 
 <script setup>
 import MenuLi from './MenuLi.vue'
-import MenuLogo from './MenuLogo.vue'
 
 import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router'
 import { Screen } from 'quasar'
 
+import { doc } from 'prettier'
 import GLOBAL from 'utils/GLOBAL'
+import Logo from 'public/image/logo.svg'
 import logoAnimation from 'utils/animation/logo'
 import OButton from 'components/Button/OButton.vue'
 
@@ -110,8 +111,8 @@ onMounted(() => {
     Nv0: sidebar.value,
     body: document.body,
   }
-  animate = logoAnimation('.OSidebar')
-  animate.logoAnimationToNDT.play().progress(1)
+  // animate = logoAnimation('.OSidebar')
+  // animate.logoAnimationToNDT.play().progress(1)
   setTimeout(() => {
     state.value.passive = false
   }, 300)
@@ -123,7 +124,7 @@ watch(showHeader, () => {
   if (!showHeader.value) {
     $.body.classList.add('showHeader')
     animate = logoAnimation('.header-top')
-    animate.logoAnimationToNDT.play().progress(1)
+    // animate.logoAnimationToNDT.play().progress(1)
   } else {
     $.body.classList.remove('showHeader')
   }
@@ -147,10 +148,12 @@ watch(
   (hover) => {
     if (hover) {
       !Screen.lt.md && $.body.classList.add('sidebar-active')
-      animate.logoAnimationToNovadata.play().timeScale(1.1)
+      document.querySelector('.logo').classList.add('logo-open')
+      // animate.logoAnimationToNovadata.play().timeScale(1.1)
     } else {
       $.body.classList.remove('sidebar-active')
-      animate.logoAnimationToNovadata.reverse()
+      document.querySelector('.logo').classList.remove('logo-open')
+      // animate.logoAnimationToNovadata.reverse()
     }
   }
 )
@@ -180,8 +183,8 @@ onUnmounted(() => {
     passive: true,
   }
   // console.log('desmontou')
-  animate.logoAnimationToNDT.seek()
-  animate.logoAnimationToNovadata.seek(0)
+  // animate.logoAnimationToNDT.seek()
+  // animate.logoAnimationToNovadata.seek(0)
 })
 
 function handleMouseEnter() {
@@ -231,7 +234,7 @@ function toggleActiveOnLis(current) {
   --Nv2-sidebar-z-index: 9018
   --z-index-deep: 9000
   --sidebar-top:0
-  --sidebar-header-height: 5.4375rem
+  --sidebar-header-height: 5.5rem
   @include d(md)
     --Nv0-sidebar-width: 0rem
 
@@ -286,7 +289,7 @@ function toggleActiveOnLis(current) {
 
 // Header
 .OSidebar-header
-  padding: 1.5rem .5rem 1.5rem
+  padding: .75rem .5rem
   border-bottom: var(--Nv0-sidebar-border)
   height: var(--sidebar-header-height)
 
@@ -298,10 +301,11 @@ function toggleActiveOnLis(current) {
 
 //itens
 .Nv0-ul
-  margin-top: 2rem
+  margin-top: 1rem
   flex-wrap: nowrap
   overflow-y: auto
   overflow-x: hidden
+  color: rgb(var(--neutral-70))
   @include d(md)
     margin-top: 1rem
     padding-bottom: 1rem
@@ -329,4 +333,14 @@ function toggleActiveOnLis(current) {
   top: var(--sidebar-top)
   left: 0
   backdrop-filter: blur(10px)
+
+
+.logo-open
+  width: 100px
+  height: 63px
+  text-align: center  
+  transform: translate(0px, 0px)
+  margin: 0 auto
+  display: flex
+
 </style>

@@ -57,6 +57,7 @@ export const useAuthStore = defineStore('auth', () => {
         password,
         username,
       })
+      console.log(request.data)
       user.value = request.data
       const auth = useUserStore()
       saveToken()

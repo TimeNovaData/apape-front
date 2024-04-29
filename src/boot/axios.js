@@ -25,7 +25,7 @@ const api = axios.create({
    * const  { URLS } = api.defaults
    */
   URLS: {
-    user: 'usuario/usuario_logado/',
+    user: 'users/usuario_logado/',
     redefinir_senha: 'usuario_djoser/reset_password/',
     confirmar_senha: 'usuario_djoser/reset_password_confirm/',
   },

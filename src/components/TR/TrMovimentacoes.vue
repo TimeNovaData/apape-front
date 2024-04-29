@@ -1,26 +1,38 @@
 <template>
   <q-tr :props="props">
-    <q-td key="associado">
-      {{ props.row.associado }}
+    <q-td key="cliente">
+      {{ props.row.customer_name }}
     </q-td>
-    <q-td key="data">
-      {{ props.row.data}}
+    <q-td key="valor">
+      {{ fMoney(props.row.value) }}
     </q-td>
-    <q-td key="status">
-      {{ props.row.status }}
+    <q-td key="descricao">
+      {{ props.row.description }}
     </q-td>
-    <q-td key="situacao">
-      {{ props.row.situacao }}
+    <q-td key="forma_pagamento">
+      {{ props.row.billing_type }}
     </q-td>
-    <q-td key="total">
-      {{ props.row.total }}
+    <q-td key="status" auto-width>
+      <OBadge
+        :label="props.row.status ? props.row.status : 'N/A'"
+        class="!rounded-[3px]"
+        :class="`text-${colorBadge(props.row.status)}`"
+        :style="`background-color: rgba(var(--${colorBadge(
+          props.row.status
+        )}), .10);`" />
     </q-td>
-    
 
+    <q-td key="data_vencimento" auto-width>
+      {{ FData(props.row.due_date) }}
+    </q-td>
   </q-tr>
 </template>
 
 <script setup>
+import GLOBAL from 'utils/GLOBAL'
+import OBadge from 'components/Badge/OBadge.vue'
+
+const { fMoney, FData } = GLOBAL
 
 defineProps({
   props: {
@@ -30,4 +42,13 @@ defineProps({
 })
 
 const emits = defineEmits(['aprove', 'reject'])
+
+const colorBadge = (status) => {
+  switch (status) {
+    case 'Pagamento Efetuado':
+      return 'primary-pure'
+    default:
+      return 'neutral-70'
+  }
+}
 </script>

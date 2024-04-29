@@ -1,52 +1,90 @@
 <template>
-  <div class="container mx-auto pt-48 pb-64">
-
-   
-    <q-card class="py-32 px-24 border-neutral-100/5 rounded " flat bordered>
+  <div class="container mx-auto pt-48 pb-64 px-24">
+    <q-card class="py-32 px-24 border-neutral-100/5 rounded" flat bordered>
       <div class="flex items-center justify-between">
         <TextIcon icon="svguse:/icons.svg#icon_chart_up" text="Movimentações" />
-
-
       </div>
 
       <div class="mt-24">
-        <OTableBase
-          :rows="rows"
+        <OTableServerSideBase
+          ref="tableRef"
           :columns="columns"
+          :visible-columns="visible"
+          :limit="limit"
+          :offset="offset"
+          :count="count"
+          :urls="`/payments/`"
+          :scheme="scheme"
           :show-print-button="false"
-         >
+          :show-import-button="false">
+          <template #filtro>
+            <FilterMovimentacoes ref="filterRef" @filter="doSearch" />
+          </template>
           <template #body="props">
             <TrMovimentacoes :props="props" />
           </template>
-        </OTableBase>
+        </OTableServerSideBase>
       </div>
     </q-card>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
-
-import OTableBase from 'components/Table/OTableBase.vue'
+import FilterMovimentacoes from 'components/Filter/FilterMovimentacoes.vue';
+import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 import TrMovimentacoes from 'components/TR/TrMovimentacoes.vue'
+const tableRef = ref(null)
 
-const columns = [
+const scheme = computed(() =>
+  columns.value
+    .filter((col) => !!col.label)
+    .map((col) => ({
+      field: col.field,
+      label: col.label,
+    }))
+)
+const pagination = reactive({
+  visible: [],
+  count: 0,
+  limit: 10,
+  offset: 0,
+})
+
+const { visible, count, limit, offset } = pagination
+
+const columns = ref([
   {
-    name: 'associado',
+    name: 'cliente',
     required: true,
-    field: 'associado',
-    label: 'Associado',
+    field: 'cliente',
+    label: 'Cliente',
     align: 'left',
   },
   {
-    name: 'data',
+    name: 'valor',
     required: true,
-    field: 'data',
-    label: 'Data',
+    field: 'valor',
+    label: 'Valor',
     align: 'left',
   },
+  {
+    name: 'descricao',
+    required: true,
+    field: 'descricao',
+    label: 'Descrição',
+    align: 'left',
+  },
+  {
+    name: 'forma_pagamento',
+    required: true,
+    field: 'forma_pagamento',
+    label: 'Forma de Pagamento',
+    align: 'left',
+  },
+
   {
     name: 'status',
     required: true,
@@ -54,38 +92,17 @@ const columns = [
     label: 'Status',
     align: 'left',
   },
-
   {
-    name: 'situacao',
+    name: 'data_vencimento',
     required: true,
-    field: 'situacao',
-    label: 'Situação',
+    field: 'data_vencimento',
+    label: 'Data de Vencimento',
     align: 'left',
   },
-  {
-    name: 'total',
-    required: true,
-    field: 'total',
-    label: 'Total',
-    align: 'left',
-  },
-
-
-
-]
-
-const rows = ref([
-  {
-    associado: '#127010 Emily Garcia',
-    data: '09/01/2024',
-    status: 'Processando',
-    situacao: 'Inadimplentes',
-    total: 'R$ 598,80'
-  },
-
 ])
-
-const tab = ref('todos')
+function doSearch() {
+  tableRef.value.requestServerInteraction()
+}
 </script>
 
 <style lang="sass" scoped>
