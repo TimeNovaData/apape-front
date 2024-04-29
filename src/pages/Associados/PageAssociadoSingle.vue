@@ -8,7 +8,9 @@
         v-model="tab"
         class="text-paragraph-3 max-w-max h-max"
         align="justify"
-        active-class="">
+        active-class="text-primary-pure"
+        indicator-color="primary"
+        >
         <q-tab
           name="dados-pessoais"
           label="Dados Pessoais"

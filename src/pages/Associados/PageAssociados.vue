@@ -27,9 +27,7 @@
           :scheme="scheme"
           :show-print-button="false"
           :show-import-button="false">
-          <template #filtro>
-            <FilterMedicos ref="filterRef" @filter="doSearch" />
-          </template>
+
           <template #body="props">
             <TrAssociados :props="props" />
           </template>

@@ -1,15 +1,15 @@
 <template>
   <q-tr :props="props">
     <q-td key="cliente">
-      {{ props.row.name }}
+      {{ props.row.customer_name }}
     </q-td>
     <q-td key="valor">
-      {{ props.row.value }}
+      {{ fMoney(props.row.value) }}
     </q-td>
-    <q-td key="descricao" >
+    <q-td key="descricao">
       {{ props.row.description }}
     </q-td>
-    <q-td key="forma_pagamento" >
+    <q-td key="forma_pagamento">
       {{ props.row.billing_type }}
     </q-td>
     <q-td key="status" auto-width>
@@ -22,15 +22,18 @@
         )}), .10);`" />
     </q-td>
 
-
     <q-td key="data_vencimento" auto-width>
-      {{ props.row.due_date }}
+      {{ FData(props.row.due_date) }}
     </q-td>
   </q-tr>
 </template>
 
 <script setup>
+import GLOBAL from 'utils/GLOBAL'
 import OBadge from 'components/Badge/OBadge.vue'
+
+const { fMoney, FData } = GLOBAL
+
 defineProps({
   props: {
     type: Object,

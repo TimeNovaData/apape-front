@@ -18,7 +18,7 @@
           :show-print-button="false"
           :show-import-button="false">
           <template #filtro>
-            <FilterMedicos ref="filterRef" @filter="doSearch" />
+            <FilterMovimentacoes ref="filterRef" @filter="doSearch" />
           </template>
           <template #body="props">
             <TrMovimentacoes :props="props" />
@@ -32,6 +32,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 
+import FilterMovimentacoes from 'components/Filter/FilterMovimentacoes.vue';
 import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 import TrMovimentacoes from 'components/TR/TrMovimentacoes.vue'
