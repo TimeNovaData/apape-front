@@ -24,7 +24,7 @@
     "quasar": "^2.15.4",
     "swiper": "^11.1.1",
     "tailwindcss": "^3.4.3",
-    "vite": "^5.2.10",
+    "vite": "^2.9.17",
     "vue": "^3.4.26",
     "vue-deepunref": "^1.0.1",
     "vue-filepond": "^7.0.4",
@@ -33,7 +33,7 @@
     "vue3-lottie": "^3.3.0"
   },
   "resolutions": {
-    "vite": "^4.4.4",
+    "vite": "^5.0.7",
     "strip-ansi": "6.0.1",
     "string-width": "4.2.2",
     "wrap-ansi": "7.0.0"
