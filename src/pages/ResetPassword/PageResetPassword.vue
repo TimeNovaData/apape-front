@@ -109,7 +109,7 @@ import { NotifyError, NotifySucess } from 'boot/Notify'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import gsap from 'gsap'
-import imageLogin from 'public/image/bg-login.jpg'
+import imageLogin from 'public/image/bg-login.png'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 
