@@ -10,8 +10,10 @@
 
 const { configure } = require('quasar/wrappers')
 const path = require('path')
+const dotenv = require('dotenv')
 
-module.exports = configure(function (ctx) {
+module.exports = configure(async function (ctx) {
+  const env = ctx.dev ? dotenv.config().parsed : process.env
   return {
     eslint: {
       fix: true,
@@ -74,14 +76,10 @@ module.exports = configure(function (ctx) {
       // publicPath: 'dist/spa',
       // analyze: true,
       env: {
-        API_URL: ctx.dev
-          ? 'http://localhost:8000/api/'
-          : 'https://hub.novadata.com.br/api/',
-        BACKEND_URL: ctx.dev
-          ? 'http://localhost:8000/'
-          : 'https://hub.novadata.com.br/',
-
+        API_URL: env.API_URL,
+        BACKEND_URL: env.BACKEND_URL,
         HTTPS_MODE: !ctx.dev,
+        DARK_MODE: env.DARK_MODE,
         development: ctx.dev,
       },
       // rawDefine: {}
