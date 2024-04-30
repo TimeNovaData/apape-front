@@ -50,7 +50,6 @@
     "@storybook/addon-storysource": "^8.0.9",
     "@storybook/blocks": "8.0.9",
     "@storybook/vue3": "8.0.9",
-    "@storybook/vue3-vite": "8.0.9",
     "@types/gsap": "^3.0.0",
     "autoprefixer": "^10.4.19",
     "core-js": "^3.37.0",
