@@ -2,7 +2,7 @@
   <div class="container mx-auto pt-48 pb-64 px-24">
     <q-card class="border-neutral-100/5 rounded" flat bordered>
       <q-card-section class="!p-24">
-        <h3 class="text-title-3">Matheus de Oliveira</h3>
+        <h3 class="text-title-3">{{ data?.name }}</h3>
       </q-card-section>
       <q-tabs
         v-model="tab"
@@ -24,12 +24,12 @@
           label="Detalhes da conta"
           class="bg-white rounded transition-all" />
       </q-tabs>
-      <q-form>
+      <q-form @submit="updateAssociado">
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-24">
               <OInput
-                v-model="models.nome"
+                v-model="models.name"
                 label="Nome"
                 type="text"
                 class="col-span-6"
@@ -49,7 +49,7 @@
                 :unmasked-value="true"
                 size="lg" />
               <OSelect
-                v-model="models.genero"
+                v-model="models.sexo"
                 label="Gênero"
                 class="col-span-6"
                 size="lg"
@@ -59,16 +59,16 @@
                   { label: 'Outro', value: 'Outro' },
                 ]" />
               <OInputDateTime
-                :data="models.data_nascimento"
+                :data="models.nascimento"
                 size="lg"
                 label="Data de nascimento"
                 :has-time="false"
                 class="h-48 col-span-6"
                 :input-props="{
-                  rules: [(val) => !!val || 'Campo Obrigatorio'],
+                  // rules: [(val) => !!val || 'Campo Obrigatorio'],
                 }" />
               <OInput
-                v-model="models.cpf"
+                v-model="models.cpf_cnpj"
                 label="CPF"
                 class="col-span-6"
                 type="text"
@@ -86,19 +86,19 @@
                 class="col-span-4"
                 size="lg" />
               <OInput
-                v-model="models.logradouro"
+                v-model="models.address"
                 label="Endereço"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
-                v-model="models.numero"
+                v-model="models.address_number"
                 label="Número"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
-                v-model="models.complemento"
+                v-model="models.complement"
                 label="Complemento"
                 type="text"
                 class="col-span-6"
@@ -134,8 +134,13 @@
           </q-tab-panel>
         </q-tab-panels>
         <div class="flex items-center justify-end p-24 gap-14">
-          <OButton label="Cancelar" secondary size="lg" />
-          <OButton label="Salvar alterações" primary size="lg" type="submit" />
+          <OButton label="Cancelar" secondary size="lg" to="/associados" />
+          <OButton
+            label="Salvar alterações"
+            primary
+            size="lg"
+            type="submit"
+            :disabled="!temCamposAlterados" />
         </div>
       </q-form>
     </q-card>
@@ -145,53 +150,38 @@
 <script setup>
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+import { NotifyError, NotifySucess } from 'boot/Notify'
 import { useRoute } from 'vue-router'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OInputDateTime from 'components/Input/OInputDateTime.vue'
 import OSelect from 'components/Select/OSelect.vue'
 const tab = ref('dados-pessoais')
-
-const { getAssociado } = associadosService()
-
+const { URLS } = api.defaults
+const route = useRoute()
+const { getAssociado, patchDadosAssociados } = associadosService()
+const camposAlterados = ref({})
 const models = ref({
-  nome: '',
+  name: '',
   email: '',
   telefone: '',
-  genero: '',
-  data_nascimento: '',
-  cpf: '',
-  logradouro: '',
+  sexo: '',
+  nascimento: '',
+  cpf_cnpj: '',
+  address: '',
   cep: '',
-  numero: '',
-  complemento: '',
+  address_number: '',
+  complement: '',
   bairro: '',
   cidade: '',
   estado: '',
   pais: '',
 })
 
-let modelDefault = {
-  nome: '',
-  email: '',
-  telefone: '',
-  genero: '',
-  data_nascimento: '',
-  cpf: '',
-  logradouro: '',
-  cep: '',
-  numero: '',
-  complemento: '',
-  bairro: '',
-  cidade: '',
-  estado: '',
-  pais: '',
-}
+let modelDefault = {}
 
-const { URLS } = api.defaults
-
-const route = useRoute()
+const id = route.params.id
 
 const data = ref(null)
 
@@ -199,13 +189,14 @@ watch(
   () => data.value,
   (v) => {
     if (!v) return
-    models.value.nome = v.name
+    models.value.name = v.name
     models.value.email = v.email
+    models.value.cpf_cnpj = v.cpf_cnpj
     models.value.telefone = v.phone
-    models.value.data_nascimento = v.nascimento
-    models.value.logradouro = v.address
-    models.value.numero = v.address_number
-    models.value.complemento = v.complement
+    models.value.nascimento = v.nascimento
+    models.value.address = v.address
+    models.value.address_number = v.address_number
+    models.value.complement = v.complement
     models.value.cidade = v.cidade
     models.value.estado = v.estado
     models.value.pais = v.pais
@@ -231,11 +222,36 @@ watch(
   { deep: true }
 )
 
-const camposAlterados = ref({})
+async function updateAssociado() {
+  if (Object.keys(camposAlterados.value).length === 0) {
+    NotifyError('Nenhum campo alterado!')
+    return
+  }
+  const formData = new FormData()
+
+  Object.entries(camposAlterados.value).forEach(([key, value]) => {
+    formData.append(key, value)
+  })
+
+  try {
+    const _response = await patchDadosAssociados(id, {
+      ...camposAlterados.value,
+    })
+
+    NotifySucess('Dados atualizados com sucesso!')
+  } catch (error) {
+    NotifyError('Erro ao atualizar dados!')
+    console.log(error)
+  }
+}
+
+const temCamposAlterados = computed(() => {
+  return Object.keys(camposAlterados.value).length > 0
+})
 
 const requests = async () => {
   try {
-    data.value = await getAssociado(6)
+    data.value = await getAssociado(id)
   } catch (error) {
     console.log(error)
   }

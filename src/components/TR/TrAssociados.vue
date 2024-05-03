@@ -1,5 +1,11 @@
 <template>
-  <q-tr :props="props">
+  <q-tr
+    :props="props"
+    class="cursor-pointer"
+    @click="
+     () => $router.push({ path: `/associados/${props.row.id}`})
+    ">
+
     <q-td key="matricula">
       {{ props.row.matricula }}
     </q-td>
@@ -43,10 +49,10 @@
 </template>
 
 <script setup>
-import GLOBAL from 'utils/GLOBAL';
+import GLOBAL from 'utils/GLOBAL'
 import OBadge from 'components/Badge/OBadge.vue'
 
-const {FData } = GLOBAL
+const { FData } = GLOBAL
 
 defineProps({
   props: {

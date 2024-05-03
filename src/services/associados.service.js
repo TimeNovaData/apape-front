@@ -13,9 +13,20 @@ export function associadosService() {
     return apiUse.query(`${URLS.associados}${id}/`)
   }
 
+
+  function postDadosAssociados(data) {
+    return apiUse.mutation(`${URLS.associados}`, 'POST', data)
+  }
+
+  function patchDadosAssociados(id, data) {
+    return apiUse.mutation(`${URLS.associados}${id}/`, 'PATCH', data)
+  }
+
   return {
     getAssociados,
     getAssociado,
+    postDadosAssociados,
+    patchDadosAssociados,
     ...api,
   }
 }
