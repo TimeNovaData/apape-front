@@ -1,22 +1,28 @@
 <template>
   <div>
     <OInput
-      v-model="dateComplete"
+      :model-value="dateComplete"
       :size="Screen.lt.md ? 'md' : 'lg'"
       class="bg-white dark:!bg-transparent w-full cursor-pointer label-transparent"
-      :label="label">
+      :label="label"
+      v-bind="inputProps"
+    >
       <q-popup-proxy
         ref="popUpDate"
         cover
         transition-show="scale"
-        transition-hide="scale">
-        <q-date v-model="model.data" today-btn>
+        transition-hide="scale"
+        class="!min-w-0"
+      >
+        <q-date v-model="model.data" today-btn class="w-[350px]" v-bind="dateProps">
           <div class="flex flex-col w-full">
             <OInput
+              v-if="hasTime"
               v-model="model.hora"
               size="md"
               type="time"
-              class="label-transparent" />
+              class="label-transparent"
+            />
             <OButton
               size="md"
               tertiary
@@ -32,6 +38,7 @@
         <q-icon :name="icon" class="cursor-pointer" />
       </template>
     </OInput>
+    
   </div>
 </template>
 
@@ -42,6 +49,7 @@ import { useRefHistory } from '@vueuse/core'
 import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 import OInput from './OInput.vue'
+
 const { FData } = GLOBAL
 
 const props = defineProps({
@@ -51,15 +59,29 @@ const props = defineProps({
     type: String,
     default: 'svguse:/icons.svg#icon_date',
   },
+  hasTime: { type: Boolean, default: true },
+  inputProps: {
+    type: Object,
+    default: () => ({}),
+  },
+  dateProps: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const emit = defineEmits(['update:date'])
 
 const popUpDate = ref(Element)
 
-const dateComplete = computed(() =>
-  model.value.data ? `${FData(model.value.data)} - ${model.value.hora}` : null
-)
+const dateComplete = computed(() => {
+  if (model.value.data && model.value.hora && props.hasTime) {
+    return model.value.data
+      ? `${FData(model.value.data)} - ${model.value.hora}`
+      : null
+  }
+  return model.value.data ? `${FData(model.value.data)}` : null
+})
 
 const initialDate = computed(() => {
   const prop = props.data
@@ -73,6 +95,14 @@ const initialTime = computed(() => {
   const prop = props.data
   return prop ? date.formatDate(prop, 'HH[:]mm') : '12:00'
 })
+
+// watch(
+//   () => initialDate.value,
+//   (v) => {
+//     model.value.hora = initialDate.value
+//     model.value.data = initialTime.value
+//   }
+// )
 
 const model = ref({
   data: initialDate.value,
