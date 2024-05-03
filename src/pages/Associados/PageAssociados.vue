@@ -26,7 +26,9 @@
           :urls="`/associados/`"
           :scheme="scheme"
           :show-print-button="false"
-          :show-import-button="false">
+          :show-import-button="false"
+          @@row-click="$router.push({ name: 'associado-single', params: { id: $event.row.id } })"
+          >
 
           <template #body="props">
             <TrAssociados :props="props" />
