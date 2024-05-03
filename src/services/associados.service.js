@@ -10,7 +10,7 @@ export function associadosService() {
   }
 
   async function getAssociado(id) {
-    return apiUse.query(`${URLS.associados}${id}`)
+    return apiUse.query(`${URLS.associados}${id}/`)
   }
 
   return {
