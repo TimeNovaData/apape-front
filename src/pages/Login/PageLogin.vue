@@ -62,7 +62,7 @@ const load = ref(false)
 const dev = process.env.development
 const emailRecipient = ref('')
 
-const data = ref({ login: dev ? 'emanuel2' : '', senha: dev ? 'papa1539' : '' })
+const data = ref({ login: dev ? 'cleo@gmail.com' : '', senha: dev ? '123' : '' })
 
 onMounted(() => {
   form.value.form.focus()

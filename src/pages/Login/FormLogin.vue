@@ -90,8 +90,8 @@ const permanecerConectado = ref(true)
 const type = ref('password')
 
 const data = ref({
-  login: dev ? 'emanuel2' : '',
-  senha: dev ? 'papa1539' : '',
+  login: dev ? 'cleo@gmail.com' : '',
+  senha: dev ? '123' : '',
 })
 
 watch(

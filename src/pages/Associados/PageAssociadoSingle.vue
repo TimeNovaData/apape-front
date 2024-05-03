@@ -2,6 +2,10 @@
   <div class="container mx-auto pt-48 pb-64 px-24">
     <q-card class="border-neutral-100/5 rounded" flat bordered>
       <q-card-section class="!p-24">
+        <pre>
+          {{ data }}
+        </pre>
+
         <h3 class="text-title-3">Matheus de Oliveira</h3>
       </q-card-section>
       <q-tabs
@@ -9,8 +13,7 @@
         class="text-paragraph-3 max-w-max h-max"
         align="justify"
         active-class="text-primary-pure"
-        indicator-color="primary"
-        >
+        indicator-color="primary">
         <q-tab
           name="dados-pessoais"
           label="Dados Pessoais"
@@ -88,11 +91,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { associadosService } from 'src/services/associados.service'
+import { onMounted, ref } from 'vue'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OSelect from 'components/Select/OSelect.vue'
 const tab = ref('dados-pessoais')
+
+const { getAssociado } = associadosService()
 
 const models = ref({
   nome: 'Matheus de Oliveira',
@@ -101,5 +107,15 @@ const models = ref({
   genero: 'Masculino',
   data_nascimento: '01/01/1990',
   cpf: '999.999.999-99',
+})
+
+const data = ref(null)
+
+
+const requests = async () => {
+  data.value = await getAssociado(6)
+}
+onMounted(()=>{
+  requests()
 })
 </script>
