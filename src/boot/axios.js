@@ -28,6 +28,8 @@ const api = axios.create({
     user: 'users/usuario_logado/',
     redefinir_senha: 'usuario_djoser/reset_password/',
     confirmar_senha: 'usuario_djoser/reset_password_confirm/',
+    associados: 'associados/',
+    movimentacoes: 'movimentacoes/',
   },
 })
 
