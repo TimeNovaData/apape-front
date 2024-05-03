@@ -72,10 +72,9 @@ import { Screen } from 'quasar'
 
 import { doc } from 'prettier'
 import GLOBAL from 'utils/GLOBAL'
-import Logo from 'public/image/logo.svg'
+import Logo from 'public/image/logo-open.svg'
 import logoAnimation from 'utils/animation/logo'
 import OButton from 'components/Button/OButton.vue'
-
 
 const props = defineProps({
   menu: { type: Array, default: () => [] },
@@ -148,16 +147,15 @@ watch(
   (hover) => {
     if (hover) {
       !Screen.lt.md && $.body.classList.add('sidebar-active')
-      document.querySelector('.logo').classList.add('logo-open')
+      document.querySelector('.logo').classList.add('open')
       // animate.logoAnimationToNovadata.play().timeScale(1.1)
     } else {
       $.body.classList.remove('sidebar-active')
-      document.querySelector('.logo').classList.remove('logo-open')
+      document.querySelector('.logo').classList.remove('open')
       // animate.logoAnimationToNovadata.reverse()
     }
   }
 )
-
 
 onBeforeRouteLeave(() => {
   state.value = {
@@ -165,7 +163,6 @@ onBeforeRouteLeave(() => {
     open: false,
     passive: true,
   }
-
 })
 
 onBeforeRouteUpdate(() => {
@@ -173,7 +170,6 @@ onBeforeRouteUpdate(() => {
     hover: false,
     open: false,
   }
-
 })
 
 onUnmounted(() => {
@@ -338,9 +334,13 @@ function toggleActiveOnLis(current) {
 .logo-open
   width: 100px
   height: 63px
-  text-align: center  
+  text-align: center
   transform: translate(0px, 0px)
   margin: 0 auto
   display: flex
+
+.logo
+  width: 18.75rem
+  height: 4.375rem
 
 </style>
