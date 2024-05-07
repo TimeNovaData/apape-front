@@ -25,6 +25,7 @@
           :count="count"
           :urls="`/associados/`"
           :scheme="scheme"
+          :show-download-button="false"
           :show-print-button="false"
           :show-import-button="false"
           @@row-click="$router.push({ name: 'associado-single', params: { id: $event.row.id } })"

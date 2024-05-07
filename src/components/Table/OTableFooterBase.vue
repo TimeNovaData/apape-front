@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="flex items-center justify-between w-full mt-12 table-footer-base md:gap-16 md:flex-col md:items-start md:mt-16">
+    class="flex items-center justify-between w-full mt-24 table-footer-base md:gap-16 md:flex-col md:items-start md:mt-16">
     <OButton
       v-if="downloadable"
       icon="svguse:/icons.svg#icon_excel"
