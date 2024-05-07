@@ -40,7 +40,7 @@
       {{ props.row.cidade }}
     </q-td>
     <q-td key="estado">
-      {{ props.row.estado }}
+      {{ props.row.estado_civil }}
     </q-td>
     <q-td key="pais">
       {{ props.row.pais }}
