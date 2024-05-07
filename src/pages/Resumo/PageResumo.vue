@@ -25,13 +25,14 @@
           <CardResumo
             v-for="item in dados"
             :key="item.id"
-            icon="svguse:/icons.svg#icon_money_circle"
-            :title="fMoney(item.value)"
+            :icon="`svguse:/icons.svg#${item.icon}`"
+            :title="item.value"
             :subtitle="item.label"
-            :color="item.color"
-            
-            />
+            :color="item.color" />
         </div>
+      </div>
+      <div class="mt-32">
+        <ChartResumo />
       </div>
     </q-card>
   </div>
@@ -39,68 +40,81 @@
 
 <script setup>
 import { ref } from 'vue'
-import GLOBAL from 'utils/GLOBAL';
+import ChartResumo from 'components/Chart/ChartResumo.vue'
+import GLOBAL from 'utils/GLOBAL'
 
 import CardResumo from 'components/Card/CardResumo.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 
-
-const {fMoney} = GLOBAL
+const { fMoney } = GLOBAL
 
 const dados = ref([
   {
     id: 0,
-    value: '249.60',
+    value: fMoney(249.60),
     label: 'Vendas brutas neste período',
     color: '#0073E5',
+    icon: 'icon-dollar-cash-circle'
   },
   {
     id: 1,
-    value: '249.60',
+    value: fMoney(35.66),
     label: 'Vendas líquidas neste período',
-    color: '#0073E5',
+    color: '#0022CC',
+    icon: 'icon-calendar-schedule-discount-sale'
   },
   {
     id: 2,
-    value: '249.60',
-    label: 'Vendas brutas neste período',
-    color: '#0073E5',
+    value: fMoney(249.60),
+    label: 'Vendas líquidas neste período',
+    color: '#4400CC',
+
+    icon: 'icon-filter-sort-style-3-3d-big'
   },
   {
     id: 3,
-    value: '249.60',
-    label: 'Vendas líquidas neste período',
-    color: '#0073E5',
+    value: fMoney(35.66),
+    label: 'Média diária de vendas líquidas',
+    color: '#8800CC',
+    icon: 'icon-calendar-schedule-discount-sale-1'
+
   },
   {
     id: 4,
-    value: '249.60',
-    label: 'Vendas brutas neste período',
-    color: '#0073E5',
+    value: 8,
+    label: 'Pedidos feitos',
+    color: '#596080',
+    icon: 'icon-bag-shopping-thumbs-up'
+
   },
   {
     id: 5,
-    value: '249.60',
-    label: 'Vendas líquidas neste período',
-    color: '#0073E5',
+    value: 7,
+    label: 'Itens comprados',
+    color: '#6C7080',
+    icon: 'icon-bag-shopping-cart-checkamrk'
+
   },
   {
     id: 6,
-    value: '249.60',
-    label: 'Vendas brutas neste período',
-    color: '#0073E5',
+    value: fMoney(0.00),
+    label: 'Reembolso de 0 pedido (0 item)',
+    color: '#800000',
+    icon: 'icon-dollar-payments-onversion'
   },
   {
     id: 7,
-    value: '249.60',
-    label: 'Vendas líquidas neste período',
-    color: '#0073E5',
+    value: fMoney(0.00),
+    label: 'Cobrado para o transporte',
+    color: '#008055',
+    icon: 'icon-truck-2'
   },
   {
     id: 8,
-    value: '249.60',
-    label: 'Vendas brutas neste período',
-    color: '#0073E5',
+    value: fMoney(149.70),
+    label: 'No valor dos cupons usados',
+    color: '#807500',
+    icon: 'icon-stickers-paper'
   },
 ])
 

@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="flex items-center justify-between w-full mt-12 table-footer-base md:gap-16 sm:flex-col md:items-start md:mt-16 md:!flex-wrap"
+    class="flex items-center justify-between w-full mt-24 table-footer-base md:gap-16 sm:flex-col md:items-start md:mt-16 md:!flex-wrap"
   >
     <div class="flex items-center">
       <OButton
@@ -45,8 +45,8 @@
         :disable="
           pagination.page === 1 || pagination.page === 0
         "
-        class="rounded-[21px] !min-w-[96px]"
-        secondary
+        class="rounded-[3px] !min-w-[96px]"
+        tertiary
         size="sm"
         @click="goTo(pagination.page= pagination.page - 1)"
       >
@@ -69,8 +69,8 @@
         :disable="
           pagination.page === pagesNumber || pagination.page === 0
         "
-        class="rounded-[21px] !min-w-[96px]"
-        secondary
+        class="rounded-[3px] !min-w-[96px]"
+        tertiary
         size="sm"
         @click="goTo(pagination.page= pagination.page + 1)"
       >
@@ -137,10 +137,10 @@ function goTo(page) {
       min-width: auto !important
       width: 2.25rem
       height: 2.25rem
-      border: 1px solid rgba(var(--neutral-100),0.1)
+
       font-size: .75rem
       margin: 0
-      border-radius: 50%
+      border-radius: 3px
       &:before
 
         box-shadow: initial !important

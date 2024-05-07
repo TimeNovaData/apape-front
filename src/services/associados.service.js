@@ -13,6 +13,13 @@ export function associadosService() {
     return apiUse.query(`${URLS.associados}${id}/`)
   }
 
+  async function getBancos() {
+    return apiUse.query(`${URLS.conta_bancaria}`)
+  }
+
+  async function getConvenios() {
+    return apiUse.query(`${URLS.convenios}`)
+  }
 
   function postDadosAssociados(data) {
     return apiUse.mutation(`${URLS.associados}`, 'POST', data)
@@ -27,6 +34,8 @@ export function associadosService() {
     getAssociado,
     postDadosAssociados,
     patchDadosAssociados,
+    getBancos,
+    getConvenios,
     ...api,
   }
 }

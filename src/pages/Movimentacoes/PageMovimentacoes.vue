@@ -15,6 +15,7 @@
           :count="count"
           :urls="`/payments/`"
           :scheme="scheme"
+          :show-download-button="false"
           :show-print-button="false"
           :show-import-button="false">
           <template #filtro>
@@ -32,7 +33,7 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 
-import FilterMovimentacoes from 'components/Filter/FilterMovimentacoes.vue';
+import FilterMovimentacoes from 'components/Filter/FilterMovimentacoes.vue'
 import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 import TrMovimentacoes from 'components/TR/TrMovimentacoes.vue'
