@@ -117,7 +117,7 @@
                 class="col-span-4"
                 size="lg" />
               <OInput
-                v-model="models.estado"
+                v-model="models.province"
                 label="Estado"
                 type="text"
                 class="col-span-4"
@@ -157,7 +157,7 @@
               />
 
               <OInputDateTime
-                :data="models.data_convenio"
+                :data="models.dt_conv_petros"
                 size="lg"
                 :label="`Data do convênio `"
                 :has-time="false"
@@ -204,7 +204,7 @@ const models = ref({
   telefone: '',
   sexo: '',
   nascimento: '',
-  data_convenio: '',
+  dt_conv_petros: '',
   convenio: '',
   cpf_cnpj: '',
   address: '',
@@ -213,7 +213,7 @@ const models = ref({
   complement: '',
   bairro: '',
   cidade: '',
-  estado: '',
+  province: '',
   pais: '',
   banco: '',
 })
@@ -240,14 +240,14 @@ watch(
     models.value.address_number = v.address_number
     models.value.complement = v.complement
     models.value.cidade = v.cidade
-    models.value.estado = v.estado
+    models.value.province = v.province
     models.value.pais = v.pais
     models.value.banco = {
       label: v.associados_aut_set[0]?.banco_name,
       value: v.associados_aut_set[0]?.id,
     }
     models.value.convenio = v.associados_aut_set[0]?.convenio
-    models.value.data_convenio = v.associados_aut_set[0]?.dt_conv_petros
+    models.value.dt_conv_petros = v.associados_aut_set[0]?.dt_conv_petros
 
     modelDefault = { ...models.value }
   },

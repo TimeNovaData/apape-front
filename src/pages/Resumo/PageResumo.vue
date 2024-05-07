@@ -28,10 +28,11 @@
             icon="svguse:/icons.svg#icon_money_circle"
             :title="fMoney(item.value)"
             :subtitle="item.label"
-            :color="item.color"
-            
-            />
+            :color="item.color" />
         </div>
+      </div>
+      <div class="mt-32">
+        <ChartResumo />
       </div>
     </q-card>
   </div>
@@ -39,13 +40,13 @@
 
 <script setup>
 import { ref } from 'vue'
-import GLOBAL from 'utils/GLOBAL';
+import ChartResumo from 'components/Chart/ChartResumo.vue'
+import GLOBAL from 'utils/GLOBAL'
 
 import CardResumo from 'components/Card/CardResumo.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 
-
-const {fMoney} = GLOBAL
+const { fMoney } = GLOBAL
 
 const dados = ref([
   {
