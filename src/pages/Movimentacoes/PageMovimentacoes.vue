@@ -17,7 +17,13 @@
           :scheme="scheme"
           :show-download-button="false"
           :show-print-button="false"
-          :show-import-button="false">
+          :show-import-button="false"
+          :filters="{
+            email,
+            nome,
+            status: status_pagamento,
+          }"
+          >
           <template #filtro>
             <FilterMovimentacoes ref="filterRef" @filter="doSearch" />
           </template>
@@ -33,74 +39,19 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
 
+import { storeToRefs } from 'pinia'
+import { useMovimentacoesStore } from 'stores/movimentacoes.store'
 import FilterMovimentacoes from 'components/Filter/FilterMovimentacoes.vue'
 import OTableServerSideBase from 'components/Table/OTableServerSideBase.vue'
 import TextIcon from 'components/Text/TextIcon.vue'
 import TrMovimentacoes from 'components/TR/TrMovimentacoes.vue'
 const tableRef = ref(null)
 
-const scheme = computed(() =>
-  columns.value
-    .filter((col) => !!col.label)
-    .map((col) => ({
-      field: col.field,
-      label: col.label,
-    }))
-)
-const pagination = reactive({
-  visible: [],
-  count: 0,
-  limit: 10,
-  offset: 0,
-})
 
-const { visible, count, limit, offset } = pagination
+const movimentacaoStore = useMovimentacoesStore()
 
-const columns = ref([
-  {
-    name: 'cliente',
-    required: true,
-    field: 'cliente',
-    label: 'Cliente',
-    align: 'left',
-  },
-  {
-    name: 'valor',
-    required: true,
-    field: 'valor',
-    label: 'Valor',
-    align: 'left',
-  },
-  {
-    name: 'descricao',
-    required: true,
-    field: 'descricao',
-    label: 'Descrição',
-    align: 'left',
-  },
-  {
-    name: 'forma_pagamento',
-    required: true,
-    field: 'forma_pagamento',
-    label: 'Forma de Pagamento',
-    align: 'left',
-  },
+const { columns, visible, limit, offset, count, scheme, email, nome, pagination, status_pagamento } = storeToRefs(movimentacaoStore)
 
-  {
-    name: 'status',
-    required: true,
-    field: 'status',
-    label: 'Status',
-    align: 'left',
-  },
-  {
-    name: 'data_vencimento',
-    required: true,
-    field: 'data_vencimento',
-    label: 'Data de Vencimento',
-    align: 'left',
-  },
-])
 function doSearch() {
   tableRef.value.requestServerInteraction()
 }

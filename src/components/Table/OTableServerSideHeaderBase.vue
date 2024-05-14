@@ -28,7 +28,7 @@
         v-model="model.rowsPerPage"
         class="w-72 h-40"
         size="md"
-        :options="[10, 20, 30, 50]"
+        :options="[1,10, 20, 30, 50]"
         @update:model-value="$emit('update', model)"
       />
       <span
