@@ -10,17 +10,21 @@
       @hide="onClose">
       <q-list class="w-[23.5rem] md:w-[20rem]">
         <q-form ref="form">
-          <OInput v-model="search.nome" label="Nome" class="w-full"    size="lg" />
-          <OInput v-model="search.email" label="Email" class="w-full mt-16"     size="lg" />
+          <OInput v-model="search.nome" label="Nome" class="w-full" size="lg" />
+          <OInput
+            v-model="search.email"
+            label="Email"
+            class="w-full mt-16"
+            size="lg" />
+          
           <OSelect
-          v-model="search.status_pagamento"
+            v-model="search.status_pagamento"
             class="w-full mt-16"
             size="lg"
             label="Status de pagamento"
             clearable
             multiple
-            :options="selectOptions.status_pagamento"
-            />
+            :options="selectOptions.status_pagamento" />
           <div class="flex items-center justify-end mt-24">
             <OButton
               secondary
@@ -64,14 +68,7 @@
 </template>
 
 <script setup>
-/**
- * @typedef {mport('utils/vendor/herbarium-api').ApiMedicoListClassificacaoEnum} ClassificacaoEnum
- * @typedef {mport('utils/vendor/herbarium-api').ApiMedicoListFrequenciaEnum} FrequenciaEnum
- * @typedef {mport('utils/vendor/herbarium-api').ApiMedicoListPotencialEnum} PotencialEnum
- */
 import { computed, reactive, ref, Teleport, toRefs, useAttrs } from 'vue'
-
-import { storeToRefs } from 'pinia'
 import { useMovimentacoesStore } from 'src/stores/movimentacoes.store'
 import OBadge from 'components/Badge/OBadge.vue'
 import OButton from 'components/Button/OButton.vue'
@@ -96,10 +93,6 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  selectOptions: {
-    type: Object,
-    default: () => ({}),
-  },
 })
 
 const attrs = useAttrs()
@@ -121,6 +114,13 @@ const isDirty = computed(
     email.value !== movimentacaoStore.email ||
     status_pagamento.value !== movimentacaoStore.status_pagamento
 )
+
+const selectOptions = ref({
+  status_pagamento: [
+    { label: 'Pendente', value: 'PENDING' },
+    { label: 'Pago', value: 'RECEIVED' },
+  ],
+})
 
 function onClose() {
   nome.value = movimentacaoStore.nome
