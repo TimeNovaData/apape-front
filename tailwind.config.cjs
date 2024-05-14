@@ -33,6 +33,9 @@ export const colors = {
 
   'alert-success-10': withOpacity('--alert-success-10'),
   'alert-success': withOpacity('--alert-success'),
+  'status-pending': withOpacity('--status-pending'),
+  'status-received': withOpacity('--status-received'),
+  'status-processing': withOpacity('--status-processing'),
 
   // DARK MODE -----------------------------------------------
   'd-neutral-40': withOpacity('--d-neutral-40'),
