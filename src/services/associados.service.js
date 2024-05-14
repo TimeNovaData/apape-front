@@ -28,12 +28,16 @@ export function associadosService() {
   function patchDadosAssociados(id, data) {
     return apiUse.mutation(`${URLS.associados}${id}/`, 'PATCH', data)
   }
+  function patchContaBancaria(id, data) {
+    return apiUse.mutation(`${URLS.conta_bancaria}${id}/`, 'PATCH', data)
+  }
 
   return {
     getAssociados,
     getAssociado,
     postDadosAssociados,
     patchDadosAssociados,
+    patchContaBancaria,
     getBancos,
     getConvenios,
     ...api,
