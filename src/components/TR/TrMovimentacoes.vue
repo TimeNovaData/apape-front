@@ -14,12 +14,10 @@
     </q-td>
     <q-td key="status" auto-width>
       <OBadge
-        :label="props.row.status ? props.row.status : 'N/A'"
+        :label="setTextStatus(props.row.status)"
         class="!rounded-[3px]"
-        :class="`text-${colorBadge(props.row.status)}`"
-        :style="`background-color: rgba(var(--${colorBadge(
-          props.row.status
-        )}), .10);`" />
+        :class="`${colorBadge(props.row.status)}`"
+         />
     </q-td>
 
     <q-td key="data_vencimento" auto-width>
@@ -45,10 +43,36 @@ const emits = defineEmits(['aprove', 'reject'])
 
 const colorBadge = (status) => {
   switch (status) {
-    case 'Pagamento Efetuado':
-      return 'primary-pure'
+    case 'RECEIVED':
+      return 'received'
+    case 'PENDING':
+      return 'pending'
     default:
-      return 'neutral-70'
+      return ''
+  }
+}
+
+const setTextStatus = (status) => {
+  switch (status) {
+    case 'RECEIVED':
+      return 'Pagamento Efetuado'
+    case 'PENDING':
+      return 'Pendente'
+    default:
+      return 'N/A'
   }
 }
 </script>
+
+
+<style scoped lang="scss">
+.pending{
+  color: rgba(var(--status-pending), 1);
+  background-color: rgba(var(--status-pending), .10);
+}
+.received{
+  color: rgba(var(--status-received), 1);
+  background-color: rgba(var(--status-received), .10);
+}
+
+</style>

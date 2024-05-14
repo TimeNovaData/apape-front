@@ -132,9 +132,9 @@
           </q-tab-panel>
           <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-24">
-       
+        
               <OSelect
-              v-model="models.banco"
+                v-model="models.banco"
                 label="Banco"
                 class="col-span-4"
                 size="lg"
@@ -142,8 +142,7 @@
                 emit-value
                 option-value="value"
                 option-label="label"
-                map-options
-              />
+                map-options />
               <OSelect
                 v-model="models.convenio"
                 label="Convênio"
@@ -153,8 +152,7 @@
                 emit-value
                 option-value="value"
                 option-label="label"
-                map-options
-              />
+                map-options />
 
               <OInputDateTime
                 :data="models.dt_conv_petros"
@@ -164,7 +162,9 @@
                 class="h-48 col-span-4"
                 :input-props="{
                   // rules: [(val) => !!val || 'Campo Obrigatorio'],
-                }" />
+                }" 
+                 @update:date="(v) => models.dt_conv_petros = v"
+                />
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -195,8 +195,13 @@ import OSelect from 'components/Select/OSelect.vue'
 const tab = ref('dados-pessoais')
 const { URLS } = api.defaults
 const route = useRoute()
-const { getAssociado, patchDadosAssociados, getBancos, getConvenios } =
-  associadosService()
+const {
+  getAssociado,
+  patchDadosAssociados,
+  getBancos,
+  getConvenios,
+  patchContaBancaria,
+} = associadosService()
 const camposAlterados = ref({})
 const models = ref({
   name: '',
@@ -278,13 +283,26 @@ async function updateAssociado() {
   const formData = new FormData()
 
   Object.entries(camposAlterados.value).forEach(([key, value]) => {
-    formData.append(key, value)
+    if (key !== 'banco' && key !== 'convenio' && key !== 'dt_conv_petros')
+      formData.append(key, value)
   })
 
   try {
     const _response = await patchDadosAssociados(id, {
       ...camposAlterados.value,
     })
+  
+    if (
+      camposAlterados.value.banco ||
+      camposAlterados.value.convenio ||
+      camposAlterados.value.dt_conv_petros
+    ) {
+      const response = await patchContaBancaria(models.value.banco.value, {
+        banco: models.value.banco.value,
+        convenio: models.value.convenio,
+        dt_conv_petros: models.value.dt_conv_petros,
+      })
+    }
 
     NotifySucess('Dados atualizados com sucesso!')
   } catch (error) {
