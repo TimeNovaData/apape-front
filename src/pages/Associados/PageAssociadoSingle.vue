@@ -132,27 +132,19 @@
           </q-tab-panel>
           <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-24">
-        
-              <OSelect
+              <OInput
                 v-model="models.banco"
                 label="Banco"
                 class="col-span-4"
-                size="lg"
-                :options="optBancos"
-                emit-value
-                option-value="value"
-                option-label="label"
-                map-options />
-              <OSelect
+                readonly
+                size="lg" />
+
+              <OInput
                 v-model="models.convenio"
                 label="Convênio"
                 class="col-span-4"
-                size="lg"
-                :options="optConvenios"
-                emit-value
-                option-value="value"
-                option-label="label"
-                map-options />
+                readonly
+                size="lg" />
 
               <OInputDateTime
                 :data="models.dt_conv_petros"
@@ -161,10 +153,9 @@
                 :has-time="false"
                 class="h-48 col-span-4"
                 :input-props="{
-                  // rules: [(val) => !!val || 'Campo Obrigatorio'],
-                }" 
-                 @update:date="(v) => models.dt_conv_petros = v"
-                />
+                  disable: true,
+                }"
+                @update:date="(v) => (models.dt_conv_petros = v)" />
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -185,7 +176,7 @@
 <script setup>
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, readonly, ref, watch } from 'vue'
 import { NotifyError, NotifySucess } from 'boot/Notify'
 import { useRoute } from 'vue-router'
 import OButton from 'components/Button/OButton.vue'
@@ -200,8 +191,9 @@ const {
   patchDadosAssociados,
   getBancos,
   getConvenios,
-  patchContaBancaria,
+  patchDadosBancarios,
 } = associadosService()
+
 const camposAlterados = ref({})
 const models = ref({
   name: '',
@@ -221,6 +213,7 @@ const models = ref({
   province: '',
   pais: '',
   banco: '',
+  autorizacao: '',
 })
 
 let modelDefault = {}
@@ -247,12 +240,10 @@ watch(
     models.value.cidade = v.cidade
     models.value.province = v.province
     models.value.pais = v.pais
-    models.value.banco = {
-      label: v.associados_aut_set[0]?.banco_name,
-      value: v.associados_aut_set[0]?.id,
-    }
-    models.value.convenio = v.associados_aut_set[0]?.convenio
-    models.value.dt_conv_petros = v.associados_aut_set[0]?.dt_conv_petros
+    models.value.banco = v.associados_aut_set[0]?.banco.bancos
+    models.value.autorizacao = v.associados_aut_set[0]?.id
+    models.value.convenio = v.associados_aut_set[0]?.convenios.nome
+    models.value.dt_conv_petros = v.associados_aut_set[0]?.convenios.dt_conv
 
     modelDefault = { ...models.value }
   },
@@ -291,16 +282,13 @@ async function updateAssociado() {
     const _response = await patchDadosAssociados(id, {
       ...camposAlterados.value,
     })
-  
     if (
       camposAlterados.value.banco ||
       camposAlterados.value.convenio ||
       camposAlterados.value.dt_conv_petros
     ) {
-      const response = await patchContaBancaria(models.value.banco.value, {
-        banco: models.value.banco.value,
-        convenio: models.value.convenio,
-        dt_conv_petros: models.value.dt_conv_petros,
+      const response = await patchDadosBancarios(models.value.autorizacao, {
+        ...camposAlterados.value,
       })
     }
 
@@ -339,9 +327,9 @@ const getBancosRequest = async () => {
 const getConveniosRequest = async () => {
   try {
     const response = await getConvenios()
-    optConvenios.value = response.map((item) => ({
-      label: item.convenio,
-      value: item.convenio,
+    optConvenios.value = response.results?.map((item) => ({
+      label: item.nome,
+      value: item.id,
     }))
   } catch (error) {
     console.log(error)
