@@ -32,6 +32,7 @@ const api = axios.create({
     movimentacoes: 'movimentacoes/',
     conta_bancaria: 'conta-bancaria/',
     convenios: 'convenio/',
+    autorizacao: 'autorizacao/',
   },
 })
 

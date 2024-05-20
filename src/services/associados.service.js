@@ -28,8 +28,12 @@ export function associadosService() {
   function patchDadosAssociados(id, data) {
     return apiUse.mutation(`${URLS.associados}${id}/`, 'PATCH', data)
   }
-  function patchContaBancaria(id, data) {
-    return apiUse.mutation(`${URLS.conta_bancaria}${id}/`, 'PATCH', data)
+  function patchDadosBancarios(id, data) {
+    return apiUse.mutation(`${URLS.autorizacao}${id}/`, 'PATCH', data)
+  }
+
+  function patchConvenio(id, data) {
+    return apiUse.mutation(`${URLS.convenios}${id}/`, 'PATCH', data)
   }
 
   return {
@@ -37,7 +41,8 @@ export function associadosService() {
     getAssociado,
     postDadosAssociados,
     patchDadosAssociados,
-    patchContaBancaria,
+    patchDadosBancarios,
+    patchConvenio,
     getBancos,
     getConvenios,
     ...api,
