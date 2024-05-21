@@ -53,11 +53,11 @@
                 label="Gênero"
                 class="col-span-6"
                 size="lg"
-                :options="[
-                  { label: 'Masculino', value: 'Masculino' },
-                  { label: 'Feminino', value: 'Feminino' },
-                  { label: 'Outro', value: 'Outro' },
-                ]" />
+                emit-value
+                map-options
+                input-value="value"
+                input-label="label"
+                :options="optGender" />
               <OInputDateTime
                 :data="models.nascimento"
                 size="lg"
@@ -176,7 +176,7 @@
 <script setup>
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
-import { computed, onMounted, readonly, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { NotifyError, NotifySucess } from 'boot/Notify'
 import { useRoute } from 'vue-router'
 import OButton from 'components/Button/OButton.vue'
@@ -224,6 +224,12 @@ const data = ref(null)
 
 const optBancos = ref([])
 
+const optGender = [
+  { label: 'Masculino', value: 'Masculino' },
+  { label: 'Feminino', value: 'Feminino' },
+  { label: 'Outro', value: 'Outro' },
+]
+
 const optConvenios = ref([])
 watch(
   () => data.value,
@@ -238,6 +244,7 @@ watch(
     models.value.address_number = v.address_number
     models.value.complement = v.complement
     models.value.cidade = v.cidade
+    models.value.sexo = optGender.find((item) => item.value === v.sexo)?.value
     models.value.province = v.province
     models.value.pais = v.pais
     models.value.banco = v.associados_aut_set[0]?.banco.bancos
@@ -282,16 +289,8 @@ async function updateAssociado() {
     const _response = await patchDadosAssociados(id, {
       ...camposAlterados.value,
     })
-    if (
-      camposAlterados.value.banco ||
-      camposAlterados.value.convenio ||
-      camposAlterados.value.dt_conv_petros
-    ) {
-      const response = await patchDadosBancarios(models.value.autorizacao, {
-        ...camposAlterados.value,
-      })
-    }
 
+    await getAssociadoRequest()
     NotifySucess('Dados atualizados com sucesso!')
   } catch (error) {
     NotifyError('Erro ao atualizar dados!')
