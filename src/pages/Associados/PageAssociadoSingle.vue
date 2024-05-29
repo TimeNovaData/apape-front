@@ -296,7 +296,7 @@ async function updateAssociado() {
   const formData = new FormData()
 
   Object.entries(camposAlterados.value).forEach(([key, value]) => {
-    debugger
+
     if (key !== 'banco' && key !== 'convenio' && key !== 'dt_conv_petros')
       if (key === 'nascimento') {
         value = FData(value, 'YYYY-MM-DD')
