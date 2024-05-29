@@ -2,7 +2,7 @@
   <div class="max-w-[1152px] mx-auto pt-48 pb-64 px-24">
     <q-card class="border-neutral-100/5 rounded" flat bordered>
       <q-card-section class="!p-24">
-        <h3 class="text-title-3">{{ data?.name }}</h3>
+        <h3 class="text-title-3">Novo Cadastro</h3>
       </q-card-section>
       <q-tabs
         v-model="tab"
@@ -19,78 +19,90 @@
           name="endereco"
           label="Endereço"
           class="bg-white rounded transition-all" />
-        <q-tab
-          name="detalhes-conta"
-          label="Detalhes da conta"
-          class="bg-white rounded transition-all" />
       </q-tabs>
-      <q-form @submit="updateAssociado">
+      <q-form @submit="handleCreateAssociado">
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-24">
               <OInput
                 v-model="models.name"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nome"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.matricula"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.email"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="E-mail"
                 type="email"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.telefone"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Telefone"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-6"
+                class="col-span-4"
                 :unmasked-value="true"
                 size="lg" />
               <OSelect
                 v-model="models.sexo"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Gênero"
-                class="col-span-6"
+                class="col-span-4"
                 size="lg"
                 emit-value
                 map-options
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
-   
               <OInputDateTime
                 :data="models.nascimento"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 size="lg"
                 label="Data de nascimento"
                 :has-time="false"
-                class="h-48 col-span-6"
+                class="h-48 col-span-4"
                 :input-props="{
-                  // rules: [(val) => !!val || 'Campo Obrigatorio'],
+                  rules: [(val) => !!val || 'Campo Obrigatorio'],
                 }"
                 @update:date="
-                  (v) => (models.nascimento = date.formatDate(v, 'YYYY-MM-DD'))
+                  (v) => (models.nascimento = FData(v, 'YYYY-MM-DD'))
                 " />
-
               <OInput
                 v-model="models.cpf_cnpj"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CPF"
                 class="col-span-6"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
+
+              <OSelect
+                v-model="tipo_beneficiario"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optTipoBeneficiario"
+                label="Tipo de Beneficiário"
+                class="col-span-6"
+                size="lg"
+                emit-value
+                map-options />
             </div>
           </q-tab-panel>
           <q-tab-panel name="endereco" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-24">
               <OInput
                 v-model="models.postal_code"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CEP"
                 type="text"
                 mask="#####-###"
@@ -98,24 +110,28 @@
                 size="lg" />
               <OInput
                 v-model="models.address"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Endereço"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.address_number"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Número"
-                type="number"
+                type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.complement"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Complemento"
                 type="text"
                 class="col-span-6"
                 size="lg" />
               <OInput
                 v-model="models.bairro"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
                 class="col-span-6"
@@ -123,61 +139,36 @@
 
               <OInput
                 v-model="models.cidade"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Cidade"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.estado"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Estado"
                 type="text"
                 class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.pais"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="País"
                 type="text"
                 class="col-span-4"
                 size="lg" />
             </div>
           </q-tab-panel>
-          <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
-            <div class="grid grid-cols-12 gap-24">
-              <OInput
-                v-model="models.banco"
-                label="Banco"
-                class="col-span-4"
-                readonly
-                size="lg" />
-
-              <OInput
-                v-model="models.convenio"
-                label="Convênio"
-                class="col-span-4"
-                readonly
-                size="lg" />
-
-              <OInputDateTime
-                :data="models.dt_conv_petros"
-                size="lg"
-                :label="`Data do convênio `"
-                :has-time="false"
-                class="h-48 col-span-4"
-                :input-props="{
-                  disable: true,
-                }"
-                @update:date="(v) => (models.dt_conv_petros = v)" />
-            </div>
-          </q-tab-panel>
         </q-tab-panels>
         <div class="flex items-center justify-end p-24 gap-14">
           <OButton label="Cancelar" secondary size="lg" to="/associados" />
           <OButton
-            label="Salvar alterações"
+            :disabled="disableButton"
+            label="Salvar"
             primary
             size="lg"
-            type="submit"
-            :disabled="!temCamposAlterados" />
+            type="submit" />
         </div>
       </q-form>
     </q-card>
@@ -188,51 +179,55 @@
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
 import { computed, onMounted, ref, watch } from 'vue'
-import {date} from 'quasar'
 import { NotifyError, NotifySucess } from 'boot/Notify'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OInputDateTime from 'components/Input/OInputDateTime.vue'
 import OSelect from 'components/Select/OSelect.vue'
 
-const { FData } = GLOBAL
 const tab = ref('dados-pessoais')
 const { URLS } = api.defaults
 const route = useRoute()
-const { getAssociado, patchDadosAssociados, getBancos, getConvenios } =
-  associadosService()
+const router = useRouter()
+const {
+  getAssociado,
+  patchDadosAssociados,
+  getBancos,
+  getConvenios,
+  postDadosAssociados,
+} = associadosService()
 
+const { FData } = GLOBAL
 const camposAlterados = ref({})
 const models = ref({
   name: '',
+  matricula: '',
   email: '',
   telefone: '',
   sexo: '',
-  matricula: '',
   nascimento: '',
-  dt_conv_petros: '',
-  postal_code: '',
-  convenio: '',
   cpf_cnpj: '',
   address: '',
-  cep: '',
+  postal_code: '',
   address_number: '',
   complement: '',
   bairro: '',
   cidade: '',
   estado: '',
   pais: '',
-  banco: '',
-  autorizacao: '',
+  aposentado: '',
+  pensionista: '',
 })
 
-let modelDefault = {}
+const modelDefault = {}
 
 const id = route.params.id
 
 const data = ref(null)
+
+const tipo_beneficiario = ref('')
 
 const optBancos = ref([])
 
@@ -242,84 +237,34 @@ const optGender = [
   { label: 'Outro', value: 'Outro' },
 ]
 
+const optTipoBeneficiario = [
+  { label: 'Pensionista', value: 'Pensionista' },
+  { label: 'Ativo', value: 'Ativo' },
+  { label: 'Aposentado', value: 'Aposentado' },
+]
+
 const optConvenios = ref([])
-watch(
-  () => data.value,
-  (v) => {
-    if (!v) return
-    models.value.name = v.name
-    models.value.email = v.email
-    models.value.cpf_cnpj = v.cpf_cnpj
-    models.value.telefone = v.phone
-    models.value.nascimento = v.nascimento
-    models.value.address = v.address
-    models.value.address_number = v.address_number
-    models.value.bairro = v.bairro
-    models.value.postal_code = v.postal_code
-    models.value.matricula = v.matricula
-    models.value.complement = v.complement
-    models.value.cidade = v.cidade
-    models.value.sexo = optGender.find((item) => item.value === v.sexo)?.value
-    models.value.estado = v.estado
-    models.value.pais = v.pais
-    models.value.banco = v.associados_aut_set[0]?.banco.bancos
-    models.value.autorizacao = v.associados_aut_set[0]?.id
-    models.value.convenio = v.associados_aut_set[0]?.convenios.nome
-    models.value.dt_conv_petros = v.associados_aut_set[0]?.convenios.dt_conv
 
-    modelDefault = { ...models.value }
-  },
-  {
-    immediate: true,
-    deep: true,
-  }
-)
+const disableButton = computed(() => {
+  return Object.values(models.value).some((item) => !item)
+})
 
-watch(
-  () => models.value,
-  (v) => {
-    camposAlterados.value = Object.keys(v).reduce((acc, key) => {
-      if (v[key] !== modelDefault[key]) {
-        acc[key] = v[key]
-      }
-      return acc
-    }, {})
-  },
-  { deep: true }
-)
-
-async function updateAssociado() {
-  if (Object.keys(camposAlterados.value).length === 0) {
-    NotifyError('Nenhum campo alterado!')
-    return
-  }
+async function handleCreateAssociado() {
   const formData = new FormData()
 
-  Object.entries(camposAlterados.value).forEach(([key, value]) => {
-
-    if (key !== 'banco' && key !== 'convenio' && key !== 'dt_conv_petros')
-      if (key === 'nascimento') {
-        value = FData(value, 'YYYY-MM-DD')
-      }
+  Object.entries(models.value).forEach(([key, value]) => {
     formData.append(key, value)
   })
 
   try {
-    const _response = await patchDadosAssociados(id, {
-      ...camposAlterados.value,
-    })
-
-    await getAssociadoRequest()
-    NotifySucess('Dados atualizados com sucesso!')
+    const _response = await postDadosAssociados(formData)
+    router.push({ name: 'home' })
+    NotifySucess('Associado adicionado com sucesso!')
   } catch (error) {
-    NotifyError('Erro ao atualizar dados!')
-    throw new Error(error)
+    NotifyError('Erro ao adicionar associado!')
+    console.log(error)
   }
 }
-
-const temCamposAlterados = computed(() => {
-  return Object.keys(camposAlterados.value).length > 0
-})
 
 const getAssociadoRequest = async () => {
   try {
@@ -353,6 +298,26 @@ const getConveniosRequest = async () => {
     console.log(error)
   }
 }
+
+watch(
+  () => tipo_beneficiario.value,
+  (v) => {
+    switch (v) {
+      case 'Aposentado':
+        models.value.aposentado = 'S'
+        models.value.pensionista = 'N'
+        break
+      case 'Pensionista':
+        models.value.aposentado = 'N'
+        models.value.pensionista = 'S'
+        break
+      case 'Participante':
+        models.value.aposentado = 'N'
+        models.value.pensionista = 'N'
+        break
+    }
+  }
+)
 
 const requests = async () => {
   await getAssociadoRequest()
