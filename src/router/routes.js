@@ -1,4 +1,5 @@
 import LayoutHome from 'layouts/LayoutHome.vue'
+import PageAssociadoCreate from 'pages/Associados/PageAssociadoCreate.vue'
 import PageAssociadoSingle from 'pages/Associados/PageAssociadoSingle.vue'
 
 import PageAssociados from 'pages/Associados/PageAssociados.vue'
@@ -41,6 +42,12 @@ const routes = [
         name: 'associado',
         path: '/associados/:id',
         component: PageAssociadoSingle,
+      },
+      {
+        alias: '/associados/adicionar',
+        name: 'associados-adicionar',
+        path: '/associados/adicionar',
+        component: PageAssociadoCreate,
       },
 
       {

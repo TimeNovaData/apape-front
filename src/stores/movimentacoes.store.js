@@ -29,10 +29,10 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
 
   const columns = ref([
     {
-      name: 'cliente',
+      name: 'associado',
       required: true,
-      field: 'cliente',
-      label: 'Cliente',
+      field: 'associado',
+      label: 'Associado',
       align: 'left',
     },
     {
