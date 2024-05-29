@@ -36,6 +36,7 @@ export const colors = {
   'status-pending': withOpacity('--status-pending'),
   'status-received': withOpacity('--status-received'),
   'status-processing': withOpacity('--status-processing'),
+  'status-pensionista': withOpacity('--status-pensionista'),
 
   // DARK MODE -----------------------------------------------
   'd-neutral-40': withOpacity('--d-neutral-40'),
