@@ -32,32 +32,33 @@
                 v-model="models.name"
                 label="Nome"
                 type="text"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg" />
               <OInput
                 v-model="models.matricula"
+                disable
                 label="Matrícula"
                 type="text"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg" />
               <OInput
                 v-model="models.email"
                 label="E-mail"
                 type="email"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg" />
               <OInput
                 v-model="models.telefone"
                 label="Telefone"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-6"
+                class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
               <OSelect
                 v-model="models.sexo"
                 label="Gênero"
-                class="col-span-6"
+                class="col-span-3"
                 size="lg"
                 emit-value
                 map-options
@@ -67,18 +68,27 @@
 
               <OInputDate
                 :data="models.nascimento"
-                label="Data Inicial"
-                class="col-span-6"
-                size="md"
+                label="Data de nascimento"
+                class="col-span-3"
+                size="lg"
                 @update:date="(v) => (models.nascimento = v)" />
 
               <OInput
                 v-model="models.cpf_cnpj"
                 label="CPF"
-                class="col-span-6"
+                class="col-span-3"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
+                <OSelect
+                v-model="tipo_beneficiario"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optTipoBeneficiario"
+                label="Tipo de Beneficiário"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
             </div>
           </q-tab-panel>
           <q-tab-panel name="endereco" class="!overflow-hidden !p-24">
@@ -217,6 +227,8 @@ const models = ref({
   pais: '',
   banco: '',
   autorizacao: '',
+  aposentado: '',
+  pensionista: '',
 })
 
 let modelDefault = {}
@@ -227,13 +239,21 @@ const data = ref(null)
 
 const optBancos = ref([])
 
+const tipo_beneficiario = ref('')
+
 const optGender = [
   { label: 'Masculino', value: 'Masculino' },
   { label: 'Feminino', value: 'Feminino' },
   { label: 'Outro', value: 'Outro' },
 ]
+const optTipoBeneficiario = [
+  { label: 'Pensionista', value: 'Pensionista' },
+  { label: 'Ativo', value: 'Ativo' },
+  { label: 'Aposentado', value: 'Aposentado' },
+]
 
 const optConvenios = ref([])
+
 watch(
   () => data.value,
   (v) => {
@@ -257,6 +277,8 @@ watch(
     models.value.autorizacao = v.associados_aut_set[0]?.id
     models.value.convenio = v.associados_aut_set[0]?.convenios.nome
     models.value.dt_conv_petros = v.associados_aut_set[0]?.convenios.dt_conv
+    models.value.aposentado = v.aposentado
+    models.value.pensionista = v.pensionista
 
     modelDefault = { ...models.value }
   },
@@ -277,6 +299,46 @@ watch(
     }, {})
   },
   { deep: true }
+)
+watch(
+  () => models.value,
+  (v) => {
+
+    const statusAConsiderar = ["S", "1", "true"].map(String);
+
+    if (statusAConsiderar.includes(v.aposentado.toString())) {
+      tipo_beneficiario.value = 'Aposentado';
+    } else if (statusAConsiderar.includes(v.pensionista.toString())) {
+      tipo_beneficiario.value = 'Pensionista';
+    } else {
+      tipo_beneficiario.value = 'Ativo';
+    }
+  },
+  {
+    deep: true
+  }
+);
+
+watch(
+  () => tipo_beneficiario.value,
+  (v) => {
+    switch (v) {
+      case 'Aposentado':
+        models.value.aposentado = 'S'
+        models.value.pensionista = 'N'
+        break
+      case 'Pensionista':
+        models.value.aposentado = 'N'
+        models.value.pensionista = 'S'
+        break
+      case 'Ativo':
+        models.value.aposentado = 'N'
+        models.value.pensionista = 'N'
+        break
+    }
+  },{
+    immediate: true
+  }
 )
 
 async function updateAssociado() {
