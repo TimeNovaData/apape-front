@@ -31,13 +31,7 @@
                 type="text"
                 class="col-span-4"
                 size="lg" />
-              <OInput
-                v-model="models.matricula"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Matrícula"
-                type="text"
-                class="col-span-4"
-                size="lg" />
+
               <OInput
                 v-model="models.email"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -58,7 +52,7 @@
                 v-model="models.sexo"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Gênero"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg"
                 emit-value
                 map-options
@@ -67,16 +61,16 @@
                 :options="optGender" />
               <OInputDate
                 :data="models.nascimento"
-                label="Data Inicial"
-                class="col-span-4"
-                size="md"
+                label="Data de nascimento"
+                class="col-span-3"
+                size="lg"
                 @update:date="(v) => (models.nascimento = v)" />
 
               <OInput
                 v-model="models.cpf_cnpj"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CPF"
-                class="col-span-6"
+                class="col-span-3"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
@@ -86,7 +80,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
                 label="Tipo de Beneficiário"
-                class="col-span-6"
+                class="col-span-3"
                 size="lg"
                 emit-value
                 map-options />
@@ -197,7 +191,6 @@ const { FData } = GLOBAL
 const camposAlterados = ref({})
 const models = ref({
   name: '',
-  matricula: '',
   email: '',
   telefone: '',
   sexo: '',
@@ -304,7 +297,7 @@ watch(
         models.value.aposentado = 'N'
         models.value.pensionista = 'S'
         break
-      case 'Participante':
+      case 'Ativo':
         models.value.aposentado = 'N'
         models.value.pensionista = 'N'
         break
