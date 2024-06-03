@@ -306,9 +306,9 @@ watch(
 
     const statusAConsiderar = ["S", "1", "true"].map(String);
 
-    if (statusAConsiderar.includes(v.aposentado.toString())) {
+    if (statusAConsiderar.includes(v.aposentado?.toString())) {
       tipo_beneficiario.value = 'Aposentado';
-    } else if (statusAConsiderar.includes(v.pensionista.toString())) {
+    } else if (statusAConsiderar.includes(v.pensionista?.toString())) {
       tipo_beneficiario.value = 'Pensionista';
     } else {
       tipo_beneficiario.value = 'Ativo';
