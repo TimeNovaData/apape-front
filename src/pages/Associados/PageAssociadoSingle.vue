@@ -64,19 +64,13 @@
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
-   
-              <OInputDateTime
+
+              <OInputDate
                 :data="models.nascimento"
-                size="lg"
-                label="Data de nascimento"
-                :has-time="false"
-                class="h-48 col-span-6"
-                :input-props="{
-                  // rules: [(val) => !!val || 'Campo Obrigatorio'],
-                }"
-                @update:date="
-                  (v) => (models.nascimento = date.formatDate(v, 'YYYY-MM-DD'))
-                " />
+                label="Data Inicial"
+                class="col-span-6"
+                size="md"
+                @update:date="(v) => (models.nascimento = v)" />
 
               <OInput
                 v-model="models.cpf_cnpj"
@@ -157,15 +151,12 @@
                 readonly
                 size="lg" />
 
-              <OInputDateTime
+              <OInputDate
                 :data="models.dt_conv_petros"
-                size="lg"
-                :label="`Data do convênio `"
-                :has-time="false"
-                class="h-48 col-span-4"
-                :input-props="{
-                  disable: true,
-                }"
+                disable
+                label="Data Inicial"
+                class="col-span-4"
+                size="md"
                 @update:date="(v) => (models.dt_conv_petros = v)" />
             </div>
           </q-tab-panel>
@@ -188,13 +179,13 @@
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
 import { computed, onMounted, ref, watch } from 'vue'
-import {date} from 'quasar'
+import { date } from 'quasar'
 import { NotifyError, NotifySucess } from 'boot/Notify'
 import { useRoute } from 'vue-router'
 import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
-import OInputDateTime from 'components/Input/OInputDateTime.vue'
+import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
 
 const { FData } = GLOBAL
@@ -296,10 +287,9 @@ async function updateAssociado() {
   const formData = new FormData()
 
   Object.entries(camposAlterados.value).forEach(([key, value]) => {
-
     if (key !== 'banco' && key !== 'convenio' && key !== 'dt_conv_petros')
       if (key === 'nascimento') {
-        value = FData(value, 'YYYY-MM-DD')
+        value = date.formatDate(value, 'YYYY-MM-DD')
       }
     formData.append(key, value)
   })
