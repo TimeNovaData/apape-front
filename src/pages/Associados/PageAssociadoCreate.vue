@@ -65,19 +65,13 @@
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
-              <OInputDateTime
+              <OInputDate
                 :data="models.nascimento"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                size="lg"
-                label="Data de nascimento"
-                :has-time="false"
-                class="h-48 col-span-4"
-                :input-props="{
-                  rules: [(val) => !!val || 'Campo Obrigatorio'],
-                }"
-                @update:date="
-                  (v) => (models.nascimento = FData(v, 'YYYY-MM-DD'))
-                " />
+                label="Data Inicial"
+                class="col-span-4"
+                size="md"
+                @update:date="(v) => (models.nascimento = v)" />
+
               <OInput
                 v-model="models.cpf_cnpj"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -184,7 +178,7 @@ import { useRoute, useRouter } from 'vue-router'
 import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
-import OInputDateTime from 'components/Input/OInputDateTime.vue'
+import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
 
 const tab = ref('dados-pessoais')
@@ -257,7 +251,6 @@ async function handleCreateAssociado() {
   })
 
   try {
-    const _response = await postDadosAssociados(formData)
     router.push({ name: 'home' })
     NotifySucess('Associado adicionado com sucesso!')
   } catch (error) {
