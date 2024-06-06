@@ -52,7 +52,7 @@
                 v-model="models.sexo"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Gênero"
-                class="col-span-3"
+                class="col-span-4"
                 size="lg"
                 emit-value
                 map-options
@@ -62,7 +62,7 @@
               <OInputDate
                 :data="models.nascimento"
                 label="Data de nascimento"
-                class="col-span-3"
+                class="col-span-4"
                 size="lg"
                 @update:date="(v) => (models.nascimento = v)" />
 
@@ -70,7 +70,7 @@
                 v-model="models.cpf_cnpj"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CPF"
-                class="col-span-3"
+                class="col-span-4"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
@@ -80,7 +80,25 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
                 label="Tipo de Beneficiário"
-                class="col-span-3"
+                class="col-span-4"
+                size="lg"
+                emit-value
+                map-options />
+              <OSelect
+                v-model="tipo_beneficiario"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optTipoCobranca"
+                label="Tipo de Cobrança"
+                class="col-span-4"
+                size="lg"
+                emit-value
+                map-options />
+              <OSelect
+                v-model="tipo_beneficiario"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optPeriodicidade"
+                label="Periodicidade"
+                class="col-span-4"
                 size="lg"
                 emit-value
                 map-options />
@@ -228,6 +246,46 @@ const optTipoBeneficiario = [
   { label: 'Pensionista', value: 'Pensionista' },
   { label: 'Ativo', value: 'Ativo' },
   { label: 'Aposentado', value: 'Aposentado' },
+]
+
+const optTipoCobranca = [
+  { label: 'Boleto', value: 'BOLETO' },
+  { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
+  { label: 'Débito em Conta', value: 'UNDEFINED' },
+
+]
+
+
+const optPeriodicidade = [
+    {
+      label: 'Semanalmente',
+      value: 'WEEKLY',
+    },
+    {
+      label: 'Quinzenal',
+      value: 'BIWEEKLY',
+    },
+    {
+      label: 'Mensalmente',
+      value: 'MONTHLY',
+    },
+    {
+      label: 'Bimensal',
+      value: 'BIMONTHLY',
+    },
+    {
+      label: 'Trimestral',
+      value: 'QUARTERLY',
+    },
+    {
+      label: 'Semi Anualmente',
+      value: 'SEMIANNUALLY',
+    },
+    {
+      label: 'Anual',
+      value: 'YEARLY',
+    },
+  
 ]
 
 const optConvenios = ref([])
