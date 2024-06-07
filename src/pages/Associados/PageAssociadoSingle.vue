@@ -293,7 +293,7 @@
             </div>
           </q-tab-panel>
           <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
-            <div class="grid grid-cols-12 gap-24">
+            <div class="grid grid-cols-12 gap-16">
               <OInput
                 v-model="models.banco.value"
                 label="Banco"
