@@ -55,9 +55,9 @@ export const useAssociadosStore = defineStore('associados', () => {
       align: 'left',
     },
     {
-      name: 'matricula_patrocinadora',
+      name: 'maticula_patrocinadora',
       required: true,
-      field: 'matricula_patrocinadora',
+      field: 'maticula_patrocinadora',
       label: 'Matrícula da Patrocinadora',
       align: 'left',
     },
@@ -215,7 +215,7 @@ export const useAssociadosStore = defineStore('associados', () => {
   //     required: true,
   //   },
 
-  //   matricula_patrocinadora: {
+  //   maticula_patrocinadora: {
   //     value: '00000000',
   //     required: true,
   //   },
@@ -350,7 +350,7 @@ export const useAssociadosStore = defineStore('associados', () => {
       value: '',
       required: true,
     },
-    matricula_patrocinadora: {
+    maticula_patrocinadora: {
       value: '',
       required: true,
     },

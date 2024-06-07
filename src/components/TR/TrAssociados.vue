@@ -15,7 +15,7 @@
     <q-td key="patrocinadora" class="capitalize">
       {{ props.row.patrocinadoras }}
     </q-td>
-    <q-td key="matricula_patrocinadora">
+    <q-td key="maticula_patrocinadora">
       {{ props.row.maticula_patrocinadora }}
     </q-td>
     <q-td key="email">

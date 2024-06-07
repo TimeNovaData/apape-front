@@ -187,7 +187,7 @@
                 emit-value
                 map-options />
               <OInput
-                v-model="models.matricula_patrocinadora.value"
+                v-model="models.maticula_patrocinadora.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Patrocinadora"
                 type="number"
@@ -419,11 +419,11 @@ watch(
     models.value.tel_residencial.value = v.tel_residencial
     models.value.tel_residencial_2.value = v.tel_residencial_2
     models.value.tel_trabalho.value = v.tel_trabalho
-    models.value.patrocinadores.value = v.patrocinadores
-    models.value.matricula_patrocinadora.value = v.matricula_patrocinadora
+    models.value.patrocinadores.value = v.patrocinadores.nome
+    models.value.maticula_patrocinadora.value = v.maticula_patrocinadora
     models.value.dt_patrocinadora.value = v.dt_patrocinadora
     models.value.formacao.value = v.formacao
-    models.value.mensalidade.value = v.mensalidade
+    models.value.mensalidade.value = v.mensalidade.nivel
     models.value.dt_cadastro.value = v.dt_cadastro
     if (modelDefault === undefined) {
       setModelDefault()
