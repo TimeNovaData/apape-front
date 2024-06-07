@@ -13,10 +13,10 @@
       {{ props.row.cpf_cnpj }}
     </q-td>
     <q-td key="patrocinadora" class="capitalize">
-      {{ props.row.associados_patroc_set[0]?.nome }}
+      {{ props.row.patrocinadoras }}
     </q-td>
     <q-td key="matricula_patrocinadora">
-      {{ props.row.associados_patroc_set[0]?.maticula_patrocinadora }}
+      {{ props.row.maticula_patrocinadora }}
     </q-td>
     <q-td key="email">
       {{ props.row.email }}
