@@ -175,7 +175,7 @@
                 emit-value
                 map-options />
               <OInput
-                v-model="models.matricula_patrocinadora.value"
+                v-model="models.maticula_patrocinadora.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Patrocinadora"
                 type="number"
