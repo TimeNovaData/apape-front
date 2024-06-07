@@ -21,6 +21,13 @@ export function associadosService() {
     return apiUse.query(`${URLS.convenios}`)
   }
 
+  async function getPatrocinadoras() {
+    return apiUse.query(`${URLS.patrocinadoras}`)
+  }
+  async function getMensalidades() {
+    return apiUse.query(`${URLS.mensalidades}`)
+  }
+
   function postDadosAssociados(data) {
     return apiUse.mutation(`${URLS.associados}`, 'POST', data)
   }
@@ -45,6 +52,8 @@ export function associadosService() {
     patchConvenio,
     getBancos,
     getConvenios,
+    getPatrocinadoras,
+    getMensalidades,
     ...api,
   }
 }

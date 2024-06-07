@@ -33,6 +33,8 @@ const api = axios.create({
     conta_bancaria: 'conta-bancaria/',
     convenios: 'convenio/',
     autorizacao: 'autorizacao/',
+    patrocinadoras: 'patrocinadores/',
+    mensalidades: 'mensalidade/',
   },
 })
 
