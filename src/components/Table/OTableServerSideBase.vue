@@ -188,7 +188,7 @@ async function onExportFn() {
       props.scheme
     )
   } catch (error) {
-    console.log(error)
+    console.log("msn", error)
   } finally {
     exporting.value = false
   }
@@ -249,7 +249,7 @@ async function onRequest() {
           search: searchFilter.value,
           limit: pagination.value.rowsPerPage,
           offset,
-          ordering: pagination.value.sortBy,
+          
         }),
       },
       true

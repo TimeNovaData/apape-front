@@ -365,13 +365,16 @@ const {
   optBancos,
   optConvenios,
   optPatrocinadoras,
-  optGender,
+  optGender, 
   optEstadoCivil,
   optMensalidades,
 } = storeToRefs(useAssociadosStore())
 
-const { optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
+const { optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao, } =
   useAssociadosStore()
+
+
+ 
 
 const camposAlterados = ref({})
 
@@ -590,6 +593,12 @@ const setModelDefault = () => {
   }, {})
 }
 
+const clearModels = () => {
+  Object.keys(models.value).forEach(key => {
+    models.value[key].value = ''
+  })
+}
+
 const requests = async () => {
   await getAssociadoRequest()
   await getBancosRequest()
@@ -599,8 +608,17 @@ const requests = async () => {
 }
 
 onMounted(async () => {
+  if (route.name === 'associados/adicionar') {
+    clearModels()
+  } else {
+    await getAssociado(id)
+  }
+  await requests()
+})
+
+onMounted(async () => {
   await requests()
 
-  // modelDefault.value = { ...models.value } // Inicializa modelDefault aqui
+  //modelDefault.value = { ...models.value } // Inicializa modelDefault aqui
 })
 </script>
