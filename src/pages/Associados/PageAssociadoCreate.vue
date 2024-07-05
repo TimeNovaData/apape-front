@@ -313,6 +313,7 @@ const router = useRouter()
 
 const {
   models,
+  emptyModels,
   optBancos,
   optConvenios,
   optPatrocinadoras,
@@ -408,6 +409,10 @@ const getMensalidadesRequest = async () => {
   }
 }
 
+const clearModels = () => {
+  models.value = emptyModels.value
+}
+
 watch(
   () => tipo_beneficiario.value,
   (v) => {
@@ -437,6 +442,7 @@ const requests = async () => {
 }
 
 onMounted(async () => {
+  clearModels()
   await requests()
 })
 </script>
