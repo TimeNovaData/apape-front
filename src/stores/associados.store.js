@@ -241,6 +241,158 @@ export const useAssociadosStore = defineStore('associados', () => {
   //     required: true,
   //   },
   // })
+
+  const emptyModels = ref({
+    name: {
+      value: '',
+      required: true,
+    },
+    email: {
+      value: '',
+      required: true,
+    },
+    sexo: {
+      value: '',
+      required: true,
+    },
+    nascimento: {
+      value: '',
+      required: true,
+    },
+    cpf_cnpj: {
+      value: '',
+      required: true,
+    },
+    address: {
+      value: '',
+      required: true,
+    },
+    postal_code: {
+      value: '',
+      required: true,
+    },
+    address_number: {
+      value: '',
+      required: true,
+    },
+    complement: {
+      value: '',
+      required: true,
+    },
+    bairro: {
+      value: '',
+      required: true,
+    },
+    cidade: {
+      value: '',
+      required: true,
+    },
+    estado: {
+      value: '',
+      required: true,
+    },
+    pais: {
+      value: '',
+      required: true,
+    },
+    aposentado: {
+      value: '',
+      required: true,
+    },
+    pensionista: {
+      value: '',
+      required: true,
+    },
+    naturalidade: {
+      value: '',
+      required: true,
+    },
+    nacionalidade: {
+      value: '',
+      required: true,
+    },
+    estado_civil: {
+      value: '',
+      required: true,
+    },
+    ident: {
+      value: '',
+      required: true,
+    },
+    orgao: {
+      value: '',
+      required: true,
+    },
+    tipo_cobranca: {
+      value: '',
+      required: true,
+    },
+    periodicidade: {
+      value: '',
+      required: true,
+    },
+    matricula_petros: {
+      value: '',
+      required: true,
+    },
+    tel_residencial: {
+      value: '',
+      required: true,
+    },
+    tel_residencial_2: {
+      value: '',
+      required: false,
+    },
+    tel_trabalho: {
+      value: '',
+      required: true,
+    },
+    patrocinadores: {
+      value: '',
+      required: true,
+    },
+    maticula_patrocinadora: {
+      value: '',
+      required: true,
+    },
+    dt_patrocinadora: {
+      value: '',
+      required: true,
+    },
+    formacao: {
+      value: '',
+      required: true,
+    },
+    mensalidade: {
+      value: '',
+      required: true,
+    },
+    matricula: {
+      value: '',
+      required: false,
+    },
+    dt_cadastro: {
+      value: '',
+      required: true,
+    },
+    banco: {
+      value: '',
+      required: false,
+    },
+    convenio: {
+      value: '',
+      required: false,
+    },
+    dt_conv_petros: {
+      value: '',
+      required: false,
+    },
+    autorizacao: {
+      value: '',
+      required: false,
+    },
+  })
+
   const models = ref({
     name: {
       value: '',
@@ -472,6 +624,7 @@ export const useAssociadosStore = defineStore('associados', () => {
     offset,
     scheme,
     search,
+    emptyModels,
     models,
     optBancos,
     optGender,
