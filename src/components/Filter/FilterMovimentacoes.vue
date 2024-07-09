@@ -10,12 +10,21 @@
       @hide="onClose">
       <q-list class="w-[23.5rem] md:w-[20rem]">
         <q-form ref="form">
-          <OInput v-model="search.nome" label="Nome" class="w-full" size="lg" />
+          <!-- <OInput v-model="search.nome" label="Nome" class="w-full" size="lg" /> -->
           <!-- <OInput
             v-model="search.email"
             label="Email"
             class="w-full mt-16"
             size="lg" /> -->
+
+          <OSelect
+            v-model="search.billing_type"
+            class="w-full mt-16"
+            size="lg"
+            label="Tipo de cobrança"
+            clearable
+            multiple
+            :options="selectOptions.billing_type" />
           
           <OSelect
             v-model="search.status_pagamento"
@@ -104,14 +113,16 @@ const search = reactive({
   nome: movimentacaoStore.nome,
   email: movimentacaoStore.email,
   status_pagamento: movimentacaoStore.status_pagamento,
+  billing_type: movimentacaoStore.billing_type,
 })
 
-const { nome, email, status_pagamento } = toRefs(search)
+const { nome, email, status_pagamento ,billing_type} = toRefs(search)
 
 const isDirty = computed(
   () =>
-    nome.value !== movimentacaoStore.nome ||
-    email.value !== movimentacaoStore.email ||
+    // nome.value !== movimentacaoStore.nome ||
+    // email.value !== movimentacaoStore.email ||
+    billing_type.value !== movimentacaoStore.billing_type ||
     status_pagamento.value !== movimentacaoStore.status_pagamento
 )
 
@@ -121,12 +132,22 @@ const selectOptions = ref({
     { label: 'Vencido', value: 'OVERDUE' },
     { label: 'Pago', value: 'RECEIVED' },
   ],
+  
+billing_type: [
+    { label: 'Boleto', value: 'BOLETO' },
+    { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
+    { label: 'Debito automático', value: 'DEBITO_AUTOMATICO' },
+    { label: 'AEPET BR', value: 'AEPET_BR' },
+    { label: 'AEPET MACAE', value: 'AEPET_MACAE' },
+    { label: 'Convênio PETROS', value: 'CONVENIO_PETROS' },
+  ],
 })
 
 function onClose() {
   nome.value = movimentacaoStore.nome
   email.value = movimentacaoStore.email
   status_pagamento.value = movimentacaoStore.status_pagamento
+  billing_type.value = movimentacaoStore.billing_type
   menuRef.value.hide()
 }
 
@@ -134,6 +155,7 @@ function onConfirm() {
   movimentacaoStore.nome = nome.value
   movimentacaoStore.email = email.value
   movimentacaoStore.status_pagamento = status_pagamento.value
+  movimentacaoStore.billing_type = billing_type.value
   emit('filter')
   menuRef.value.hide()
 }

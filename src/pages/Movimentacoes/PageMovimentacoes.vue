@@ -20,8 +20,8 @@
           :show-import-button="false"
           :filters="{
             // email,
-            nome,
-            tipo : tipo_boleto,
+            // nome,
+            billing_type : billing_type,
             status: status_pagamento,
           }"
           >
@@ -51,7 +51,7 @@ const tableRef = ref(null)
 
 const movimentacaoStore = useMovimentacoesStore()
 
-const { columns, visible, limit, offset, count, scheme, email, nome, pagination, status_pagamento } = storeToRefs(movimentacaoStore)
+const { columns, visible, limit, offset, count, scheme, email, nome, pagination, status_pagamento, billing_type } = storeToRefs(movimentacaoStore)
 
 function doSearch() {
   tableRef.value.requestServerInteraction()
