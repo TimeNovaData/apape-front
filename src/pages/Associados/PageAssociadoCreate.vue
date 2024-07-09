@@ -24,6 +24,11 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-16">
+
+
+              
+            
+
               <OInput
                 v-model="models.name.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -62,6 +67,10 @@
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
+
+              
+
+              
               <OSelect
                 v-model="models.estado_civil.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -107,17 +116,17 @@
               <OInput
                 v-model="models.tel_residencial.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Telefone Residencial"
+                label="Celular 1"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.tel_residencial_2.value"
-                label="Telefone Residencial 2"
+                label="Celular 2"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
@@ -130,11 +139,11 @@
                 mask="###.###.###-##"
                 size="lg" />
 
-              <OSelect
-                v-model="tipo_beneficiario"
+                <OSelect
+                v-model="models.status.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
-                label="Tipo de Beneficiário"
+                label="Status do Beneficiário"
                 class="col-span-3"
                 size="lg"
                 emit-value
@@ -194,15 +203,16 @@
                 size="lg"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
 
-              <OSelect
+
+              <OInput
                 v-model="models.formacao.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optFormacao"
                 label="Formação"
-                class="col-span-4"
-                size="lg"
-                emit-value
-                map-options />
+                type="text"
+                class="col-span-3"
+                size="lg" />
+
+              
               <OSelect
                 v-model="models.mensalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -250,7 +260,7 @@
                 size="lg" />
 
               <OInput
-                v-model="models.bairro.value"
+                v-model="models.province.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
@@ -332,6 +342,10 @@ const emptyModels = {
     value: '',
     required: true,
   },
+  status: {
+    value: '',
+    required: true,
+  },
   address: {
     value: '',
     required: true,
@@ -348,7 +362,7 @@ const emptyModels = {
     value: '',
     required: true,
   },
-  bairro: {
+  province: {
     value: '',
     required: true,
   },
@@ -366,11 +380,11 @@ const emptyModels = {
   },
   aposentado: {
     value: '',
-    required: true,
+    required: false,
   },
   pensionista: {
     value: '',
-    required: true,
+    required: false,
   },
   naturalidade: {
     value: '',
@@ -467,12 +481,15 @@ const {
   optBancos,
   optConvenios,
   optPatrocinadoras,
-  optGender,
-  optEstadoCivil,
+  
+  
   optMensalidades,
 } = storeToRefs(useAssociadosStore())
 
-const { optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
+
+
+
+const {optGender, optEstadoCivil, optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
   useAssociadosStore()
 
 const {
@@ -563,25 +580,32 @@ const clearModels = () => {
   models.value = { ...emptyModels }
 }
 
-watch(
-  () => tipo_beneficiario.value,
-  (v) => {
-    switch (v) {
-      case 'Aposentado':
-        models.value.aposentado.value = 'S'
-        models.value.pensionista.value = 'N'
-        break
-      case 'Pensionista':
-        models.value.aposentado.value = 'N'
-        models.value.pensionista.value = 'S'
-        break
-      case 'Ativo':
-        models.value.aposentado.value = 'N'
-        models.value.pensionista.value = 'N'
-        break
-    }
+console.log('aaaaaaaaaaaaa',optEstadoCivil)
+watch(()=>optEstadoCivil,
+  (v) =>{
+    console.log('opa', v)
   }
 )
+
+// watch(
+//   () => tipo_beneficiario.value,
+//   (v) => {
+//     switch (v) {
+//       case 'Aposentado':
+//         models.value.aposentado.value = 'S'
+//         models.value.pensionista.value = 'N'
+//         break
+//       case 'Pensionista':
+//         models.value.aposentado.value = 'N'
+//         models.value.pensionista.value = 'S'
+//         break
+//       case 'Ativo':
+//         models.value.aposentado.value = 'N'
+//         models.value.pensionista.value = 'N'
+//         break
+//     }
+//   }
+// )
 
 const requests = async () => {
   await getBancosRequest()

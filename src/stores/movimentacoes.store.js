@@ -42,13 +42,13 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       label: 'Valor',
       align: 'left',
     },
-    {
-      name: 'descricao',
-      required: true,
-      field: 'descricao',
-      label: 'Descrição',
-      align: 'left',
-    },
+    // {
+    //   name: 'descricao',
+    //   required: true,
+    //   field: 'descricao',
+    //   label: 'Descrição',
+    //   align: 'left',
+    // },
     {
       name: 'forma_pagamento',
       required: true,

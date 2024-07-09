@@ -12,20 +12,21 @@
           <p class="text-caps-3 !font-normal text-neutral-70">Visualizando:</p>
 
           <q-tabs v-model="filtroVisualizacao">
-            <q-tab name="ultimos-7-dias" label="Últimos 7 dias" class="mr-8" />
-            <q-tab name="este-mes" label=" Este mês" class="mr-8" />
-            <q-tab name="mes-passado" label=" Mês passado" class="mr-8" />
-            <q-tab name="ano" label=" Ano" />
+            <q-tab name="filtro_semana" label="Últimos 7 dias" class="mr-8" />
+            <q-tab name="filtro_mes" label=" Este mês" class="mr-8" />
+            <q-tab name="filtro_mes_passado" label=" Mês passado" class="mr-8" />
+            <q-tab name="filtro_ano" label=" Ano" />
           </q-tabs>
         </div>
       </div>
 
       <div class="mt-24">
         <div class="grid grid-cols-5 gap-16">
+          <!-- :icon="`svguse:/icons.svg#${item.icon}`" -->
           <CardResumo
-            v-for="item in dados"
+            v-for="item in dadosFaturamento"
             :key="item.id"
-            :icon="`svguse:/icons.svg#${item.icon}`"
+            :icon="`${item.icon}`"
             :title="item.value"
             :subtitle="item.label"
             :color="item.color" />
@@ -39,86 +40,124 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import ChartResumo from 'components/Chart/ChartResumo.vue'
-import GLOBAL from 'utils/GLOBAL'
+  import { ref , onMounted, watch} from 'vue'
+  import ChartResumo from 'components/Chart/ChartResumo.vue'
+  import GLOBAL from 'utils/GLOBAL'
 
-import CardResumo from 'components/Card/CardResumo.vue'
-import TextIcon from 'components/Text/TextIcon.vue'
+  import CardResumo from 'components/Card/CardResumo.vue'
+  import TextIcon from 'components/Text/TextIcon.vue'
+  import { paymentsService } from 'src/services/payments.service'
 
-const { fMoney } = GLOBAL
+  const { getPayments, getPaymentsFaturamento,getPaymentsFiltrado} = paymentsService()
+  const { fMoney } = GLOBAL
+  const dadosFaturamento = ref([
+    {
+      id: 0,
+      value: '',
+      label: 'Previsto',
+      color: '#FF9A0A',
+      icon: 'attach_money'
+    },
+    {
+      id: 1,
+      value: '',
+      label: 'Confirmado',
+      color: '#001074',
+      icon: 'check'
+    },
+    {
+      id: 2,
+      value: '',
+      label: 'Recebido',
+      color: '#00D071',
 
-const dados = ref([
-  {
-    id: 0,
-    value: fMoney(249.60),
-    label: 'Vendas brutas neste período',
-    color: '#0073E5',
-    icon: 'icon-dollar-cash-circle'
-  },
-  {
-    id: 1,
-    value: fMoney(35.66),
-    label: 'Vendas líquidas neste período',
-    color: '#0022CC',
-    icon: 'icon-calendar-schedule-discount-sale'
-  },
-  {
-    id: 2,
-    value: fMoney(249.60),
-    label: 'Vendas líquidas neste período',
-    color: '#4400CC',
+      icon: 'payments'
+    },
+  ])
+  const dados = ref([
+   
+    // {
+    //   id: 3,
+    //   value: fMoney(35.66),
+    //   label: 'Média diária de vendas líquidas',
+    //   color: '#8800CC',
+    //   icon: 'icon-calendar-schedule-discount-sale-1'
 
-    icon: 'icon-filter-sort-style-3-3d-big'
-  },
-  {
-    id: 3,
-    value: fMoney(35.66),
-    label: 'Média diária de vendas líquidas',
-    color: '#8800CC',
-    icon: 'icon-calendar-schedule-discount-sale-1'
+    // },
+    // {
+    //   id: 4,
+    //   value: 8,
+    //   label: 'Pedidos feitos',
+    //   color: '#596080',
+    //   icon: 'icon-bag-shopping-thumbs-up'
 
-  },
-  {
-    id: 4,
-    value: 8,
-    label: 'Pedidos feitos',
-    color: '#596080',
-    icon: 'icon-bag-shopping-thumbs-up'
+    // },
+    // {
+    //   id: 5,
+    //   value: 7,
+    //   label: 'Itens comprados',
+    //   color: '#6C7080',
+    //   icon: 'icon-bag-shopping-cart-checkamrk'
 
-  },
-  {
-    id: 5,
-    value: 7,
-    label: 'Itens comprados',
-    color: '#6C7080',
-    icon: 'icon-bag-shopping-cart-checkamrk'
+    // },
+    // {
+    //   id: 6,
+    //   value: fMoney(0.00),
+    //   label: 'Reembolso de 0 pedido (0 item)',
+    //   color: '#800000',
+    //   icon: 'icon-dollar-payments-onversion'
+    // },
+    // {
+    //   id: 7,
+    //   value: fMoney(0.00),
+    //   label: 'Cobrado para o transporte',
+    //   color: '#008055',
+    //   icon: 'icon-truck-2'
+    // },
+    // {
+    //   id: 8,
+    //   value: fMoney(149.70),
+    //   label: 'No valor dos cupons usados',
+    //   color: '#807500',
+    //   icon: 'icon-stickers-paper'
+    // },
+  ])
+  const filtroVisualizacao = ref('filtro_semana')
 
-  },
-  {
-    id: 6,
-    value: fMoney(0.00),
-    label: 'Reembolso de 0 pedido (0 item)',
-    color: '#800000',
-    icon: 'icon-dollar-payments-onversion'
-  },
-  {
-    id: 7,
-    value: fMoney(0.00),
-    label: 'Cobrado para o transporte',
-    color: '#008055',
-    icon: 'icon-truck-2'
-  },
-  {
-    id: 8,
-    value: fMoney(149.70),
-    label: 'No valor dos cupons usados',
-    color: '#807500',
-    icon: 'icon-stickers-paper'
-  },
-])
 
-const filtroVisualizacao = ref('ultimos-7-dias')
+
+  function setFaturamentoDados(dados){
+    dadosFaturamento.value[0].value =  fMoney(dados.filtro_faturamento_previsto)
+    dadosFaturamento.value[1].value =  fMoney(dados.filtro_faturamento_confirmado)
+    dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamneto_recebido)
+  }
+
+  
+
+  const requests = async () => {
+    // const payments = await getPayments()
+    const paymentsFiltrado = await getPaymentsFiltrado(filtroVisualizacao.value)
+    if(paymentsFiltrado){
+      setFaturamentoDados(paymentsFiltrado)
+    }
+  }
+
+  watch(() => filtroVisualizacao.value, 
+  async (val) => {
+    const paymentsFiltrado  = await getPaymentsFiltrado(val)
+    setFaturamentoDados(paymentsFiltrado)
+})
+
+  // watch(
+  //   ()=>  filtroVisualizacao.value,
+  //   (v)=>{
+  //     console.log(v)
+  //   }
+  // )
+
+  onMounted(async () =>{  
+    await requests()  
+  })
 </script>
 
 <style lang="sass" scoped>

@@ -57,8 +57,10 @@
                 type="text"
                 class="col-span-3"
                 size="lg" />
+
+              
               <OInputDate
-                :data-associado="models.nascimento.value"
+                :data="models.nascimento.value"
                 label="Data de nascimento"
                 class="col-span-3"
                 size="lg"
@@ -143,32 +145,16 @@
                 size="lg" />
 
               <OSelect
-                v-model="tipo_beneficiario"
+                v-model="models.status.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
-                label="Tipo de Beneficiário"
+                label="Status do Beneficiário"
                 class="col-span-3"
                 size="lg"
                 emit-value
                 map-options />
-              <OSelect
-                v-model="models.tipo_cobranca.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optTipoCobranca"
-                label="Tipo de Cobrança"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
-              <OSelect
-                v-model="models.periodicidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optPeriodicidade"
-                label="Periodicidade"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
+             
+            
               <OInput
                 v-model="models.matricula_petros.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -177,22 +163,7 @@
                 class="col-span-3"
                 size="lg" />
 
-              <OSelect
-                v-model="models.patrocinadores.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optPatrocinadoras"
-                label="Patrocinadora"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
-              <OInput
-                v-model="models.maticula_patrocinadora.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Matrícula Patrocinadora"
-                type="number"
-                class="col-span-3"
-                size="lg" />
+            
               <OInputDate
                 :data="models.dt_patrocinadora.value"
                 label="Data Patrocinadora"
@@ -206,7 +177,7 @@
                 size="lg"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
 
-              <OSelect
+              <!-- <OSelect
                 v-model="models.formacao.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optFormacao"
@@ -214,16 +185,16 @@
                 class="col-span-3"
                 size="lg"
                 emit-value
-                map-options />
-              <OSelect
-                v-model="models.mensalidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optMensalidades"
-                label="Mensalidade"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
+                map-options /> -->
+                <OInput
+                  v-model="models.formacao.value"                 
+                  label="Formação"
+                  type="text"
+                  class="col-span-3"
+                  size="lg"
+                />
+
+            
             </div>
           </q-tab-panel>
 
@@ -262,7 +233,7 @@
                 size="lg" />
 
               <OInput
-                v-model="models.bairro.value"
+                v-model="models.province.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
@@ -294,7 +265,7 @@
           </q-tab-panel>
           <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-16">
-              <OInput
+              <!-- <OInput
                 v-model="models.banco.value"
                 label="Banco"
                 class="col-span-4"
@@ -314,7 +285,56 @@
                 label="Data Inicial"
                 class="col-span-4"
                 size="md"
-                @update:date="(v) => (models.dt_conv_petros = v)" />
+                @update:date="(v) => (models.dt_conv_petros = v)" /> -->
+
+                <OSelect
+                v-model="models.tipo_cobranca.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optTipoCobranca"
+                label="Tipo de Cobrança"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+                <OSelect
+                v-model="models.mensalidade.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optMensalidades"
+                label="Mensalidade"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+
+                <OSelect
+                v-model="models.periodicidade.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optPeriodicidade"
+                label="Periodicidade"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+
+                <OSelect
+                v-model="models.patrocinadores.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optPatrocinadoras"
+                label="Patrocinadora"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+
+                  
+              <OInput
+                v-model="models.maticula_patrocinadora.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                label="Matrícula Patrocinadora"
+                type="number"
+                class="col-span-3"
+                size="lg" />
+
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -365,12 +385,12 @@ const {
   optBancos,
   optConvenios,
   optPatrocinadoras,
-  optGender,
-  optEstadoCivil,
+  
   optMensalidades,
 } = storeToRefs(useAssociadosStore())
 
-const { optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
+const {optGender,
+  optEstadoCivil, optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
   useAssociadosStore()
 
 const camposAlterados = ref({})
@@ -390,10 +410,11 @@ watch(
     models.value.name.value = v.name
     models.value.email.value = v.email
     models.value.cpf_cnpj.value = v.cpf_cnpj
+    models.value.status.value = v.status
     models.value.nascimento.value = v.nascimento
     models.value.address.value = v.address
     models.value.address_number.value = v.address_number
-    models.value.bairro.value = v.bairro
+    models.value.province.value = v.province
     models.value.postal_code.value = v.postal_code
     models.value.matricula.value = v.matricula
     models.value.complement.value = v.complement
@@ -439,7 +460,7 @@ watch(
   () => models.value,
   (v) => {
     camposAlterados.value = Object.keys(v)?.reduce((acc, key) => {
-      console.log(v[key].value, modelDefault[key].value)
+      // console.log(v[key].value, modelDefault[key].value)
       if (v[key].value !== modelDefault[key].value) {
         acc[key] = v[key].value
       }
@@ -448,23 +469,23 @@ watch(
   },
   { deep: true }
 )
-watch(
-  () => models.value,
-  (v) => {
-    const statusAConsiderar = ['S', '1', 'true'].map(String)
+// watch(
+//   () => models.value,
+//   (v) => {
+//     const statusAConsiderar = ['S', '1', 'true'].map(String)
 
-    if (statusAConsiderar.includes(v.aposentado.value?.toString())) {
-      tipo_beneficiario.value = 'Aposentado'
-    } else if (statusAConsiderar.includes(v.pensionista.value?.toString())) {
-      tipo_beneficiario.value = 'Pensionista'
-    } else {
-      tipo_beneficiario.value = 'Ativo'
-    }
-  },
-  {
-    deep: true,
-  }
-)
+//     if (statusAConsiderar.includes(v.aposentado.value?.toString())) {
+//       tipo_beneficiario.value = 'Aposentado'
+//     } else if (statusAConsiderar.includes(v.pensionista.value?.toString())) {
+//       tipo_beneficiario.value = 'Pensionista'
+//     } else {
+//       tipo_beneficiario.value = 'Ativo'
+//     }
+//   },
+//   {
+//     deep: true,
+//   }
+// )
 
 watch(
   () => tipo_beneficiario.value,
@@ -483,6 +504,16 @@ watch(
         models.value.pensionista.value = 'N'
         break
     }
+  },
+  {
+    immediate: true,
+  }
+)
+watch(
+  () => models.value.name.value,
+  (v) => {
+    console.log(v?.name)
+    document.title =  `APAPE - ${v}`
   },
   {
     immediate: true,
