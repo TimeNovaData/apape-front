@@ -29,7 +29,7 @@
       <OBadge
         :label="props.row.status"
         class="!rounded-[3px]"
-        :class="`cor-${props.row.status}`" />
+        :class="`cor-${props.row.status?.toLowerCase()}`" />
         <!-- :class="`text-${colorBadge}`" -->
         <!-- :style="`background-color: rgba(var(--${colorBadge}), .10);` -->
     </q-td>
@@ -77,23 +77,23 @@ const tipoBeneficiario = computed(() => {
 
 </script>
 <style scoped lang="scss">
-.cor-Aposentado{
+.cor-aposentado{
   color: rgba(102, 205, 170, 1);
   background-color: rgba(102, 205, 170, .10);
 }
-.cor-Falecido{
+.cor-falecido{
   color: rgba(139, 0, 0, 1);
   background-color: rgba(139, 0, 0, .10);
 }
-.cor-Pensionista{
+.cor-pensionista{
   color: rgba(65, 105, 225, 1);
   background-color: rgba(65, 105, 225, .10);
 }
-.cor-Desfiliado{
+.cor-desfiliado{
   color: rgba(169, 169, 169, 1);
   background-color: rgba(169, 169, 169, .10);
 }
-.cor-Ativo{
+.cor-ativo{
   color: rgba(34, 139, 34, 1);
   background-color: rgba(34, 139, 34, .10);
 }

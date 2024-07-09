@@ -3,12 +3,13 @@ import { defineStore } from 'pinia'
 
 export const useMovimentacoesStore = defineStore('movimentacoes', () => {
   const search = reactive({
-    nome: '',
-    email: '',
+    // nome: '',
+    // email: '',
     status_pagamento: null,
+    billing_type: null,
   })
 
-  const { nome, email, status_pagamento } = toRefs(search)
+  const { nome, email, status_pagamento, billing_type } = toRefs(search)
 
   const scheme = computed(() =>
     columns.value
@@ -77,6 +78,7 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
     nome,
     email,
     status_pagamento,
+    billing_type,
     pagination,
     columns,
     visible,

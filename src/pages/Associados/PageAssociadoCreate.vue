@@ -109,7 +109,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Telefone Trabalho"
                 type="text"
-                mask="(##) #####-####"
+                mask="(##) ####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />

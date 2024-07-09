@@ -420,7 +420,12 @@ export const useAssociadosStore = defineStore('associados', () => {
   const optTipoCobranca = [
     { label: 'Boleto', value: 'BOLETO' },
     { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
-    { label: 'Débito em Conta', value: 'UNDEFINED' },
+    { label: 'Debito automático', value: 'DEBITO_AUTOMATICO' },
+    { label: 'AEPET BR', value: 'AEPET_BR' },
+    { label: 'AEPET MACAE', value: 'AEPET_MACAE' },
+    { label: 'Convênio PETROS', value: 'CONVENIO_PETROS' },
+    // { label: 'Débito em Conta', value: 'UNDEFINED' },
+    // { label: 'PIX', value: 'PIX' },
   ]
 
   const optPeriodicidade = [
