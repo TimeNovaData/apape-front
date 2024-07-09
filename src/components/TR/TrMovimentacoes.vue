@@ -10,7 +10,8 @@
       {{ props.row.description }}
     </q-td> -->
     <q-td key="forma_pagamento">
-      {{ props.row.billing_type }}
+      {{setPaymentText(props.row.billing_type) }}
+    
     </q-td>
     <q-td key="status" auto-width>
       <OBadge
@@ -54,6 +55,26 @@ const colorBadge = (status) => {
   }
 }
 
+const setPaymentText = (payment) =>{
+
+
+  switch (payment) {
+    case 'BOLETO':
+      return 'Boleto'
+    case 'CREDIT_CARD':
+      return 'Cartão de Crédito'
+    case 'DEBITO_AUTOMATICO':
+      return 'Debito automático'
+    case 'AEPET_BR':
+      return 'AEPET BR'
+    case 'AEPET_MACAE':
+      return 'AEPET MACAE'
+    case 'CONVENIO_PETROS':
+      return 'Convênio PETROS'
+    default:
+      return ''
+  }
+}
 const setTextStatus = (status) => {
   switch (status) {
     case 'RECEIVED':
