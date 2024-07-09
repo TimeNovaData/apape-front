@@ -24,6 +24,11 @@
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-16">
+
+
+              
+            
+
               <OInput
                 v-model="models.name.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -62,6 +67,10 @@
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
+
+              
+
+              
               <OSelect
                 v-model="models.estado_civil.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -107,17 +116,17 @@
               <OInput
                 v-model="models.tel_residencial.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Telefone Residencial"
+                label="Celular 1"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.tel_residencial_2.value"
-                label="Telefone Residencial 2"
+                label="Celular 2"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
@@ -130,11 +139,11 @@
                 mask="###.###.###-##"
                 size="lg" />
 
-              <OSelect
-                v-model="tipo_beneficiario"
+                <OSelect
+                v-model="models.status.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
-                label="Tipo de Beneficiário"
+                label="Status do Beneficiário"
                 class="col-span-3"
                 size="lg"
                 emit-value
@@ -194,15 +203,16 @@
                 size="lg"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
 
-              <OSelect
+
+              <OInput
                 v-model="models.formacao.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optFormacao"
                 label="Formação"
-                class="col-span-4"
-                size="lg"
-                emit-value
-                map-options />
+                type="text"
+                class="col-span-3"
+                size="lg" />
+
+              
               <OSelect
                 v-model="models.mensalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -250,7 +260,7 @@
                 size="lg" />
 
               <OInput
-                v-model="models.bairro.value"
+                v-model="models.province.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
@@ -298,7 +308,7 @@
 <script setup>
 import { api } from 'boot/axios'
 import { associadosService } from 'src/services/associados.service'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeMount, onMounted, ref, watch } from 'vue'
 import { NotifyError, NotifySucess } from 'boot/Notify'
 import { storeToRefs } from 'pinia'
 import { useAssociadosStore } from 'stores/associados.store'
@@ -311,18 +321,175 @@ import OSelect from 'components/Select/OSelect.vue'
 const tab = ref('dados-pessoais')
 const router = useRouter()
 
+const emptyModels = {
+  name: {
+    value: '',
+    required: true,
+  },
+  email: {
+    value: '',
+    required: true,
+  },
+  sexo: {
+    value: '',
+    required: true,
+  },
+  nascimento: {
+    value: '',
+    required: true,
+  },
+  cpf_cnpj: {
+    value: '',
+    required: true,
+  },
+  status: {
+    value: '',
+    required: true,
+  },
+  address: {
+    value: '',
+    required: true,
+  },
+  postal_code: {
+    value: '',
+    required: true,
+  },
+  address_number: {
+    value: '',
+    required: true,
+  },
+  complement: {
+    value: '',
+    required: true,
+  },
+  province: {
+    value: '',
+    required: true,
+  },
+  cidade: {
+    value: '',
+    required: true,
+  },
+  estado: {
+    value: '',
+    required: true,
+  },
+  pais: {
+    value: '',
+    required: true,
+  },
+  aposentado: {
+    value: '',
+    required: false,
+  },
+  pensionista: {
+    value: '',
+    required: false,
+  },
+  naturalidade: {
+    value: '',
+    required: true,
+  },
+  nacionalidade: {
+    value: '',
+    required: true,
+  },
+  estado_civil: {
+    value: '',
+    required: true,
+  },
+  ident: {
+    value: '',
+    required: true,
+  },
+  orgao: {
+    value: '',
+    required: true,
+  },
+  tipo_cobranca: {
+    value: '',
+    required: true,
+  },
+  periodicidade: {
+    value: '',
+    required: true,
+  },
+  matricula_petros: {
+    value: '',
+    required: true,
+  },
+  tel_residencial: {
+    value: '',
+    required: true,
+  },
+  tel_residencial_2: {
+    value: '',
+    required: false,
+  },
+  tel_trabalho: {
+    value: '',
+    required: true,
+  },
+  patrocinadores: {
+    value: '',
+    required: true,
+  },
+  maticula_patrocinadora: {
+    value: '',
+    required: true,
+  },
+  dt_patrocinadora: {
+    value: '',
+    required: true,
+  },
+  formacao: {
+    value: '',
+    required: true,
+  },
+  mensalidade: {
+    value: '',
+    required: true,
+  },
+  matricula: {
+    value: '',
+    required: false,
+  },
+  dt_cadastro: {
+    value: '',
+    required: true,
+  },
+  banco: {
+    value: '',
+    required: false,
+  },
+  convenio: {
+    value: '',
+    required: false,
+  },
+  dt_conv_petros: {
+    value: '',
+    required: false,
+  },
+  autorizacao: {
+    value: '',
+    required: false,
+  },
+}
+
 const {
   models,
-  emptyModels,
   optBancos,
   optConvenios,
   optPatrocinadoras,
-  optGender,
-  optEstadoCivil,
+  
+  
   optMensalidades,
 } = storeToRefs(useAssociadosStore())
 
-const { optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
+
+
+
+const {optGender, optEstadoCivil, optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
   useAssociadosStore()
 
 const {
@@ -410,28 +577,35 @@ const getMensalidadesRequest = async () => {
 }
 
 const clearModels = () => {
-  models.value = emptyModels.value
+  models.value = { ...emptyModels }
 }
 
-watch(
-  () => tipo_beneficiario.value,
-  (v) => {
-    switch (v) {
-      case 'Aposentado':
-        models.value.aposentado.value = 'S'
-        models.value.pensionista.value = 'N'
-        break
-      case 'Pensionista':
-        models.value.aposentado.value = 'N'
-        models.value.pensionista.value = 'S'
-        break
-      case 'Ativo':
-        models.value.aposentado.value = 'N'
-        models.value.pensionista.value = 'N'
-        break
-    }
+console.log('aaaaaaaaaaaaa',optEstadoCivil)
+watch(()=>optEstadoCivil,
+  (v) =>{
+    console.log('opa', v)
   }
 )
+
+// watch(
+//   () => tipo_beneficiario.value,
+//   (v) => {
+//     switch (v) {
+//       case 'Aposentado':
+//         models.value.aposentado.value = 'S'
+//         models.value.pensionista.value = 'N'
+//         break
+//       case 'Pensionista':
+//         models.value.aposentado.value = 'N'
+//         models.value.pensionista.value = 'S'
+//         break
+//       case 'Ativo':
+//         models.value.aposentado.value = 'N'
+//         models.value.pensionista.value = 'N'
+//         break
+//     }
+//   }
+// )
 
 const requests = async () => {
   await getBancosRequest()
@@ -441,8 +615,11 @@ const requests = async () => {
 
 }
 
-onMounted(async () => {
+onBeforeMount(async () => {
   clearModels()
+})
+
+onMounted(async () => {
   await requests()
 })
 </script>

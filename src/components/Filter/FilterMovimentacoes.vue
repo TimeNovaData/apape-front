@@ -11,11 +11,11 @@
       <q-list class="w-[23.5rem] md:w-[20rem]">
         <q-form ref="form">
           <OInput v-model="search.nome" label="Nome" class="w-full" size="lg" />
-          <OInput
+          <!-- <OInput
             v-model="search.email"
             label="Email"
             class="w-full mt-16"
-            size="lg" />
+            size="lg" /> -->
           
           <OSelect
             v-model="search.status_pagamento"
@@ -118,6 +118,7 @@ const isDirty = computed(
 const selectOptions = ref({
   status_pagamento: [
     { label: 'Pendente', value: 'PENDING' },
+    { label: 'Vencido', value: 'OVERDUE' },
     { label: 'Pago', value: 'RECEIVED' },
   ],
 })
