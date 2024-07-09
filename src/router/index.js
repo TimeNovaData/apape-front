@@ -21,6 +21,8 @@ const Router = createRouter({
   history: createHistory(process.env.VUE_ROUTER_BASE),
 })
 
+
+
 export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach(async (to, from) => {
     const userStore = useUserStore()

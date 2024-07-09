@@ -79,7 +79,7 @@ export const useAssociadosStore = defineStore('associados', () => {
       name: 'tipo_beneficio',
       required: true,
       field: 'tipo_beneficio',
-      label: 'Tipo de Benefício',
+      label: 'Status do Benefíciario',
       align: 'left',
     },
     {
@@ -263,6 +263,10 @@ export const useAssociadosStore = defineStore('associados', () => {
       value: '',
       required: true,
     },
+    status: {
+      value: '',
+      required: true,
+    },
     address: {
       value: '',
       required: true,
@@ -279,7 +283,7 @@ export const useAssociadosStore = defineStore('associados', () => {
       value: '',
       required: true,
     },
-    bairro: {
+    province: {
       value: '',
       required: true,
     },
@@ -405,9 +409,12 @@ export const useAssociadosStore = defineStore('associados', () => {
   ]
 
   const optTipoBeneficiario = [
-    { label: 'Pensionista', value: 'Pensionista' },
-    { label: 'Ativo', value: 'Ativo' },
     { label: 'Aposentado', value: 'Aposentado' },
+    { label: 'Falecido', value: 'Falecido' },
+    { label: 'Pensionista', value: 'Pensionista' },
+
+    { label: 'Desfiliado', value: 'Desfiliado' },
+    { label: 'Ativo', value: 'Ativo' },
   ]
 
   const optTipoCobranca = [
@@ -452,6 +459,7 @@ export const useAssociadosStore = defineStore('associados', () => {
     { label: 'Casado', value: 'Casado' },
     { label: 'Divorciado', value: 'Divorciado' },
     { label: 'Viúvo', value: 'Viúvo' },
+    { label: 'Separado', value: 'Separado' },
   ]
 
   const optFormacao = [

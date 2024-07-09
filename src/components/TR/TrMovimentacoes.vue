@@ -6,9 +6,9 @@
     <q-td key="valor">
       {{ fMoney(props.row.value) }}
     </q-td>
-    <q-td key="descricao">
+    <!-- <q-td key="descricao">
       {{ props.row.description }}
-    </q-td>
+    </q-td> -->
     <q-td key="forma_pagamento">
       {{ props.row.billing_type }}
     </q-td>
@@ -47,6 +47,8 @@ const colorBadge = (status) => {
       return 'received'
     case 'PENDING':
       return 'pending'
+    case 'OVERDUE':
+      return 'overdue'
     default:
       return ''
   }
@@ -56,6 +58,8 @@ const setTextStatus = (status) => {
   switch (status) {
     case 'RECEIVED':
       return 'Pagamento Efetuado'
+    case 'OVERDUE':
+      return 'Vencido'
     case 'PENDING':
       return 'Pendente'
     default:
@@ -73,6 +77,10 @@ const setTextStatus = (status) => {
 .received{
   color: rgba(var(--status-received), 1);
   background-color: rgba(var(--status-received), .10);
+}
+.overdue{
+  color: rgba(var(--alert-error), 1);
+  background-color: rgba(var(--alert-error), .10);
 }
 
 </style>

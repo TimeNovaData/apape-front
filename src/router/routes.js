@@ -10,6 +10,12 @@ import PageResetPassword from 'pages/ResetPassword/PageResetPassword.vue'
 import PageResumo from 'pages/Resumo/PageResumo.vue'
 import PageSvgs from 'pages/svg/PageSvgs.vue'
 
+function setTitle(to, from, next) {
+  const title = to.meta?.title
+  document.title = `APAPE ${title ? `- ${title}` : ''}`
+  next()
+}
+
 //
 const routes = [
   {
@@ -22,6 +28,7 @@ const routes = [
         name: 'home',
         path: '/home',
         component: PageResumo,
+        beforeEnter: setTitle,
         meta: {
           breadcrumbs: [{ label: 'Resumo', name: 'resumo' }],
           title: 'Resumo',
@@ -32,6 +39,7 @@ const routes = [
         name: 'associados',
         path: '/associados',
         component: PageAssociados,
+        beforeEnter: setTitle,
         meta: {
           breadcrumbs: [{ label: 'Associados', name: 'associados' }],
           title: 'Associados',
@@ -42,12 +50,17 @@ const routes = [
         name: 'associado',
         path: '/associados/:id',
         component: PageAssociadoSingle,
+        beforeEnter: setTitle,
+        meta: {
+          title: 'Associados',
+        },
       },
       {
         alias: '/associados/adicionar',
         name: 'associados-adicionar',
         path: '/associados/adicionar',
         component: PageAssociadoCreate,
+        beforeEnter: setTitle,
       },
 
       {
@@ -55,6 +68,7 @@ const routes = [
         name: 'movimentacoes',
         path: '/movimentacoes',
         component: PageMovimentacoes,
+        beforeEnter: setTitle,
         meta: {
           breadcrumbs: [{ label: 'Movimentações', name: 'movimentacoes' }],
           title: 'Movimentações',
@@ -77,8 +91,10 @@ const routes = [
     path: '/login',
     name: 'login',
     component: PageLogin,
+    beforeEnter: setTitle,
     meta: {
       publicPage: true,
+      title: 'Login',
     },
   },
 
@@ -86,6 +102,7 @@ const routes = [
     path: '/password/reset/confirm/:uid/:token',
     name: 'redefinir-senha',
     component: PageResetPassword,
+    beforeEnter: setTitle,
     meta: {
       title: 'Redefinir Senha',
       publicPage: true,
@@ -103,6 +120,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: '404',
+    beforeEnter: setTitle,
     component: () => import('pages/Blank/PageBlank.vue'),
     meta: {
       publicPage: true,
