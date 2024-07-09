@@ -114,24 +114,24 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Telefone Trabalho"
                 type="text"
-                mask="(##) #####-####"
+                mask="(##) ####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.tel_residencial.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Telefone Residencial"
+                label="Celular 1"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.tel_residencial_2.value"
-                label="Telefone Residencial 2"
+                label="Celular 2"
                 type="text"
-                mask="(##) ####-####"
+                mask="(##) #####-####"
                 class="col-span-3"
                 :unmasked-value="true"
                 size="lg" />
