@@ -19,8 +19,9 @@
           :show-print-button="false"
           :show-import-button="false"
           :filters="{
-            email,
+            // email,
             nome,
+            tipo : tipo_boleto,
             status: status_pagamento,
           }"
           >
