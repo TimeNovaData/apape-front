@@ -20,6 +20,18 @@ import ApexCharts from 'apexcharts'
 import GLOBAL from 'utils/GLOBAL'
 const { fMoney } = GLOBAL
 
+const props = defineProps({
+  datasFiltro: {
+    type: Array,
+    default: () => [],
+  },
+  dadosFiltro: {
+    type: Array,
+    default: () => [],
+  },
+  
+ 
+})
 
 const emits = defineEmits(['click'])
 
@@ -117,28 +129,29 @@ const dados = ref({})
 // })
 const options = ref({
    
-  series: [{
-            name: 'Previsto',
-            data: [44, 55, 41, 67, 22, 43, 10]
-          }, {
-            name: 'Confirmado',
-            data: [13, 23, 20, 8, 13, 27,10]
-          }, {
-            name: 'Recebido',
-            data: [11, 17, 15, 15, 21, 14, 40]
-          }
-        ],
+      series: props.dadosFiltro,
     
       chart: {
         type: 'bar',
         height: 350,
         stacked: true,
         toolbar: {
-          show: true
+          show: true,
+          
+          tools: {
+            zoomin: true,
+            zoomout: true,
+            zoom:false,
+          
+          selection: false,
+            pan: true,
+            reset: true
+          }
         },
-        zoom: {
-          enabled: false
-        }
+        // zoom: {
+        //   enabled: true,
+        //   type: 'x'
+        // }
       },
       responsive: [{
         breakpoint: 480,
@@ -150,7 +163,8 @@ const options = ref({
           }
         }
       }],
-      colors: ['#FF9A0A', '#001074', '#00D071'],
+  
+      colors: ['#fc963d', '#72b7fc', '#51C89F'],
       plotOptions: {
         bar: {
           horizontal: false,
@@ -161,6 +175,10 @@ const options = ref({
             total: {
               enabled: true,
               formatter: function (val) {
+                // if(val > 1){
+
+                //   return fMoney(val) 
+                // }
                 return fMoney(val) 
               },
               style: {
@@ -193,10 +211,14 @@ const options = ref({
         }
       },
       xaxis: {
+        // labels: {
+        //         rotate: -45
+        //       },
+        // tickAmount: 10,
         type: 'datetime',
-        categories: ['01/01/2024 GMT', '01/02/2024 GMT', '01/03/2024 GMT', '01/04/2024 GMT',
-          '01/05/2024 GMT', '01/06/2024 GMT', '01/07/2024 GMT'
-        ],
+        tickAmount: 10,
+        categories: props.datasFiltro,
+       
       },
       yaxis: {
         labels: {
@@ -225,19 +247,12 @@ const chart = ref({
   resumo: {},
 })
 
-function handleRenderChart() {
+function handleRenderChart(dados) {
+
+  console.log('aqui',dados)
   options.value = {
     ...options.value,
-
-    // xaxis: {
-
-    //   type: 'category',
-    //   labels: {
-    //     style: {
-    //       fontSize: '10px',
-    //     },
-    //   },
-    // },
+    ...dados
   }
 
   chart.value.resumo = new ApexCharts(
@@ -247,6 +262,34 @@ function handleRenderChart() {
 
   chart.value.resumo.render()
 }
+
+watch( 
+  ()=>props.datasFiltro,
+  (val)=>{
+    if(!val) return
+
+   let max = 6
+   if(val.length > 7 ){
+    max = 10
+   }
+    chart.value.resumo.updateSeries(props.dadosFiltro)
+    chart.value.resumo.updateOptions(
+     {
+      xaxis: {
+        type: 'datetime',
+        tickAmount: max,
+        min: new Date(props.datasFiltro[0]).getTime(),
+        max: new Date(props.datasFiltro[max]).getTime(),
+        categories: props.datasFiltro,
+        
+       
+      },
+     }
+    )
+   
+   
+  }
+)
 
 onMounted(async () => {
   handleRenderChart()
