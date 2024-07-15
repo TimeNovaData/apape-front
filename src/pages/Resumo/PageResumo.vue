@@ -12,10 +12,10 @@
           <p class="text-caps-3 !font-normal text-neutral-70">Visualizando:</p>
 
           <q-tabs v-model="filtroVisualizacao">
-            <q-tab name="filtro_semana" label="Últimos 7 dias" class="mr-8" />
-            <q-tab name="filtro_mes" label=" Este mês" class="mr-8" />
-            <q-tab name="filtro_mes_passado" label=" Mês passado" class="mr-8" />
-            <q-tab name="filtro_ano" label=" Ano" />
+            <q-tab name="Semanal" label="Últimos 7 dias" class="mr-8" />
+            <q-tab name="Mensal" label=" Este mês" class="mr-8" />
+            <q-tab name="Mensal_anterior" label=" Mês passado" class="mr-8" />
+            <q-tab name="Anual" label=" Ano" />
           </q-tabs>
         </div>
       </div>
@@ -32,8 +32,9 @@
             :color="item.color" />
         </div>
       </div>
-      <div class="mt-32">
-        <ChartResumo />
+      <div class="mt-32 " v-if="dadosFiltro.length > 0">
+    
+        <ChartResumo :dadosFiltro="dadosFiltro"  :datasFiltro="datasFiltro"/>
       </div>
     </q-card>
   </div>
@@ -48,7 +49,7 @@
   import TextIcon from 'components/Text/TextIcon.vue'
   import { paymentsService } from 'src/services/payments.service'
 
-  const { getPayments, getPaymentsFaturamento,getPaymentsFiltrado} = paymentsService()
+  const { getPaymentsFiltro,getPaymentsGrafico} = paymentsService()
   const { fMoney } = GLOBAL
   const dadosFaturamento = ref([
     {
@@ -74,6 +75,12 @@
       icon: 'payments'
     },
   ])
+
+  const dadosFiltro = ref([
+    
+  ])
+  const datasFiltro = ref([
+        ])
   const dados = ref([
    
     // {
@@ -122,7 +129,7 @@
     //   icon: 'icon-stickers-paper'
     // },
   ])
-  const filtroVisualizacao = ref('filtro_semana')
+  const filtroVisualizacao = ref('Semanal')
 
 
 
@@ -132,28 +139,66 @@
     dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamneto_recebido)
   }
 
+  function setGraficoDados(dados){
+     
+    const result = [
+        {
+            name: 'Previsto',
+            data: Object.values(dados).map(item => item.previsto)
+        },
+        {
+            name: 'Vencido',
+            data: Object.values(dados).map(item => item.vencido)
+        },
+        {
+            name: 'Recebido',
+            data: Object.values(dados).map(item => item.recebido)
+        }
+    ];
+
+  
+    datasFiltro.value =  Object.keys(dados);
+    // delete result[0].group
+    // delete result[1].group
+    // delete result[2].group
+    // console.log(result, 'rererere')
+    dadosFiltro.value = [...result];
+  }
+
   
 
   const requests = async () => {
     // const payments = await getPayments()
-    const paymentsFiltrado = await getPaymentsFiltrado(filtroVisualizacao.value)
-    if(paymentsFiltrado){
-      setFaturamentoDados(paymentsFiltrado)
+    const paymentsFiltrado = await getPaymentsFiltro(`?periodo=${filtroVisualizacao.value}`)
+    const paymentsGraficos = await getPaymentsGrafico(`?periodo=${filtroVisualizacao.value}`)
+
+   
+   
+    if(paymentsGraficos){
+      if(filtroVisualizacao.value === 'Semanal'){
+        setFaturamentoDados(paymentsFiltrado)
+        setGraficoDados(paymentsGraficos.grafico_filtrar_dias_semana)
+      }else if(filtroVisualizacao.value === 'Mensal'){
+        setFaturamentoDados(paymentsFiltrado)
+        setGraficoDados(paymentsGraficos.grafico_filtrar_mensal)
+      }else if(filtroVisualizacao.value === 'Mensal_anterior'){
+        setFaturamentoDados(paymentsFiltrado)
+        setGraficoDados(paymentsGraficos.grafico_filtrar_mensal_anterior)
+      }else if(filtroVisualizacao.value === 'Anual'){
+        setFaturamentoDados(paymentsFiltrado)
+        setGraficoDados(paymentsGraficos.grafico_filtrar_anual)
+      }
     }
   }
 
+  // /api/payments/mensal/
   watch(() => filtroVisualizacao.value, 
   async (val) => {
-    const paymentsFiltrado  = await getPaymentsFiltrado(val)
-    setFaturamentoDados(paymentsFiltrado)
+    requests()
+ 
 })
 
-  // watch(
-  //   ()=>  filtroVisualizacao.value,
-  //   (v)=>{
-  //     console.log(v)
-  //   }
-  // )
+
 
   onMounted(async () =>{  
     await requests()  
