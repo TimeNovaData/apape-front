@@ -139,11 +139,11 @@ const options = ref({
           show: true,
           
           tools: {
-            zoomin: true,
-            zoomout: true,
+            zoomin: false,
+            zoomout: false,
             zoom:false,
           
-          selection: false,
+           selection: false,
             pan: true,
             reset: true
           }
@@ -170,10 +170,14 @@ const options = ref({
       plotOptions: {
         bar: {
           horizontal: false,
-          borderRadius: 10,
+          borderRadius: 2,
+          columnWidth: '85%',
           borderRadiusApplication: 'end', // 'around', 'end'
           borderRadiusWhenStacked: 'last', // 'all', 'last'
           dataLabels: {
+            // orientation: 'vertical',
+            position: 'center', 
+              // bottom/center/top
             total: {
               enabled: true,
               formatter: function (val) {
@@ -187,7 +191,7 @@ const options = ref({
               },
               style: {
                 fontFamily: "Inter, sans-serif",
-                fontSize: '12px',
+                fontSize: '11px',
                 fontWeight: 900
               }
             }
@@ -203,6 +207,9 @@ const options = ref({
           fontSize: '12px',
         
         },
+        labels:{
+          rotate: -90
+        }
       },
       tooltip: {
         y: {
@@ -220,8 +227,11 @@ const options = ref({
         //       },
         // tickAmount: 10,
         type: 'datetime',
-        tickAmount: 10,
+        // tickAmount: 10,
         categories: props.datasFiltro,
+        labels:{
+          rotate: -90
+        }
        
       },
       yaxis: {
@@ -235,8 +245,8 @@ const options = ref({
         }
       },
       legend: {
-        position: 'right',
-        offsetY: 40
+        position: 'bottom',
+        // offsetY: 10
       },
       fill: {
         opacity: 1
@@ -272,20 +282,31 @@ watch(
   (val)=>{
     if(!val) return
 
-   let max = 6
-   if(val.length > 7 ){
+    let showLabel = true
+    if(val.length > 12){
+      showLabel = false
+    }
+    //  let max = 6
+    //  if(val.length > 7  ){
+    //   max = 11
+    //  }
+    //  if(val.length > 12  ){
 
-    max = 11
+    //   max = 28
 
-   }
+    //   }
+    
     chart.value.resumo.updateSeries(props.dadosFiltro)
     chart.value.resumo.updateOptions(
      {
+      dataLabels:{
+        enabled:showLabel
+      },
       xaxis: {
         type: 'datetime',
-        tickAmount: max,
-        min: new Date(props.datasFiltro[0]).getTime(),
-        max: new Date(props.datasFiltro[max]).getTime(),
+        // tickAmount: max,
+        // min: new Date(props.datasFiltro[0]).getTime(),
+        // max: new Date(props.datasFiltro[max]).getTime(),
         categories: props.datasFiltro,
         
        
