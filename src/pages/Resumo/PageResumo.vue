@@ -140,31 +140,7 @@
   }
 
 
-  function setGraficoDados(dados){
-     
-    const result = [
-        {
-            name: 'Previsto',
-            data: Object.values(dados).map(item => item.previsto)
-        },
-        {
-            name: 'Vencido',
-            data: Object.values(dados).map(item => item.vencido)
-        },
-        {
-            name: 'Recebido',
-            data: Object.values(dados).map(item => item.recebido)
-        }
-    ];
 
-  
-    datasFiltro.value =  Object.keys(dados);
-    // delete result[0].group
-    // delete result[1].group
-    // delete result[2].group
-    // console.log(result, 'rererere')
-    dadosFiltro.value = [...result];
-  }
 
   function setGraficoDados(dados){
      
