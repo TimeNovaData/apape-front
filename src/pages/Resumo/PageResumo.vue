@@ -62,9 +62,9 @@
     {
       id: 1,
       value: '',
-      label: 'Confirmado',
-      color: '#001074',
-      icon: 'check'
+      label: 'Vencido',
+      color: '#e92c2c',
+      icon: 'pending_actions'
     },
     {
       id: 2,
@@ -135,9 +135,10 @@
 
   function setFaturamentoDados(dados){
     dadosFaturamento.value[0].value =  fMoney(dados.filtro_faturamento_previsto)
-    dadosFaturamento.value[1].value =  fMoney(dados.filtro_faturamento_confirmado)
-    dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamneto_recebido)
+    dadosFaturamento.value[1].value =  fMoney(dados.filtro_faturamento_vencido)
+    dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamento_recebido)
   }
+
 
   function setGraficoDados(dados){
      
