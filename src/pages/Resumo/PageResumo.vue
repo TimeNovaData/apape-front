@@ -62,9 +62,9 @@
     {
       id: 1,
       value: '',
-      label: 'Confirmado',
-      color: '#001074',
-      icon: 'check'
+      label: 'Vencido',
+      color: '#e92c2c',
+      icon: 'pending_actions'
     },
     {
       id: 2,
@@ -135,8 +135,35 @@
 
   function setFaturamentoDados(dados){
     dadosFaturamento.value[0].value =  fMoney(dados.filtro_faturamento_previsto)
-    dadosFaturamento.value[1].value =  fMoney(dados.filtro_faturamento_confirmado)
-    dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamneto_recebido)
+    dadosFaturamento.value[1].value =  fMoney(dados.filtro_faturamento_vencido)
+    dadosFaturamento.value[2].value =  fMoney(dados.filtro_faturamento_recebido)
+  }
+
+
+  function setGraficoDados(dados){
+     
+    const result = [
+        {
+            name: 'Previsto',
+            data: Object.values(dados).map(item => item.previsto)
+        },
+        {
+            name: 'Vencido',
+            data: Object.values(dados).map(item => item.vencido)
+        },
+        {
+            name: 'Recebido',
+            data: Object.values(dados).map(item => item.recebido)
+        }
+    ];
+
+  
+    datasFiltro.value =  Object.keys(dados);
+    // delete result[0].group
+    // delete result[1].group
+    // delete result[2].group
+    // console.log(result, 'rererere')
+    dadosFiltro.value = [...result];
   }
 
   function setGraficoDados(dados){
