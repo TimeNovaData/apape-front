@@ -164,7 +164,7 @@ const options = ref({
         }
       }],
   
-      colors: ['#fc963d', '#72b7fc', '#51C89F'],
+      colors: ['#fc963d', '#e75959', '#51C89F'],
       plotOptions: {
         bar: {
           horizontal: false,
@@ -175,15 +175,15 @@ const options = ref({
             total: {
               enabled: true,
               formatter: function (val) {
-                // if(val > 1){
+                if(val > 1){
 
-                //   return fMoney(val) 
-                // }
-                return fMoney(val) 
+                  return fMoney(val) 
+                }
+                return '' 
               },
               style: {
                 fontFamily: "Inter, sans-serif",
-                fontSize: '13px',
+                fontSize: '12px',
                 fontWeight: 900
               }
             }
@@ -270,7 +270,7 @@ watch(
 
    let max = 6
    if(val.length > 7 ){
-    max = 10
+    max = 11
    }
     chart.value.resumo.updateSeries(props.dadosFiltro)
     chart.value.resumo.updateOptions(
