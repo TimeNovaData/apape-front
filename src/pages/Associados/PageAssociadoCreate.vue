@@ -20,15 +20,10 @@
           label="Endereço"
           class="bg-white rounded transition-all" />
       </q-tabs>
-      <q-form @submit="handleCreateAssociado">
-        <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
+      <q-tab-panels v-model="tab" animated @before-transition="onChangeTab" @transition="afterChangeTab">
+        <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
+          <q-form ref="formAssociadoDadosPessoais" @submit="handleCreateAssociado">
             <div class="grid grid-cols-12 gap-16">
-
-
-              
-            
-
               <OInput
                 v-model="models.name.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -38,14 +33,12 @@
                 size="lg" />
               <OInput
                 v-model="models.naturalidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Naturalidade"
                 type="text"
                 class="col-span-3"
                 size="lg" />
               <OInput
                 v-model="models.nacionalidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nacionalidade"
                 type="text"
                 class="col-span-3"
@@ -67,10 +60,6 @@
                 input-value="value"
                 input-label="label"
                 :options="optGender" />
-
-              
-
-              
               <OSelect
                 v-model="models.estado_civil.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
@@ -195,18 +184,19 @@
                 label="Data Patrocinadora"
                 class="col-span-3"
                 size="lg"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_patrocinadora.value = v)" />
               <OInputDate
                 :data="models.dt_cadastro.value"
                 label="Data Cadastro"
                 class="col-span-4"
                 size="lg"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
 
 
               <OInput
                 v-model="models.formacao.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Formação"
                 type="text"
                 class="col-span-3"
@@ -223,16 +213,25 @@
                 emit-value
                 map-options />
             </div>
-          </q-tab-panel>
-
-          <q-tab-panel name="endereco" class="!overflow-hidden !p-24">
+            <div class="flex items-center justify-end pt-24 gap-14">
+              <OButton label="Cancelar" secondary size="lg" to="/associados" />
+              <OButton
+                label="Salvar"
+                primary
+                size="lg"
+                type="submit" />
+            </div>
+          </q-form>
+        </q-tab-panel>
+        <q-tab-panel name="endereco" class="!overflow-hidden !p-24">
+          <q-form ref="formAssociadoEndereco" @submit="handleCreateAssociado">
             <div class="grid grid-cols-12 gap-16">
               <OInput
                 v-model="models.address.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Endereço"
                 type="text"
-                class="col-span-3"
+                class="col-span-12"
                 size="lg" />
 
               <OInput
@@ -240,7 +239,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Número"
                 type="text"
-                class="col-span-3"
+                class="col-span-4"
                 size="lg" />
 
               <OInput
@@ -248,7 +247,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Complemento"
                 type="text"
-                class="col-span-3"
+                class="col-span-4"
                 size="lg" />
               <OInput
                 v-model="models.postal_code.value"
@@ -256,7 +255,7 @@
                 label="CEP"
                 type="text"
                 mask="#####-###"
-                class="col-span-3"
+                class="col-span-4"
                 size="lg" />
 
               <OInput
@@ -289,18 +288,17 @@
                 class="col-span-3"
                 size="lg" />
             </div>
-          </q-tab-panel>
-        </q-tab-panels>
-        <div class="flex items-center justify-end p-24 gap-14">
-          <OButton label="Cancelar" secondary size="lg" to="/associados" />
-          <OButton
-            :disabled="disableButton"
-            label="Salvar"
-            primary
-            size="lg"
-            type="submit" />
-        </div>
-      </q-form>
+            <div class="flex items-center justify-end pt-24 gap-14">
+              <OButton label="Cancelar" secondary size="lg" to="/associados" />
+              <OButton
+                label="Salvar"
+                primary
+                size="lg"
+                type="submit" />
+            </div>
+          </q-form>
+        </q-tab-panel>
+      </q-tab-panels>
     </q-card>
   </div>
 </template>
@@ -320,6 +318,9 @@ import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
 const tab = ref('dados-pessoais')
 const router = useRouter()
+const formAssociadoDadosPessoais = ref('')
+const formAssociadoEndereco = ref('')
+const otherTabValidation = ref(false)
 
 const emptyModels = {
   name: {
@@ -336,7 +337,7 @@ const emptyModels = {
   },
   nascimento: {
     value: '',
-    required: true,
+    required: false,
   },
   cpf_cnpj: {
     value: '',
@@ -444,7 +445,7 @@ const emptyModels = {
   },
   formacao: {
     value: '',
-    required: true,
+    required: false,
   },
   mensalidade: {
     value: '',
@@ -488,7 +489,6 @@ const {
 
 
 
-
 const {optGender, optEstadoCivil, optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
   useAssociadosStore()
 
@@ -502,13 +502,21 @@ const {
 
 const tipo_beneficiario = ref('')
 
-const disableButton = computed(() => {
-  return Object.values(models.value).some(
-    (item) => !item.value && item.required
-  )
-})
+// const disableButton = computed(() => {
+//   return Object.values(models.value).some(
+//     (item) => !item.value && item.required
+//   )
+// })
 
 async function handleCreateAssociado() {
+
+  if (!otherTabValidation.value) {
+    tab.value = tab.value === 'dados-pessoais' ? 'endereco' : 'dados-pessoais'
+    return false
+  }
+
+  otherTabValidation.value = true
+
   const formData = new FormData()
 
   Object.entries(models.value).forEach(([key, value]) => {
@@ -522,6 +530,18 @@ async function handleCreateAssociado() {
   } catch (error) {
     NotifyError('Erro ao adicionar associado!')
     console.log(error)
+  }
+}
+
+async function onChangeTab() {
+  const isValid = tab.value === 'dados-pessoais' ? await formAssociadoEndereco.value.validate() : await formAssociadoDadosPessoais.value.validate()
+  console.log(isValid)
+  otherTabValidation.value = isValid
+}
+
+async function afterChangeTab() {
+  if (!otherTabValidation.value) {
+    tab.value === 'dados-pessoais' ? await formAssociadoDadosPessoais.value.validate() : await formAssociadoEndereco.value.validate()
   }
 }
 
