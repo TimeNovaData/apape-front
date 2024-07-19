@@ -28,7 +28,7 @@
      
       <OBadge
         :label="props.row.status"
-        class="!rounded-[3px]"
+        class="w-full flex-col !rounded-[3px]"
         :class="`cor-${props.row.status?.toLowerCase()}`" />
         <!-- :class="`text-${colorBadge}`" -->
         <!-- :style="`background-color: rgba(var(--${colorBadge}), .10);` -->

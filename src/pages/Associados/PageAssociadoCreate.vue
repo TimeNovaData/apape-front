@@ -525,7 +525,7 @@ async function handleCreateAssociado() {
 
   try {
     await postDadosAssociados(formData)
-    router.push({ name: 'home' })
+    router.push({ name: 'associados' })
     NotifySucess('Associado adicionado com sucesso!')
   } catch (error) {
     NotifyError('Erro ao adicionar associado!')
