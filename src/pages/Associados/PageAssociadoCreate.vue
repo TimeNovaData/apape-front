@@ -29,7 +29,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nome"
                 type="text"
-                class="col-span-3"
+                class="col-span-6"
                 size="lg" />
               <OInput
                 v-model="models.naturalidade.value"
@@ -186,29 +186,32 @@
                 size="lg"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_patrocinadora.value = v)" />
+              <OInput
+                v-model="models.cb.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                label="CB"
+                type="number"
+                class="col-span-3"
+                size="lg" />
               <OInputDate
                 :data="models.dt_cadastro.value"
                 label="Data Cadastro"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
-
-
               <OInput
                 v-model="models.formacao.value"
                 label="Formação"
                 type="text"
                 class="col-span-3"
                 size="lg" />
-
-              
               <OSelect
                 v-model="models.mensalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optMensalidades"
                 label="Mensalidade"
-                class="col-span-4"
+                class="col-span-3"
                 size="lg"
                 emit-value
                 map-options />
@@ -440,6 +443,10 @@ const emptyModels = {
     required: true,
   },
   dt_patrocinadora: {
+    value: '',
+    required: true,
+  },
+  cb: {
     value: '',
     required: true,
   },
