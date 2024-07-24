@@ -135,7 +135,7 @@ const selectOptions = ref({
   
 billing_type: [
     { label: 'Boleto', value: 'BOLETO' },
-    { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
+    // { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
     { label: 'Debito automático', value: 'DEBITO_AUTOMATICO' },
     { label: 'AEPET BR', value: 'AEPET_BR' },
     { label: 'AEPET MACAE', value: 'AEPET_MACAE' },
