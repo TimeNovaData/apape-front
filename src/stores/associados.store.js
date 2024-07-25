@@ -105,143 +105,6 @@ export const useAssociadosStore = defineStore('associados', () => {
     },
   ])
 
-  // const models = ref({
-  //   name: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   email: {
-  //     value: 'teste@email.com',
-  //     required: true,
-  //   },
-  //   sexo: {
-  //     value: 'Masculino',
-  //     required: true,
-  //   },
-  //   nascimento: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   cpf_cnpj: {
-  //     value: '00000000000',
-  //     required: true,
-  //   },
-  //   address: {
-  //     value: 'Rua Teste',
-  //     required: true,
-  //   },
-  //   postal_code: {
-  //     value: '00000000',
-  //     required: true,
-  //   },
-  //   address_number: {
-  //     value: '000',
-  //     required: true,
-  //   },
-  //   complement: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   bairro: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   cidade: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   estado: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   pais: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   aposentado: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   pensionista: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   naturalidade: {
-  //     value: 'Rio de Janeiro',
-  //     required: true,
-  //   },
-  //   nacionalidade: {
-  //     value: 'Brasileiro',
-  //     required: true,
-  //   },
-  //   estado_civil: {
-  //     value: 'Casado',
-  //     required: true,
-  //   },
-  //   ident: {
-  //     value: '000000000',
-  //     required: true,
-  //   },
-  //   orgao: {
-  //     value: 'Teste',
-  //     required: true,
-  //   },
-  //   tipo_cobranca: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   periodicidade: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   matricula_petros: {
-  //     value: '00000',
-  //     required: true,
-  //   },
-  //   tel_residencial: {
-  //     value: '0000000000',
-  //     required: true,
-  //   },
-  //   tel_residencial_2: {
-  //     value: '',
-  //     required: false,
-  //   },
-  //   tel_trabalho: {
-  //     value: '0000000000',
-  //     required: true,
-  //   },
-  //   patrocinadores: {
-  //     value: '',
-  //     required: true,
-  //   },
-
-  //   maticula_patrocinadora: {
-  //     value: '00000000',
-  //     required: true,
-  //   },
-  //   dt_patrocinadora: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   formacao: {
-  //     value: '',
-  //     required: true,
-  //   },
-  //   mensalidade: {
-  //     value: '',
-  //     required: true,
-  //   },
-
-  //   matricula: {
-  //     value: '',
-  //     required: false,
-  //   },
-  //   dt_cadastro: {
-  //     value: '',
-  //     required: true,
-  //   },
-  // })
-
   const models = ref({
     name: {
       value: '',
@@ -392,6 +255,10 @@ export const useAssociadosStore = defineStore('associados', () => {
       required: false,
     },
     autorizacao: {
+      value: '',
+      required: false,
+    },
+    cb: {
       value: '',
       required: false,
     },
