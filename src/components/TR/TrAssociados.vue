@@ -12,7 +12,7 @@
     <q-td key="cpf">
       {{ props.row.cpf_cnpj }}
     </q-td>
-    <q-td key="patrocinadora" class="capitalize">
+    <q-td key="patrocinadora" class="capitalize text-center">
       {{ props.row.patrocinadores?.nome }}
     </q-td>
     <q-td key="maticula_patrocinadora" class="text-center">
