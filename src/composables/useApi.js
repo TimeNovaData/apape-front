@@ -4,7 +4,7 @@ import { useAxios } from '@vueuse/integrations/useAxios'
 import { api } from 'boot/axios'
 
 export default function useApi() {
-  const { execute, abort, data, isFinished, isLoading, isAborted } = useAxios(
+  const { execute, abort, data, isFinished, isLoading, isAborted,response } = useAxios(
     api,
     {
       immediate: false,
@@ -24,7 +24,7 @@ export default function useApi() {
     try {
       await execute(url, { method, params, data: body })
 
-      return data.value
+      return data.value || response
     } catch (error) {
       console.error(error)
     }

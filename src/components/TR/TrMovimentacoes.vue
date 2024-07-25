@@ -4,7 +4,7 @@
       {{ props.row.customer_name }}
     </q-td>
     <q-td key="valor">
-      {{ fMoney(props.row.value) }}
+      {{ fMoney(props.row.value_valor) }}
     </q-td>
     <!-- <q-td key="descricao">
       {{ props.row.description }}
@@ -61,8 +61,6 @@ const setPaymentText = (payment) =>{
   switch (payment) {
     case 'BOLETO':
       return 'Boleto'
-    case 'CREDIT_CARD':
-      return 'Cartão de Crédito'
     case 'DEBITO_AUTOMATICO':
       return 'Debito automático'
     case 'AEPET_BR':

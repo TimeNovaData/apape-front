@@ -12,10 +12,10 @@
     <q-td key="cpf">
       {{ props.row.cpf_cnpj }}
     </q-td>
-    <q-td key="patrocinadora" class="capitalize">
+    <q-td key="patrocinadora" class="capitalize text-center">
       {{ props.row.patrocinadores?.nome }}
     </q-td>
-    <q-td key="maticula_patrocinadora">
+    <q-td key="maticula_patrocinadora" class="text-center">
       {{ props.row.maticula_patrocinadora }}
     </q-td>
     <q-td key="email">
@@ -24,7 +24,7 @@
     <q-td key="data_cadastro">
       {{ FData(props.row.dt_cadastro) }}
     </q-td>
-    <q-td key="tipo_beneficio">
+    <q-td key="tipo_beneficio" class="text-center">
      
       <OBadge
         :label="props.row.status"
