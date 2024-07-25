@@ -20,9 +20,15 @@
           label="Endereço"
           class="bg-white rounded transition-all" />
       </q-tabs>
-      <q-tab-panels v-model="tab" animated @before-transition="onChangeTab" @transition="afterChangeTab">
+      <q-tab-panels
+        v-model="tab"
+        animated
+        @before-transition="onChangeTab"
+        @transition="afterChangeTab">
         <q-tab-panel name="dados-pessoais" class="!overflow-hidden !p-24">
-          <q-form ref="formAssociadoDadosPessoais" @submit="handleCreateAssociado">
+          <q-form
+            ref="formAssociadoDadosPessoais"
+            @submit="handleCreateAssociado">
             <div class="grid grid-cols-12 gap-16">
               <OInput
                 v-model="models.name.value"
@@ -128,7 +134,7 @@
                 mask="###.###.###-##"
                 size="lg" />
 
-                <OSelect
+              <OSelect
                 v-model="models.status.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
@@ -218,11 +224,7 @@
             </div>
             <div class="flex items-center justify-end pt-24 gap-14">
               <OButton label="Cancelar" secondary size="lg" to="/associados" />
-              <OButton
-                label="Salvar"
-                primary
-                size="lg"
-                type="submit" />
+              <OButton label="Salvar" primary size="lg" type="submit" />
             </div>
           </q-form>
         </q-tab-panel>
@@ -293,11 +295,7 @@
             </div>
             <div class="flex items-center justify-end pt-24 gap-14">
               <OButton label="Cancelar" secondary size="lg" to="/associados" />
-              <OButton
-                label="Salvar"
-                primary
-                size="lg"
-                type="submit" />
+              <OButton label="Salvar" primary size="lg" type="submit" />
             </div>
           </q-form>
         </q-tab-panel>
@@ -314,7 +312,6 @@ import { NotifyError, NotifySucess } from 'boot/Notify'
 import { storeToRefs } from 'pinia'
 import { useAssociadosStore } from 'stores/associados.store'
 import { useRoute, useRouter } from 'vue-router'
-import GLOBAL from 'utils/GLOBAL'
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OInputDate from 'components/Input/OInputDate.vue'
@@ -324,6 +321,8 @@ const router = useRouter()
 const formAssociadoDadosPessoais = ref('')
 const formAssociadoEndereco = ref('')
 const otherTabValidation = ref(false)
+
+const disable = ref(false)
 
 const emptyModels = {
   name: {
@@ -489,15 +488,18 @@ const {
   optBancos,
   optConvenios,
   optPatrocinadoras,
-  
-  
+
   optMensalidades,
 } = storeToRefs(useAssociadosStore())
 
-
-
-const {optGender, optEstadoCivil, optTipoBeneficiario, optTipoCobranca, optPeriodicidade, optFormacao } =
-  useAssociadosStore()
+const {
+  optGender,
+  optEstadoCivil,
+  optTipoBeneficiario,
+  optTipoCobranca,
+  optPeriodicidade,
+  optFormacao,
+} = useAssociadosStore()
 
 const {
   getBancos,
@@ -507,16 +509,7 @@ const {
   getMensalidades,
 } = associadosService()
 
-const tipo_beneficiario = ref('')
-
-// const disableButton = computed(() => {
-//   return Object.values(models.value).some(
-//     (item) => !item.value && item.required
-//   )
-// })
-
 async function handleCreateAssociado() {
-
   if (!otherTabValidation.value) {
     tab.value = tab.value === 'dados-pessoais' ? 'endereco' : 'dados-pessoais'
     return false
@@ -531,7 +524,15 @@ async function handleCreateAssociado() {
   })
 
   try {
-    await postDadosAssociados(formData)
+    const _response = await postDadosAssociados(formData)
+    console.log(_response.value)
+    if (_response.value.response.status === 400) {
+      Object.entries(_response.value.response.data).forEach(([key, value]) => {
+        NotifyError(value[0])
+      })
+      console.log(_response.value)
+      return
+    }
     router.push({ name: 'associados' })
     NotifySucess('Associado adicionado com sucesso!')
   } catch (error) {
@@ -541,14 +542,19 @@ async function handleCreateAssociado() {
 }
 
 async function onChangeTab() {
-  const isValid = tab.value === 'dados-pessoais' ? await formAssociadoEndereco.value.validate() : await formAssociadoDadosPessoais.value.validate()
+  const isValid =
+    tab.value === 'dados-pessoais'
+      ? await formAssociadoEndereco.value.validate()
+      : await formAssociadoDadosPessoais.value.validate()
   console.log(isValid)
   otherTabValidation.value = isValid
 }
 
 async function afterChangeTab() {
   if (!otherTabValidation.value) {
-    tab.value === 'dados-pessoais' ? await formAssociadoDadosPessoais.value.validate() : await formAssociadoEndereco.value.validate()
+    tab.value === 'dados-pessoais'
+      ? await formAssociadoDadosPessoais.value.validate()
+      : await formAssociadoEndereco.value.validate()
   }
 }
 
@@ -607,9 +613,10 @@ const clearModels = () => {
   models.value = { ...emptyModels }
 }
 
-console.log('aaaaaaaaaaaaa',optEstadoCivil)
-watch(()=>optEstadoCivil,
-  (v) =>{
+console.log('aaaaaaaaaaaaa', optEstadoCivil)
+watch(
+  () => optEstadoCivil,
+  (v) => {
     console.log('opa', v)
   }
 )
@@ -639,7 +646,6 @@ const requests = async () => {
   await getConveniosRequest()
   await getPatrocinadorasRequest()
   await getMensalidadesRequest()
-
 }
 
 onBeforeMount(async () => {
