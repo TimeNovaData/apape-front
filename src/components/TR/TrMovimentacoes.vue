@@ -61,8 +61,6 @@ const setPaymentText = (payment) =>{
   switch (payment) {
     case 'BOLETO':
       return 'Boleto'
-    case 'CREDIT_CARD':
-      return 'Cartão de Crédito'
     case 'DEBITO_AUTOMATICO':
       return 'Debito automático'
     case 'AEPET_BR':

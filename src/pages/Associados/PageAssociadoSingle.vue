@@ -444,7 +444,6 @@ watch(
   { deep: true }
 )
 
-
 watch(
   () => tipo_beneficiario.value,
   (v) => {
@@ -497,6 +496,15 @@ async function updateAssociado() {
     const _response = await patchDadosAssociados(id, {
       ...camposAlterados.value,
     })
+
+    console.log(_response.value)
+    if (_response.value.response.status === 400) {
+      Object.entries(_response.value.response.data).forEach(([key, value]) => {
+        NotifyError(value[0])
+      })
+      console.log(_response.value)
+      return
+    }
 
     await getAssociadoRequest()
     NotifySucess('Dados atualizados com sucesso!')
