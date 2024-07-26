@@ -19,6 +19,10 @@
           name="endereco"
           label="Endereço"
           class="bg-white rounded transition-all" />
+        <q-tab
+          name="detalhes-conta"
+          label="Detalhes Conta"
+          class="bg-white rounded transition-all" />
       </q-tabs>
       <q-tab-panels
         v-model="tab"
@@ -143,45 +147,10 @@
                 size="lg"
                 emit-value
                 map-options />
-              <OSelect
-                v-model="models.tipo_cobranca.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optTipoCobranca"
-                label="Tipo de Cobrança"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
-              <OSelect
-                v-model="models.periodicidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optPeriodicidade"
-                label="Periodicidade"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
               <OInput
                 v-model="models.matricula_petros.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Petros"
-                type="number"
-                class="col-span-3"
-                size="lg" />
-
-              <OSelect
-                v-model="models.patrocinadores.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optPatrocinadoras"
-                label="Patrocinadora"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
-              <OInput
-                v-model="models.maticula_patrocinadora.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Matrícula Patrocinadora"
                 type="number"
                 class="col-span-3"
                 size="lg" />
@@ -212,15 +181,6 @@
                 type="text"
                 class="col-span-3"
                 size="lg" />
-              <OSelect
-                v-model="models.mensalidade.value"
-                :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                :options="optMensalidades"
-                label="Mensalidade"
-                class="col-span-3"
-                size="lg"
-                emit-value
-                map-options />
             </div>
             <div class="flex items-center justify-end pt-24 gap-14">
               <OButton label="Cancelar" secondary size="lg" to="/associados" />
@@ -299,6 +259,59 @@
             </div>
           </q-form>
         </q-tab-panel>
+        <q-tab-panel name="detalhes-conta" class="!overflow-hidden !p-24">
+          <q-form ref="formAssociadoDetalhesConta" @submit="handleCreateAssociado">
+            <div class="grid grid-cols-12 gap-16">
+              <OSelect
+                v-model="models.tipo_cobranca.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optTipoCobranca"
+                label="Tipo de Cobrança"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+              <OSelect
+                v-model="models.periodicidade.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optPeriodicidade"
+                label="Periodicidade"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+              <OSelect
+                v-model="models.patrocinadores.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optPatrocinadoras"
+                label="Patrocinadora"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+              <OInput
+                v-model="models.maticula_patrocinadora.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                label="Matrícula Patrocinadora"
+                type="number"
+                class="col-span-3"
+                size="lg" />
+              <OSelect
+                v-model="models.mensalidade.value"
+                :rules="[(val) => !!val || 'Campo Obrigatorio']"
+                :options="optMensalidades"
+                label="Mensalidade"
+                class="col-span-3"
+                size="lg"
+                emit-value
+                map-options />
+            </div>
+            <div class="flex items-center justify-end pt-24 gap-14">
+              <OButton label="Cancelar" secondary size="lg" to="/associados" />
+              <OButton label="Salvar" primary size="lg" type="submit" />
+            </div>
+          </q-form>
+        </q-tab-panel>
       </q-tab-panels>
     </q-card>
   </div>
@@ -320,7 +333,12 @@ const tab = ref('dados-pessoais')
 const router = useRouter()
 const formAssociadoDadosPessoais = ref('')
 const formAssociadoEndereco = ref('')
-const otherTabValidation = ref(false)
+const formAssociadoDetalhesConta = ref('')
+const otherTabValidation = ref({
+  "dados-pessoais": true,
+  "endereco": false,
+  "detalhes-conta": false
+})
 
 const disable = ref(false)
 
@@ -510,12 +528,18 @@ const {
 } = associadosService()
 
 async function handleCreateAssociado() {
-  if (!otherTabValidation.value) {
-    tab.value = tab.value === 'dados-pessoais' ? 'endereco' : 'dados-pessoais'
+  if (Object.values(otherTabValidation.value).filter(v => !v).length > 0) {
+    if (!otherTabValidation.value["dados-pessoais"]) {
+      tab.value = "dados-pessoais"
+    }
+    if (!otherTabValidation.value.endereco) {
+      tab.value = "endereco"
+    }
+    if (!otherTabValidation.value["detalhes-conta"]) {
+      tab.value = "detalhes-conta"
+    }
     return false
   }
-
-  otherTabValidation.value = true
 
   const formData = new FormData()
 
@@ -542,19 +566,37 @@ async function handleCreateAssociado() {
 }
 
 async function onChangeTab() {
-  const isValid =
-    tab.value === 'dados-pessoais'
-      ? await formAssociadoEndereco.value.validate()
-      : await formAssociadoDadosPessoais.value.validate()
-  console.log(isValid)
-  otherTabValidation.value = isValid
+  let isValid = false
+
+  let previousTabName = ''
+
+  if(formAssociadoDadosPessoais.value) {
+    previousTabName = 'dados-pessoais'
+    isValid = await formAssociadoDadosPessoais.value.validate()
+  } else if(formAssociadoEndereco.value) {
+    previousTabName = 'endereco'
+    isValid = await formAssociadoEndereco.value.validate()
+  } else if(formAssociadoDetalhesConta.value) {
+    previousTabName = 'detalhes-conta'
+    isValid = await formAssociadoDetalhesConta.value.validate()
+  }
+  otherTabValidation.value[previousTabName] = isValid
 }
 
 async function afterChangeTab() {
-  if (!otherTabValidation.value) {
-    tab.value === 'dados-pessoais'
-      ? await formAssociadoDadosPessoais.value.validate()
-      : await formAssociadoEndereco.value.validate()
+  if (!otherTabValidation.value[tab.value]) {
+    switch (tab.value) {
+      case 'dados-pessoais':
+        await formAssociadoDadosPessoais.value.validate() 
+        break;
+      case 'endereco':
+        await formAssociadoEndereco.value.validate()
+        break;
+      case 'detalhes-conta':
+        await formAssociadoDetalhesConta.value.validate()
+        break;
+    }
+    otherTabValidation.value[tab.value] = true
   }
 }
 
