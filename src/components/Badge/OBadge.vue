@@ -5,6 +5,7 @@
     :data-size="attrs.size"
     :size="null"
     :ripple="false"
+
     :class="{
       '!rounded-full h-20 cursor-pointer': attrs.small,
     }"
@@ -31,7 +32,7 @@ export default { inheritAttrs: false }
 </script>
 
 <script setup>
-import { useSlots, useAttrs, watch, ref } from 'vue'
+import { ref, useAttrs, useSlots, watch } from 'vue'
 import { useQuasar } from 'quasar'
 
 const slots = useSlots()
