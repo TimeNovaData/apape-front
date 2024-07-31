@@ -1,19 +1,16 @@
 <template>
   <q-tr :props="props">
-    <q-td key="cliente">
+    <q-td key="cliente" auto-width >
       {{ props.row.customer_name }}
     </q-td>
-    <q-td key="valor">
+    <q-td key="valor" auto-width class="text-center">
       {{ fMoney(props.row.value_valor) }}
     </q-td>
-    <!-- <q-td key="descricao">
-      {{ props.row.description }}
-    </q-td> -->
-    <q-td key="forma_pagamento">
+    <q-td key="forma_pagamento" auto-width class="text-center">
       {{setPaymentText(props.row.billing_type) }}
     
     </q-td>
-    <q-td key="status" auto-width>
+    <q-td key="status" auto-width class="text-center">
       <OBadge
         :label="setTextStatus(props.row.status)"
         class="!rounded-[3px]"
@@ -21,7 +18,7 @@
          />
     </q-td>
 
-    <q-td key="data_vencimento" auto-width>
+    <q-td key="data_vencimento" auto-width class="text-center">
       {{ FData(props.row.due_date) }}
     </q-td>
   </q-tr>

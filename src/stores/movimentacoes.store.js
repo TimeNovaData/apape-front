@@ -41,21 +41,22 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       required: true,
       field: 'valor',
       label: 'Valor',
-      align: 'left',
+      align: 'center',
     },
     // {
     //   name: 'descricao',
     //   required: true,
     //   field: 'descricao',
     //   label: 'Descrição',
-    //   align: 'left',
+    //   align: 'center',
     // },
     {
       name: 'forma_pagamento',
       required: true,
       field: 'forma_pagamento',
       label: 'Forma de Pagamento',
-      align: 'left',
+      align: 'center',
+   
     },
 
     {
@@ -63,14 +64,14 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       required: true,
       field: 'status',
       label: 'Status',
-      align: 'left',
+      align: 'center',
     },
     {
       name: 'data_vencimento',
       required: true,
       field: 'data_vencimento',
       label: 'Data de Vencimento',
-      align: 'left',
+      align: 'center',
     },
   ])
 
