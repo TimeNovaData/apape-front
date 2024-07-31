@@ -13,7 +13,7 @@
     <q-td key="status" auto-width class="text-center">
       <OBadge
         :label="setTextStatus(props.row.status)"
-        class="!rounded-[3px]"
+        class="!rounded-[3px] w-full text-center"
         :class="`${colorBadge(props.row.status)}`"
          />
     </q-td>
@@ -98,5 +98,6 @@ const setTextStatus = (status) => {
   color: rgba(var(--alert-error), 1);
   background-color: rgba(var(--alert-error), .10);
 }
+
 
 </style>
