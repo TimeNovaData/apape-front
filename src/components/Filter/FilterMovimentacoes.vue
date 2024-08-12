@@ -1,6 +1,6 @@
 <template>
   <OButton v-bind="attrs" icon="svguse:/icons.svg#icon_filtros" secondary>
-    {{ title }}
+
 
     <q-menu
       ref="menuRef"
@@ -9,14 +9,8 @@
       transition-hide="jump-up"
       @hide="onClose">
       <q-list class="w-[23.5rem] md:w-[20rem]">
+        <pre></pre>
         <q-form ref="form">
-          <!-- <OInput v-model="search.nome" label="Nome" class="w-full" size="lg" /> -->
-          <!-- <OInput
-            v-model="search.email"
-            label="Email"
-            class="w-full mt-16"
-            size="lg" /> -->
-
           <OSelect
             v-model="search.billing_type"
             class="w-full mt-16"
@@ -25,7 +19,7 @@
             clearable
             multiple
             :options="selectOptions.billing_type" />
-          
+
           <OSelect
             v-model="search.status_pagamento"
             class="w-full mt-16"
@@ -34,6 +28,20 @@
             clearable
             multiple
             :options="selectOptions.status_pagamento" />
+          <OInputDate
+           :data="search.data_inicio"
+            class="w-full mt-16"
+            size="lg"
+            label="Data de início "
+            clearable
+            @update:date="(v) => (search.data_inicio = v)" />
+          <OInputDate
+           :data="search.data_fim"
+            class="w-full mt-16"
+            size="lg"
+            label="Data de fim"
+            clearable
+            @update:date="(v) => (search.data_fim = v)" />
           <div class="flex items-center justify-end mt-24">
             <OButton
               secondary
@@ -81,7 +89,7 @@ import { computed, reactive, ref, Teleport, toRefs, useAttrs } from 'vue'
 import { useMovimentacoesStore } from 'src/stores/movimentacoes.store'
 import OBadge from 'components/Badge/OBadge.vue'
 import OButton from 'components/Button/OButton.vue'
-import OInput from 'components/Input/OInput.vue'
+import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
 
 const emit = defineEmits(['filter'])
@@ -110,18 +118,21 @@ const menuRef = ref()
 const movimentacaoStore = useMovimentacoesStore()
 
 const search = reactive({
-  nome: movimentacaoStore.nome,
-  email: movimentacaoStore.email,
   status_pagamento: movimentacaoStore.status_pagamento,
   billing_type: movimentacaoStore.billing_type,
+  data_inicio: movimentacaoStore.data_inicio,
+  data_fim: movimentacaoStore.data_fim,
 })
 
-const { nome, email, status_pagamento ,billing_type} = toRefs(search)
+const { nome, email, status_pagamento, billing_type, data_inicio, data_fim } =
+  toRefs(search)
 
 const isDirty = computed(
   () =>
     // nome.value !== movimentacaoStore.nome ||
     // email.value !== movimentacaoStore.email ||
+    data_inicio.value !== movimentacaoStore.data_inicio ||
+    data_fim.value !== movimentacaoStore.data_fim ||
     billing_type.value !== movimentacaoStore.billing_type ||
     status_pagamento.value !== movimentacaoStore.status_pagamento
 )
@@ -132,8 +143,8 @@ const selectOptions = ref({
     { label: 'Vencido', value: 'OVERDUE' },
     { label: 'Pago', value: 'RECEIVED' },
   ],
-  
-billing_type: [
+
+  billing_type: [
     { label: 'Boleto', value: 'BOLETO' },
     // { label: 'Cartão de Crédito', value: 'CREDIT_CARD' },
     { label: 'Debito automático', value: 'DEBITO_AUTOMATICO' },
@@ -148,6 +159,8 @@ function onClose() {
   email.value = movimentacaoStore.email
   status_pagamento.value = movimentacaoStore.status_pagamento
   billing_type.value = movimentacaoStore.billing_type
+  data_inicio.value = movimentacaoStore.data_inicio
+  data_fim.value = movimentacaoStore.data_fim
   menuRef.value.hide()
 }
 
@@ -156,6 +169,8 @@ function onConfirm() {
   movimentacaoStore.email = email.value
   movimentacaoStore.status_pagamento = status_pagamento.value
   movimentacaoStore.billing_type = billing_type.value
+  movimentacaoStore.data_inicio = data_inicio.value
+  movimentacaoStore.data_fim = data_fim.value
   emit('filter')
   menuRef.value.hide()
 }
