@@ -1,7 +1,5 @@
 <template>
   <OButton v-bind="attrs" icon="svguse:/icons.svg#icon_filtros" secondary>
-
-
     <q-menu
       ref="menuRef"
       class="p-16"
@@ -29,14 +27,14 @@
             multiple
             :options="selectOptions.status_pagamento" />
           <OInputDate
-           :data="search.data_inicio"
+            :data="search.data_inicio"
             class="w-full mt-16"
             size="lg"
             label="Data de início "
             clearable
             @update:date="(v) => (search.data_inicio = v)" />
           <OInputDate
-           :data="search.data_fim"
+            :data="search.data_fim"
             class="w-full mt-16"
             size="lg"
             label="Data de fim"
@@ -155,8 +153,9 @@ const selectOptions = ref({
 })
 
 function onClose() {
-  nome.value = movimentacaoStore.nome
-  email.value = movimentacaoStore.email
+
+  // nome.value = movimentacaoStore.nome
+  // email.value = movimentacaoStore.email
   status_pagamento.value = movimentacaoStore.status_pagamento
   billing_type.value = movimentacaoStore.billing_type
   data_inicio.value = movimentacaoStore.data_inicio
