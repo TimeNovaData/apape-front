@@ -24,9 +24,9 @@ const routes = [
 
     children: [
       {
-        alias: '/',
-        name: 'home',
-        path: '/home',
+        alias: '/resumo',
+        name: 'resumo',
+        path: '/resumo',
         component: PageResumo,
         beforeEnter: setTitle,
         meta: {
@@ -35,9 +35,9 @@ const routes = [
         },
       },
       {
-        alias: '/associados',
-        name: 'associados',
-        path: '/associados',
+        alias: '/home',
+        name: 'home',
+        path: '/',
         component: PageAssociados,
         beforeEnter: setTitle,
         meta: {
