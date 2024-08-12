@@ -6,14 +6,14 @@ const menuList = [
     nivel: 0,
     icon: 'svguse:/icons.svg#icon_users',
     // href: '/home',
-    name: 'associados',
+    name: 'home',
   },
   {
     title: 'Resumo',
     nivel: 0,
     icon: 'svguse:/icons.svg#icon-chart-statistics',
     // href: '/home',
-    name: 'home',
+    name: 'resumo',
   },
   {
     title: 'Movimentações',
