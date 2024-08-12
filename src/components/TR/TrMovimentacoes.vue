@@ -1,21 +1,22 @@
 <template>
   <q-tr :props="props">
-    <q-td key="cliente" auto-width >
+    <q-td key="cliente" auto-width>
       {{ props.row.customer_name }}
     </q-td>
     <q-td key="valor" auto-width class="text-center">
       {{ fMoney(props.row.value_valor) }}
     </q-td>
     <q-td key="forma_pagamento" auto-width class="text-center">
-      {{setPaymentText(props.row.billing_type) }}
-    
+      {{ setPaymentText(props.row.billing_type) }}
+
+    </q-td>
+    <q-td key="periodicidade" auto-width class="text-center">
+      {{ props.row.periodicidade }}
     </q-td>
     <q-td key="status" auto-width class="text-center">
       <OBadge
-        :label="setTextStatus(props.row.status)"
-        class="!rounded-[3px] w-full text-center"
-        :class="`${colorBadge(props.row.status)}`"
-         />
+:label="setTextStatus(props.row.status)" class="!rounded-[3px] w-full text-center"
+        :class="`${colorBadge(props.row.status)}`" />
     </q-td>
 
     <q-td key="data_vencimento" auto-width class="text-center">
@@ -52,7 +53,7 @@ const colorBadge = (status) => {
   }
 }
 
-const setPaymentText = (payment) =>{
+const setPaymentText = (payment) => {
 
 
   switch (payment) {
@@ -86,18 +87,18 @@ const setTextStatus = (status) => {
 
 
 <style scoped lang="scss">
-.pending{
+.pending {
   color: rgba(var(--status-pending), 1);
   background-color: rgba(var(--status-pending), .10);
 }
-.received{
+
+.received {
   color: rgba(var(--status-received), 1);
   background-color: rgba(var(--status-received), .10);
 }
-.overdue{
+
+.overdue {
   color: rgba(var(--alert-error), 1);
   background-color: rgba(var(--alert-error), .10);
 }
-
-
 </style>

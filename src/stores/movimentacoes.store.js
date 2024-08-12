@@ -58,6 +58,15 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       align: 'center',
    
     },
+    {
+      name: 'periodicidade',
+      required: true,
+      field: 'periodicidade',
+      label: 'Periodicidade',
+      align: 'center',
+   
+    },
+    
 
     {
       name: 'status',
