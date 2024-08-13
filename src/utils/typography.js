@@ -312,6 +312,6 @@ function generateTypography(val) {
 
 const result = generateTypography($type)
 
-console.log(result)
+
 
 export default result
