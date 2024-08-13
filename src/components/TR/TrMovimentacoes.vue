@@ -83,21 +83,42 @@ const setTextStatus = (status) => {
 }
 
 const setPeriodicityText = (period) => {
+  // SEMANALMENTE = 'WEEKLY'
+  //   QUINZENAL = 'BIWEEKLY'
+  //   MENSALMENTE = 'MONTHLY'
+  //   BIMENSAL = 'BIMONTHLY'
+  //   TRIMESTRAL = 'QUARTERLY'
+  //   SEMI_ANUALMENTE = 'SEMIANNUALLY'
+  //   ANUAL = 'YEARLY'
   console.log(period)
   switch (period) {
     case 'WEEKLY':
       return 'Semanalmente'
+    case 'SEMANALMENTE':
+      return 'Semanalmente'
     case 'BIWEEKLY':
+      return 'Quinzenalmente'
+    case 'QUINZENAL':
       return 'Quinzenalmente'
     case 'MONTHLY':
       return 'Mensalmente'
+    case 'MENSALMENTE':
+      return 'Mensalmente'
     case 'BIMONTHLY':
+      return 'Bimestralmente'
+    case 'BIMENSAL':
       return 'Bimestralmente'
     case 'QUARTERLY':
       return 'Trimestralmente'
+    case 'TRIMESTRAL':
+      return 'Trimestralmente'
     case 'SEMIANNUALLY':
       return 'Semestralmente'
+    case 'SEMI_ANUALMENTE':
+      return 'Semestralmente'
     case 'ANNUALLY':
+      return 'Anualmente'
+    case 'ANUAL':
       return 'Anualmente'
 
     default:
