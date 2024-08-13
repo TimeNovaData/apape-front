@@ -8,14 +8,14 @@
     </q-td>
     <q-td key="forma_pagamento" auto-width class="text-center">
       {{ setPaymentText(props.row.billing_type) }}
-
     </q-td>
     <q-td key="periodicidade" auto-width class="text-center">
-      {{ props.row.periodicidade }}
+      {{ setPeriodicityText(props.row.periodicidade) }}
     </q-td>
     <q-td key="status" auto-width class="text-center">
       <OBadge
-:label="setTextStatus(props.row.status)" class="!rounded-[3px] w-full text-center"
+        :label="setTextStatus(props.row.status)"
+        class="!rounded-[3px] w-full text-center"
         :class="`${colorBadge(props.row.status)}`" />
     </q-td>
 
@@ -54,8 +54,6 @@ const colorBadge = (status) => {
 }
 
 const setPaymentText = (payment) => {
-
-
   switch (payment) {
     case 'BOLETO':
       return 'Boleto'
@@ -83,22 +81,44 @@ const setTextStatus = (status) => {
       return 'N/A'
   }
 }
-</script>
 
+const setPeriodicityText = (period) => {
+  console.log(period)
+  switch (period) {
+    case 'WEEKLY':
+      return 'Semanalmente'
+    case 'BIWEEKLY':
+      return 'Quinzenalmente'
+    case 'MONTHLY':
+      return 'Mensalmente'
+    case 'BIMONTHLY':
+      return 'Bimestralmente'
+    case 'QUARTERLY':
+      return 'Trimestralmente'
+    case 'SEMIANNUALLY':
+      return 'Semestralmente'
+    case 'ANNUALLY':
+      return 'Anualmente'
+
+    default:
+      return 'N/A'
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .pending {
   color: rgba(var(--status-pending), 1);
-  background-color: rgba(var(--status-pending), .10);
+  background-color: rgba(var(--status-pending), 0.1);
 }
 
 .received {
   color: rgba(var(--status-received), 1);
-  background-color: rgba(var(--status-received), .10);
+  background-color: rgba(var(--status-received), 0.1);
 }
 
 .overdue {
   color: rgba(var(--alert-error), 1);
-  background-color: rgba(var(--alert-error), .10);
+  background-color: rgba(var(--alert-error), 0.1);
 }
 </style>
