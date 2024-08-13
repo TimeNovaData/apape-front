@@ -85,11 +85,11 @@
 <script setup>
 import { computed, reactive, ref, Teleport, toRefs, useAttrs } from 'vue'
 import { useMovimentacoesStore } from 'src/stores/movimentacoes.store'
+import GLOBAL from 'utils/GLOBAL'
 import OBadge from 'components/Badge/OBadge.vue'
 import OButton from 'components/Button/OButton.vue'
 import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
-
 const emit = defineEmits(['filter'])
 const props = defineProps({
   title: {
@@ -164,8 +164,8 @@ function onClose() {
 }
 
 function onConfirm() {
-  movimentacaoStore.nome = nome.value
-  movimentacaoStore.email = email.value
+  // movimentacaoStore.nome = nome.value
+  // movimentacaoStore.email = email.value
   movimentacaoStore.status_pagamento = status_pagamento.value
   movimentacaoStore.billing_type = billing_type.value
   movimentacaoStore.data_inicio = data_inicio.value
