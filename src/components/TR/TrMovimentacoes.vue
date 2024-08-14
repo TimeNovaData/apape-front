@@ -120,6 +120,8 @@ const setPeriodicityText = (period) => {
       return 'Anualmente'
     case 'ANUAL':
       return 'Anualmente'
+    case 'YEARLY':
+      return 'Anualmente'
 
     default:
       return 'N/A'
