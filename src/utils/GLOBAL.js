@@ -1,4 +1,4 @@
-import { colors, date, exportFile, is } from 'quasar'
+import { colors, date, exportFile, is, Loading } from 'quasar'
 import { deepUnref } from 'vue-deepunref'
 import { NotifyError } from 'boot/Notify'
 import { unref } from 'vue'
@@ -74,6 +74,13 @@ const GLOBAL = {
 
       domElement.addEventListener('mousedown', onMouseDown)
     }
+  },
+
+  showLoadingWithMessage(message) {
+    return Loading.show({ message })
+  },
+  hideLoading() {
+    return Loading.hide()
   },
 
   /**
@@ -319,6 +326,36 @@ const GLOBAL = {
 
     return queryPrefix ? `?q=${filtros.join('')}` : filtros.join('')
   },
+
+  optionsEstado: [
+    'Acre (AC)',
+    'Alagoas (AL)',
+    'Amapá (AP)',
+    'Amazonas (AM)',
+    'Bahia (BA)',
+    'Ceará (CE)',
+    'Distrito Federal (DF)',
+    'Espírito Santo (ES)',
+    'Goiás (GO)',
+    'Maranhão (MA)',
+    'Mato Grosso (MT)',
+    'Mato Grosso do Sul (MS)',
+    'Minas Gerais (MG)',
+    'Pará (PA)',
+    'Paraíba (PB)',
+    'Paraná (PR)',
+    'Pernambuco (PE)',
+    'Piauí (PI)',
+    'Rio de Janeiro (RJ)',
+    'Rio Grande do Norte (RN)',
+    'Rio Grande do Sul (RS)',
+    'Rondônia (RO)',
+    'Roraima (RR)',
+    'Santa Catarina (SC)',
+    'São Paulo (SP)',
+    'Sergipe (SE)',
+    'Tocantins (TO)',
+  ],
 }
 
 export default GLOBAL

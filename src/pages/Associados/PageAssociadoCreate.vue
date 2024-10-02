@@ -192,12 +192,15 @@
           <q-form ref="formAssociadoEndereco" @submit="handleCreateAssociado">
             <div class="grid grid-cols-12 gap-16">
               <OInput
-                v-model="models.address.value"
+                v-model="models.postal_code.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Endereço"
+                label="CEP"
                 type="text"
-                class="col-span-12"
-                size="lg" />
+                mask="#####-###"
+                :unmasked-value="true"
+                class="col-span-4"
+                size="lg"
+                @update:model-value="buscaCep(models.postal_code.value)" />
 
               <OInput
                 v-model="models.address_number.value"
@@ -214,13 +217,13 @@
                 type="text"
                 class="col-span-4"
                 size="lg" />
+
               <OInput
-                v-model="models.postal_code.value"
+                v-model="models.address.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="CEP"
+                label="Endereço"
                 type="text"
-                mask="#####-###"
-                class="col-span-4"
+                class="col-span-12"
                 size="lg" />
 
               <OInput
@@ -325,6 +328,8 @@ import { NotifyError, NotifySucess } from 'boot/Notify'
 import { storeToRefs } from 'pinia'
 import { useAssociadosStore } from 'stores/associados.store'
 import { useRoute, useRouter } from 'vue-router'
+import GLOBAL from 'utils/GLOBAL'
+const { showLoadingWithMessage, hideLoading } = GLOBAL
 import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OInputDate from 'components/Input/OInputDate.vue'
@@ -525,6 +530,7 @@ const {
   postDadosAssociados,
   getPatrocinadoras,
   getMensalidades,
+  getCepAssociado,
 } = associadosService()
 
 async function handleCreateAssociado() {
@@ -659,6 +665,41 @@ const getMensalidadesRequest = async () => {
 
 const clearModels = () => {
   models.value = { ...emptyModels }
+}
+
+const buscaCep = async (cep) => {
+  try {
+    if (cep && cep.length === 8) {
+      showLoadingWithMessage('Buscando dados pelo CEP...')
+      const _response = await getCepAssociado(cep)
+      console.log(_response)
+
+      if (!_response.cep) {
+        NotifyError('CEP não encontrado. Tente outro código', 5000)
+        return
+      }
+      models.value.address.value = _response.logradouro
+      models.value.province.value = _response.bairro
+      models.value.cidade.value = _response.localidade
+      models.value.estado.value = _response.estado
+      models.value.pais.value = "Brasil"
+
+    } else {
+      models.value.address.value = null
+      models.value.address_number.value = null
+      models.value.complement.value = null
+      models.value.province.value = null
+      models.value.cidade.value = null
+      models.value.estado.value = null
+      models.value.pais.value = null
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    setTimeout(() => {
+      hideLoading()
+    }, 2000);
+  }
 }
 
 console.log('aaaaaaaaaaaaa', optEstadoCivil)

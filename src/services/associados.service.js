@@ -28,6 +28,10 @@ export function associadosService() {
     return apiUse.query(`${URLS.mensalidades}`)
   }
 
+  async function getCepAssociado(cep) {
+    return apiUse.query(`https://viacep.com.br/ws/${cep}/json/`)
+  }
+
   function postDadosAssociados(data) {
     return apiUse.mutation(`${URLS.associados}`, 'POST', data)
   }
@@ -54,6 +58,7 @@ export function associadosService() {
     getConvenios,
     getPatrocinadoras,
     getMensalidades,
+    getCepAssociado,
     ...api,
   }
 }

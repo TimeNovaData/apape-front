@@ -152,7 +152,7 @@ module.exports = configure(async function (ctx) {
       // directives: [],
       // iconSet: 'material-symbols-rounded',
       // Quasar plugins
-      plugins: ['Notify', 'Dialog', 'LoadingBar'],
+      plugins: ['Notify', 'Dialog', 'LoadingBar', 'Loading'],
     },
 
     // animations: 'all', // --- includes all animations

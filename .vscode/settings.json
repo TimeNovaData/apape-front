@@ -1,15 +1,8 @@
 {
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
-  "editor.codeActionsOnSave": [
-    "source.fixAll.eslint"
-  ],
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "vue"
-  ],
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
   "editor.formatOnPaste": false, // required
   "editor.formatOnType": false, // required
@@ -17,7 +10,7 @@
   "editor.formatOnSaveMode": "modificationsIfAvailable", // required to format on save
   "prettier.htmlWhitespaceSensitivity": "ignore",
   "prettier.vueIndentScriptAndStyle": true,
-  "files.autoSave": "onFocusChange", // optional but recommended
+  "files.autoSave": "off", // optional but recommended
   "javascript.updateImportsOnFileMove.enabled": "always",
   "volar.completion.preferredTagNameCase": "pascal",
   "volar.inlayHints.eventArgumentInInlineHandlers": false,
