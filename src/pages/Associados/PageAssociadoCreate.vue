@@ -549,15 +549,15 @@ async function handleCreateAssociado() {
 
   try {
     const _response = await postDadosAssociados(formData)
-    console.log(_response.value)
-    if (_response.value.response.status === 400) {
-      Object.entries(_response.value.response.data).forEach(([key, value]) => {
-        NotifyError(value[0])
-      })
-      console.log(_response.value)
-      return
-    }
-    router.push({ name: 'associados' })
+    console.log(_response)
+    // if (_response.response.status === 400) {
+    //   Object.entries(_response.response.data).forEach(([key, value]) => {
+    //     NotifyError(value[0])
+    //   })
+    //   console.log(_response.value)
+    //   return
+    // }
+    router.push({ name: 'home' })
     NotifySucess('Associado adicionado com sucesso!')
   } catch (error) {
     NotifyError('Erro ao adicionar associado!')
