@@ -6,7 +6,7 @@
       </q-card-section>
       <q-tabs
         v-model="tab"
-        class="text-paragraph-3 max-w-max h-max"
+        class="text-paragraph-3 px-24 max-w-max h-max"
         align="justify"
         active-class="text-primary-pure"
         indicator-color="primary">
@@ -39,31 +39,31 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nome"
                 type="text"
-                class="col-span-6"
+                class="col-span-6 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.naturalidade.value"
                 label="Naturalidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.nacionalidade.value"
                 label="Nacionalidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInputDate
                 :data="models.nascimento.value"
                 label="Data de nascimento"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 @update:date="(v) => (models.nascimento.value = v)" />
               <OSelect
                 v-model="models.sexo.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Gênero"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options
@@ -74,7 +74,7 @@
                 v-model="models.estado_civil.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Estado Civil"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options
@@ -87,21 +87,21 @@
                 label="N° de ident"
                 mask="##.###.###-#"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.orgao.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Orgão Emissor"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.email.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="E-mail"
                 type="email"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.tel_trabalho.value"
@@ -109,7 +109,7 @@
                 label="Telefone Trabalho"
                 type="text"
                 mask="(##) ####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
@@ -118,7 +118,7 @@
                 label="Celular 1"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
@@ -126,14 +126,14 @@
                 label="Celular 2"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.cpf_cnpj.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CPF"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
@@ -143,7 +143,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
                 label="Status do Beneficiário"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -152,12 +152,12 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Petros"
                 type="number"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInputDate
                 :data="models.dt_patrocinadora.value"
                 label="Data Patrocinadora"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_patrocinadora.value = v)" />
@@ -166,12 +166,12 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CB"
                 type="number"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInputDate
                 :data="models.dt_cadastro.value"
                 label="Data Cadastro"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
@@ -179,7 +179,7 @@
                 v-model="models.formacao.value"
                 label="Formação"
                 type="text"
-                class="col-span-3"
+                class="col-span-3  md:col-span-12"
                 size="lg" />
             </div>
             <div class="flex items-center justify-end pt-24 gap-14">
@@ -198,7 +198,7 @@
                 type="text"
                 mask="#####-###"
                 :unmasked-value="true"
-                class="col-span-4"
+                class="col-span-4 md:col-span-12"
                 size="lg"
                 @update:model-value="buscaCep(models.postal_code.value)" />
 
@@ -207,7 +207,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Número"
                 type="text"
-                class="col-span-4"
+                class="col-span-4 md:col-span-12"
                 size="lg" />
 
               <OInput
@@ -215,7 +215,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Complemento"
                 type="text"
-                class="col-span-4"
+                class="col-span-4 md:col-span-12"
                 size="lg" />
 
               <OInput
@@ -231,7 +231,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
 
               <OInput
@@ -239,21 +239,21 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Cidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.estado.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Estado"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.pais.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="País"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
             </div>
             <div class="flex items-center justify-end pt-24 gap-14">
@@ -270,7 +270,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoCobranca"
                 label="Tipo de Cobrança"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -279,7 +279,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optPeriodicidade"
                 label="Periodicidade"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -288,7 +288,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optPatrocinadoras"
                 label="Patrocinadora"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -297,14 +297,14 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Patrocinadora"
                 type="number"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OSelect
                 v-model="models.mensalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optMensalidades"
                 label="Mensalidade"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
