@@ -6,7 +6,7 @@
       </q-card-section>
       <q-tabs
         v-model="tab"
-        class="text-paragraph-3 max-w-max h-max"
+        class="text-paragraph-3 px-24 max-w-max h-max"
         align="justify"
         active-class="text-primary-pure"
         indicator-color="primary">
@@ -33,7 +33,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nome"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.matricula.value"
@@ -41,34 +41,34 @@
                 label="Matrícula"
                 type="number"
                 disable
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.naturalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Naturalidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.nacionalidade.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Nacionalidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
 
               <OInputDate
                 :data="models.nascimento.value"
                 label="Data de nascimento"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 @update:date="(v) => (models.nascimento.value = v)" />
               <OSelect
                 v-model="models.sexo.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Gênero"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options
@@ -79,7 +79,7 @@
                 v-model="models.estado_civil.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Estado Civil"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options
@@ -92,21 +92,21 @@
                 label="N° de ident"
                 mask="##.###.###-#"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.orgao.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Orgão Emissor"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.email.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="E-mail"
                 type="email"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.tel_trabalho.value"
@@ -114,7 +114,7 @@
                 label="Telefone Trabalho"
                 type="text"
                 mask="(##) ####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
@@ -123,7 +123,7 @@
                 label="Celular 1"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
@@ -131,14 +131,14 @@
                 label="Celular 2"
                 type="text"
                 mask="(##) #####-####"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 :unmasked-value="true"
                 size="lg" />
               <OInput
                 v-model="models.cpf_cnpj.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CPF"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 type="text"
                 mask="###.###.###-##"
                 size="lg" />
@@ -148,7 +148,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoBeneficiario"
                 label="Status do Beneficiário"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -158,19 +158,19 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Petros"
                 type="number"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
 
               <OInputDate
                 :data="models.dt_patrocinadora.value"
                 label="Data Patrocinadora"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 @update:date="(v) => (models.dt_patrocinadora.value = v)" />
               <OInputDate
                 :data="models.dt_cadastro.value"
                 label="Data Cadastro"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 @update:date="(v) => (models.dt_cadastro.value = v)" />
 
@@ -178,14 +178,14 @@
                 v-model="models.formacao.value"
                 label="Formação"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.cb.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="CB"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
             </div>
           </q-tab-panel>
@@ -193,19 +193,22 @@
           <q-tab-panel name="endereco" class="!overflow-hidden !p-24">
             <div class="grid grid-cols-12 gap-16">
               <OInput
-                v-model="models.address.value"
+                v-model="models.postal_code.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="Endereço"
+                label="CEP"
                 type="text"
-                class="col-span-3"
-                size="lg" />
+                mask="#####-###"
+                :unmasked-value="true"
+                class="col-span-4 md:col-span-12"
+                size="lg"
+                @update:model-value="buscaCep(models.postal_code.value)"/>
 
               <OInput
                 v-model="models.address_number.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Número"
                 type="text"
-                class="col-span-3"
+                class="col-span-4 md:col-span-12"
                 size="lg" />
 
               <OInput
@@ -213,15 +216,15 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Complemento"
                 type="text"
-                class="col-span-3"
+                class="col-span-4 md:col-span-12"
                 size="lg" />
+
               <OInput
-                v-model="models.postal_code.value"
+                v-model="models.address.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
-                label="CEP"
+                label="Endereço"
                 type="text"
-                mask="#####-###"
-                class="col-span-3"
+                class="col-span-12"
                 size="lg" />
 
               <OInput
@@ -229,7 +232,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Bairro"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
 
               <OInput
@@ -237,21 +240,21 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Cidade"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.estado.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Estado"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
               <OInput
                 v-model="models.pais.value"
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="País"
                 type="text"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
             </div>
           </q-tab-panel>
@@ -262,7 +265,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optTipoCobranca"
                 label="Tipo de Cobrança"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -271,7 +274,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optMensalidades"
                 label="Mensalidade"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -281,7 +284,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optPeriodicidade"
                 label="Periodicidade"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -291,7 +294,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 :options="optPatrocinadoras"
                 label="Patrocinadora"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg"
                 emit-value
                 map-options />
@@ -301,7 +304,7 @@
                 :rules="[(val) => !!val || 'Campo Obrigatorio']"
                 label="Matrícula Patrocinadora"
                 type="number"
-                class="col-span-3"
+                class="col-span-3 md:col-span-12"
                 size="lg" />
             </div>
           </q-tab-panel>
@@ -334,8 +337,8 @@ import OButton from 'components/Button/OButton.vue'
 import OInput from 'components/Input/OInput.vue'
 import OInputDate from 'components/Input/OInputDate.vue'
 import OSelect from 'components/Select/OSelect.vue'
+const { FData, showLoadingWithMessage, hideLoading } = GLOBAL
 
-const { FData } = GLOBAL
 const tab = ref('dados-pessoais')
 const { URLS } = api.defaults
 const route = useRoute()
@@ -346,6 +349,7 @@ const {
   getConvenios,
   getPatrocinadoras,
   getMensalidades,
+  getCepAssociado,
 } = associadosService()
 
 const {
@@ -413,7 +417,7 @@ watch(
     models.value.tel_residencial.value = v.tel_residencial
     models.value.tel_residencial_2.value = v.tel_residencial_2
     models.value.tel_trabalho.value = v.tel_trabalho
-    models.value.patrocinadores.value = v.patrocinadores.nome
+    models.value.patrocinadores.value = v.patrocinadores?.nome
     models.value.maticula_patrocinadora.value = v.maticula_patrocinadora
     models.value.dt_patrocinadora.value = v.dt_patrocinadora
     models.value.formacao.value = v.formacao
@@ -477,6 +481,41 @@ watch(
   }
 )
 
+const buscaCep = async (cep) => {
+  try {
+    if (cep && cep.length === 8) {
+      showLoadingWithMessage('Buscando dados pelo CEP...')
+      const _response = await getCepAssociado(cep)
+      console.log(_response)
+
+      if (!_response.cep) {
+        NotifyError('CEP não encontrado. Tente outro código', 5000)
+        return
+      }
+      models.value.address.value = _response.logradouro
+      models.value.province.value = _response.bairro
+      models.value.cidade.value = _response.localidade
+      models.value.estado.value = _response.estado
+      models.value.pais.value = "Brasil"
+
+    } else {
+      models.value.address.value = null
+      models.value.address_number.value = null
+      models.value.complement.value = null
+      models.value.province.value = null
+      models.value.cidade.value = null
+      models.value.estado.value = null
+      models.value.pais.value = null
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    setTimeout(() => {
+      hideLoading()
+    }, 2000);
+  }
+}
+
 async function updateAssociado() {
   if (Object.keys(camposAlterados.value).length === 0) {
     NotifyError('Nenhum campo alterado!')
@@ -498,13 +537,19 @@ async function updateAssociado() {
     })
 
     console.log(_response.value)
-    if (_response.value.response.status === 400) {
+    if (_response?.value?.response?.status === 400) {
       Object.entries(_response.value.response.data).forEach(([key, value]) => {
         NotifyError(value[0])
       })
-      console.log(_response.value)
       return
     }
+    // if (_response.value.response.status === 400) {
+    //   Object.entries(_response.value.response.data).forEach(([key, value]) => {
+    //     NotifyError(value[0])
+    //   })
+    //   console.log(_response.value)
+    //   return
+    // }
 
     await getAssociadoRequest()
     NotifySucess('Dados atualizados com sucesso!')
