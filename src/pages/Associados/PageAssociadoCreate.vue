@@ -553,7 +553,14 @@ async function handleCreateAssociado() {
     formData.append(key, value.value)
   })
 
+  // const formObject = {}
+
+  // Object.entries(models.value).forEach(([key, value]) => {
+  //   formObject[key] = value.value
+  // })
+
   try {
+    // const _response = await postDadosAssociados(formObject)
     const _response = await postDadosAssociados(formData)
     console.log(_response)
     if (_response?.value?.response?.status === 400) {

@@ -276,12 +276,12 @@ export const useAssociadosStore = defineStore('associados', () => {
   ]
 
   const optTipoBeneficiario = [
-    { label: 'Aposentado', value: 'Aposentado' },
-    { label: 'Falecido', value: 'Falecido' },
-    { label: 'Pensionista', value: 'Pensionista' },
+    { label: 'Aposentado', value: 'APOSENTADO' },
+    { label: 'Falecido', value: 'FALECIDO' },
+    { label: 'Pensionista', value: 'PENSIONISTA' },
 
-    { label: 'Desfiliado', value: 'Desfiliado' },
-    { label: 'Ativo', value: 'Ativo' },
+    { label: 'Desfiliado', value: 'DESFILIADO' },
+    { label: 'Ativo', value: 'ATIVO' },
   ]
 
   const optTipoCobranca = [
