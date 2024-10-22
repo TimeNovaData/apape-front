@@ -3,7 +3,7 @@
     <q-td key="matricula" auto-width class="text-center">
       {{ props.row.matricula }}
     </q-td>
-    <q-td key="cliente" auto-width>
+    <q-td key="cliente" auto-width class="text-center">
       {{ props.row.customer_name }}
     </q-td>
     <q-td key="valor" auto-width class="text-center">

@@ -17,7 +17,6 @@
             clearable
             multiple
             :options="selectOptions.billing_type" />
-
           <OSelect
             v-model="search.status_pagamento"
             class="w-full mt-16"
@@ -28,18 +27,18 @@
             :options="selectOptions.status_pagamento" />
           <OInputDate
             :data="search.data_inicio"
-            class="w-full mt-16"
+            class="w-full data-inicio-filtro-mov mt-16"
             size="lg"
             label="Data de início "
             clearable
-            @update:date="(v) => (search.data_inicio = v)" />
+            @update:date="(v) => setDataInicio(v)" />
           <OInputDate
             :data="search.data_fim"
-            class="w-full mt-16"
+            class="w-full data-fim-filtro-mov mt-16"
             size="lg"
             label="Data de fim"
             clearable
-            @update:date="(v) => (search.data_fim = v)" />
+            @update:date="(v) => setDataFim(v)" />
           <div class="flex items-center justify-end mt-24">
             <OButton
               secondary
@@ -151,6 +150,32 @@ const selectOptions = ref({
     { label: 'Convênio PETROS', value: 'CONVENIO_PETROS' },
   ],
 })
+
+function clearDataInicio() {
+  console.log('inicio')
+  search.data_inicio = null
+}
+
+function clearDataFim() {
+  console.log('fim')
+  search.data_fim = null
+}
+
+function setDataInicio(v) {
+  search.data_inicio = v
+  setTimeout(() => {
+    console.log('event inicio')
+    document.querySelector('.data-inicio-filtro-mov [aria-label="Limpar"]').addEventListener('click', clearDataInicio);
+  }, 600);
+}
+
+function setDataFim(v) {
+  search.data_fim = v
+  setTimeout(() => {
+    console.log('event fim')
+    document.querySelector('.data-fim-filtro-mov [aria-label="Limpar"]').addEventListener('click', clearDataFim);
+  }, 600);
+}
 
 function onClose() {
 

@@ -43,7 +43,7 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       required: true,
       field: 'associado',
       label: 'Associado',
-      align: 'left',
+      align: 'center',
     },
     {
       name: 'valor',
