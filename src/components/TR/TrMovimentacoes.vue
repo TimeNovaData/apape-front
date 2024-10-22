@@ -90,42 +90,59 @@ const setPeriodicityText = (period) => {
   //   TRIMESTRAL = 'QUARTERLY'
   //   SEMI_ANUALMENTE = 'SEMIANNUALLY'
   //   ANUAL = 'YEARLY'
+  //   mensal 1
+  //   trimestral 3
+  //   semestral 6
+  //   anual 12
   console.log(period)
   switch (period) {
-    case 'WEEKLY':
-      return 'Semanalmente'
-    case 'SEMANALMENTE':
-      return 'Semanalmente'
-    case 'BIWEEKLY':
-      return 'Quinzenalmente'
-    case 'QUINZENAL':
-      return 'Quinzenalmente'
-    case 'MONTHLY':
+    case '1':
       return 'Mensalmente'
-    case 'MENSALMENTE':
-      return 'Mensalmente'
-    case 'BIMONTHLY':
-      return 'Bimestralmente'
-    case 'BIMENSAL':
-      return 'Bimestralmente'
-    case 'QUARTERLY':
+    case '3':
       return 'Trimestralmente'
-    case 'TRIMESTRAL':
-      return 'Trimestralmente'
-    case 'SEMIANNUALLY':
+    case '6':
       return 'Semestralmente'
-    case 'SEMI_ANUALMENTE':
-      return 'Semestralmente'
-    case 'ANNUALLY':
-      return 'Anualmente'
-    case 'ANUAL':
-      return 'Anualmente'
-    case 'YEARLY':
+    case '12':
       return 'Anualmente'
 
     default:
       return 'N/A'
   }
+  // switch (period) {
+  //   case 'WEEKLY':
+  //     return 'Semanalmente'
+  //   case 'SEMANALMENTE':
+  //     return 'Semanalmente'
+  //   case 'BIWEEKLY':
+  //     return 'Quinzenalmente'
+  //   case 'QUINZENAL':
+  //     return 'Quinzenalmente'
+  //   case 'MONTHLY':
+  //     return 'Mensalmente'
+  //   case 'MENSALMENTE':
+  //     return 'Mensalmente'
+  //   case 'BIMONTHLY':
+  //     return 'Bimestralmente'
+  //   case 'BIMENSAL':
+  //     return 'Bimestralmente'
+  //   case 'QUARTERLY':
+  //     return 'Trimestralmente'
+  //   case 'TRIMESTRAL':
+  //     return 'Trimestralmente'
+  //   case 'SEMIANNUALLY':
+  //     return 'Semestralmente'
+  //   case 'SEMI_ANUALMENTE':
+  //     return 'Semestralmente'
+  //   case 'ANNUALLY':
+  //     return 'Anualmente'
+  //   case 'ANUAL':
+  //     return 'Anualmente'
+  //   case 'YEARLY':
+  //     return 'Anualmente'
+
+  //   default:
+  //     return 'N/A'
+  // }
 }
 </script>
 
