@@ -1,6 +1,6 @@
 <template>
   <q-tr :props="props">
-    <q-td key="matricula" class="text-center">
+    <q-td key="matricula" auto-width class="text-center">
       {{ props.row.matricula }}
     </q-td>
     <q-td key="cliente" auto-width>
