@@ -32,6 +32,13 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
 
   const columns = ref([
     {
+      name: 'matricula',
+      required: true,
+      field: 'matricula',
+      label: 'Matrícula',
+      align: 'center',
+    },
+    {
       name: 'associado',
       required: true,
       field: 'associado',
@@ -52,7 +59,6 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       field: 'forma_pagamento',
       label: 'Forma de Pagamento',
       align: 'center',
-   
     },
     {
       name: 'periodicidade',
@@ -60,9 +66,7 @@ export const useMovimentacoesStore = defineStore('movimentacoes', () => {
       field: 'periodicidade',
       label: 'Periodicidade',
       align: 'center',
-   
     },
-    
 
     {
       name: 'status',
